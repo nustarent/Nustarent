@@ -162,7 +162,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 .spbuy:hover{background:var(--gold2);}
 .spx{background:none;border:none;color:var(--low);cursor:pointer;font-size:.9rem;flex-shrink:0;padding:4px;transition:color .15s;}
 .spx:hover{color:var(--txt);}
-.toast{position:fixed;bottom:74px;right:16px;background:var(--s2);border:1px solid var(--gold);color:var(--gold);padding:10px 15px;border-radius:var(--r);font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;z-index:9998;transform:translateY(12px);opacity:0;transition:all .28s;pointer-events:none;max-width:240px;}
+.toast{position:fixed;bottom:74px;right:16px;background:var(--s2);border:1px solid var(--gold);color:var(--gold);padding:10px 15px;border-radius:var(--r);font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;z-index:9998;transform:translateY(12px);opacity:0;transition:all .28s;pointer-events:none;max-width:260px;}
 .toast.on{transform:translateY(0);opacity:1;}
 @media(max-width:768px){
   nav{padding:0 16px;}
@@ -201,7 +201,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-inner">
-    <div class="hero-tag">&#10022; WACKO PROPHET &mdash; NUSTAR &mdash; EST. 2025</div>
+    <div class="hero-tag">&#10022; WACKO PROPHET &#8212; NUSTAR &#8212; EST. 2025</div>
     <h1 class="hero-title">BUY<br><span class="dim">THE</span><br><span class="gold">BEAT</span></h1>
     <p class="hero-desc">Original beats by Wacko Prophet. Trap, R&amp;B, hip hop and more. License it and make it yours.</p>
     <div class="hero-btns">
@@ -228,7 +228,6 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
   </div>
 </div>
 
-<!-- BEATS -->
 <div id="beats" style="border-top:1px solid var(--bd);">
   <div class="wrap">
     <div class="sec">
@@ -251,7 +250,6 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
   </div>
 </div>
 
-<!-- PACKS -->
 <div id="packs" style="border-top:1px solid var(--bd);">
   <div class="wrap">
     <div class="sec">
@@ -270,8 +268,8 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
             <li>Music video allowed</li>
           </ul>
           <div class="pack-foot">
-            <div><div class="pack-price">$100</div><div class="pack-price-sub">5 BEATS — SAVE $45</div></div>
-            <button class="bbuy" onclick="doToast('Email us: wackoprophet4@gmail.com')">Buy Pack</button>
+            <div><div class="pack-price">$100</div><div class="pack-price-sub">5 BEATS &#8212; SAVE $45</div></div>
+            <button class="bbuy" id="pack1btn">Buy Pack</button>
           </div>
         </div>
         <div class="pcard">
@@ -285,8 +283,8 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
             <li>Radio + music video allowed</li>
           </ul>
           <div class="pack-foot">
-            <div><div class="pack-price">$850</div><div class="pack-price-sub">10-12 BEATS — SAVE $340+</div></div>
-            <button class="bbuy" onclick="doToast('Email us: wackoprophet4@gmail.com')">Buy Pack</button>
+            <div><div class="pack-price">$850</div><div class="pack-price-sub">10-12 BEATS &#8212; SAVE $340+</div></div>
+            <button class="bbuy" id="pack2btn">Buy Pack</button>
           </div>
         </div>
       </div>
@@ -294,7 +292,6 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
   </div>
 </div>
 
-<!-- LICENSES -->
 <div id="licenses" style="border-top:1px solid var(--bd);">
   <div class="wrap">
     <div class="sec">
@@ -316,7 +313,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
             <li class="off">Stem files</li>
             <li class="off">Exclusive rights</li>
           </ul>
-          <button class="btn btn-line" style="width:100%;justify-content:center;" onclick="doToast('Email us: wackoprophet4@gmail.com')">Select Basic</button>
+          <button class="btn btn-line" style="width:100%;justify-content:center;" id="lic1btn">Select Basic</button>
         </div>
         <div class="lcard prem">
           <div class="lbadge g">Most Popular</div>
@@ -332,7 +329,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
             <li>Stems included</li>
             <li class="off">Exclusive rights</li>
           </ul>
-          <button class="btn btn-gold" style="width:100%;justify-content:center;" onclick="doToast('Email us: wackoprophet4@gmail.com')">Select Premium</button>
+          <button class="btn btn-gold" style="width:100%;justify-content:center;" id="lic2btn">Select Premium</button>
         </div>
         <div class="lcard excl">
           <div class="lbadge g">Exclusive</div>
@@ -348,71 +345,28 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
             <li>Beat off the market</li>
             <li>You own it outright</li>
           </ul>
-          <button class="btn btn-line" style="width:100%;justify-content:center;border-color:var(--gold);color:var(--gold);" onclick="doToast('Email us: wackoprophet4@gmail.com')">Inquire</button>
+          <button class="btn btn-line" style="width:100%;justify-content:center;border-color:var(--gold);color:var(--gold);" id="lic3btn">Inquire</button>
         </div>
       </div>
-
-      <!-- AGREEMENTS -->
       <div class="ag-wrap">
         <div class="sec-eye" style="margin-bottom:14px;">// LICENSE AGREEMENTS</div>
         <div class="ag-item">
           <button class="ag-btn" onclick="toggleAg('ag1')">Basic Lease Agreement <span class="ag-icon" id="ag1-icon">+</span></button>
-          <div class="ag-body" id="ag1">
-            By purchasing this lease you agree to the following:<br><br>
-            -- 1 MP3 file (producer tagged)<br>
-            -- Up to 50,000 streams across all platforms<br>
-            -- Non-profit and mixtape use only<br>
-            -- 1 music video permitted<br>
-            -- No commercial profit from release<br>
-            -- Beat remains for sale to other artists<br>
-            -- Producer credit required: Prod. by Wacko Prophet<br>
-            -- License is non-transferable<br>
-            -- NUSTAR retains full ownership of the beat<br>
-            -- All sales final, no refunds<br>
-            -- Violation of terms may result in DMCA takedown and legal action
-          </div>
+          <div class="ag-body" id="ag1">By purchasing this lease you agree to the following:<br><br>-- 1 MP3 file (producer tagged)<br>-- Up to 50,000 streams across all platforms<br>-- Non-profit and mixtape use only<br>-- 1 music video permitted<br>-- No commercial profit from release<br>-- Beat remains for sale to other artists<br>-- Producer credit required: Prod. by Wacko Prophet<br>-- License is non-transferable<br>-- NUSTAR retains full ownership of the beat<br>-- All sales final, no refunds<br>-- Violation may result in DMCA takedown and legal action</div>
         </div>
         <div class="ag-item">
           <button class="ag-btn" onclick="toggleAg('ag2')">Premium Lease Agreement <span class="ag-icon" id="ag2-icon">+</span></button>
-          <div class="ag-body" id="ag2">
-            By purchasing this lease you agree to the following:<br><br>
-            -- MP3 + WAV untagged + stem files<br>
-            -- Up to 500,000 streams across all platforms<br>
-            -- Commercial profit releases allowed<br>
-            -- 1 music video permitted<br>
-            -- Radio broadcasting allowed<br>
-            -- Beat remains for sale to other artists<br>
-            -- Producer credit required: Prod. by Wacko Prophet<br>
-            -- License is non-transferable<br>
-            -- NUSTAR retains full ownership of the beat<br>
-            -- All sales final, no refunds<br>
-            -- Violation of terms may result in DMCA takedown and legal action
-          </div>
+          <div class="ag-body" id="ag2">By purchasing this lease you agree to the following:<br><br>-- MP3 + WAV untagged + stem files<br>-- Up to 500,000 streams across all platforms<br>-- Commercial profit releases allowed<br>-- 1 music video permitted<br>-- Radio broadcasting allowed<br>-- Beat remains for sale to other artists<br>-- Producer credit required: Prod. by Wacko Prophet<br>-- License is non-transferable<br>-- NUSTAR retains full ownership of the beat<br>-- All sales final, no refunds<br>-- Violation may result in DMCA takedown and legal action</div>
         </div>
         <div class="ag-item">
           <button class="ag-btn" onclick="toggleAg('ag3')">Exclusive Agreement <span class="ag-icon" id="ag3-icon">+</span></button>
-          <div class="ag-body" id="ag3">
-            By purchasing this exclusive you agree to the following:<br><br>
-            -- All file formats + full stem kit<br>
-            -- Unlimited streams and commercial use<br>
-            -- Full commercial rights including sync licensing<br>
-            -- Unlimited music videos<br>
-            -- Radio broadcasting allowed<br>
-            -- Beat permanently removed from store after purchase<br>
-            -- Producer credit required: Prod. by Wacko Prophet<br>
-            -- All rights transfer to licensee upon full payment<br>
-            -- NUSTAR waives all future claims to the beat<br>
-            -- License is non-transferable<br>
-            -- Agreement is final and non-refundable
-          </div>
+          <div class="ag-body" id="ag3">By purchasing this exclusive you agree to the following:<br><br>-- All file formats + full stem kit<br>-- Unlimited streams and commercial use<br>-- Full commercial rights including sync licensing<br>-- Unlimited music videos<br>-- Radio broadcasting allowed<br>-- Beat permanently removed from store after purchase<br>-- Producer credit required: Prod. by Wacko Prophet<br>-- All rights transfer to licensee upon full payment<br>-- NUSTAR waives all future claims to the beat<br>-- License is non-transferable<br>-- Agreement is final and non-refundable</div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- ABOUT -->
 <div id="about" style="border-top:1px solid var(--bd);">
   <div class="wrap">
     <div class="sec">
@@ -442,14 +396,13 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
   </div>
 </div>
 
-<!-- CONTACT -->
 <div id="contact" style="border-top:1px solid var(--bd);">
   <div class="wrap">
     <div class="sec">
       <div class="contact-inner">
         <div class="sec-eye">// GET IN TOUCH</div>
         <h2 class="sec-h">Contact</h2>
-        <p class="sec-sub" style="margin:10px auto 0;">Beat purchases, custom requests, features Beat purchases, custom requests, features &mdash; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a1d0b0901051a18051a020f1e5e2a0d070b030644090507">[email&#160;protected]</a>mdash; <span id="cemail1"></span></p>
+        <p class="sec-sub" style="margin:10px auto 0;" id="contact-sub">Beat purchases, custom requests, features</p>
         <div class="cform">
           <div class="frow">
             <div class="fg"><label>Name</label><input type="text" placeholder="Your name"></div>
@@ -466,7 +419,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
             </select>
           </div>
           <div class="fg"><label>Message</label><textarea placeholder="Tell us about your project..."></textarea></div>
-          <button class="btn btn-gold" style="justify-content:center;" onclick="doToast('Message sent. We will be in touch.')">Send Message</button>
+          <button class="btn btn-gold" style="justify-content:center;" id="sendBtn">Send Message</button>
         </div>
       </div>
     </div>
@@ -474,8 +427,8 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 </div>
 
 <footer>
-  <div class="ftxt"><strong>NUSTAR</strong> &mdash; EST. 2025 &mdash; New Jersey<br>All beats protected under copyright.</div>
-  <div class="ftxt" style="text-align:right;"><strong>Wacko Prophet</strong><br><span id="cemail2"></span></div>
+  <div class="ftxt"><strong>NUSTAR</strong> &#8212; EST. 2025 &#8212; New Jersey<br>All beats protected under copyright.</div>
+  <div class="ftxt" style="text-align:right;"><strong>Wacko Prophet</strong><br><span id="footer-email"></span></div>
 </footer>
 
 <div class="splayer" id="splayer">
@@ -491,13 +444,27 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
     <div class="sptrack" onclick="doSeek(event)"><div class="spfill" id="spFill" style="width:0%"></div></div>
     <div class="sptime">2:30</div>
   </div>
-  <button class="spbuy" onclick="doToast('Email us: wackoprophet4@gmail.com')">Buy Beat</button>
+  <button class="spbuy" id="spBuyBtn">Buy Beat</button>
   <button class="spx" onclick="closePlayer()">&#10005;</button>
 </div>
 
 <div class="toast" id="toastEl"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+// Email built in JS so Cloudflare cannot detect or scramble it
+var EM = "wackoprophet4" + "@" + "gmail" + "." + "com";
+
+// Set email in all places
+document.getElementById("footer-email").textContent = EM;
+document.getElementById("contact-sub").textContent = "Beat purchases, custom requests, features — " + EM;
+document.getElementById("pack1btn").onclick = function(){ doToast("Email us: " + EM); };
+document.getElementById("pack2btn").onclick = function(){ doToast("Email us: " + EM); };
+document.getElementById("lic1btn").onclick = function(){ doToast("Email us: " + EM); };
+document.getElementById("lic2btn").onclick = function(){ doToast("Email us: " + EM); };
+document.getElementById("lic3btn").onclick = function(){ doToast("Email us: " + EM); };
+document.getElementById("sendBtn").onclick = function(){ doToast("Message sent. We will be in touch."); };
+document.getElementById("spBuyBtn").onclick = function(){ doToast("Email us: " + EM); };
+
 var BEATS = [
   {id:1, name:"ZENITH", bpm:140, key:"TBD", genre:"hiphop", price:40, tag:"NEW", c1:"#0d1520", c2:"#0a1830"},
   {id:2, name:"DARK MATTER", bpm:140, key:"F# MIN", genre:"trap", price:99, tag:"HOT", c1:"#1a1410", c2:"#2a1e0a"},
@@ -521,7 +488,6 @@ var tk = null;
 var cf = "all";
 
 try { var sv = localStorage.getItem("nustar_sales"); if (sv) { sales = JSON.parse(sv); } } catch(e) {}
-
 function saveSales() { try { localStorage.setItem("nustar_sales", JSON.stringify(sales)); } catch(e) {} }
 
 function buyBeat(id) {
@@ -535,17 +501,9 @@ function buyBeat(id) {
   } else {
     var bn = "";
     for (var y = 0; y < BEATS.length; y++) { if (BEATS[y].id === id) { bn = BEATS[y].name; } }
-    doToast("Contact us about " + bn + " at wackoprophet4@gmail.com");
+    doToast("Contact us about " + bn + " at " + EM);
   }
   render();
-
-var eu = "wackoprophet4";
-var ed = "gmail.com";
-var ef = eu + "@" + ed;
-var e1 = document.getElementById("cemail1");
-var e2 = document.getElementById("cemail2");
-if (e1) { e1.innerHTML = "<a href=\"mailto:" + ef + "\">" + ef + "</a>"; }
-if (e2) { e2.innerHTML = "<a href=\"mailto:" + ef + "\">" + ef + "</a>"; }
 }
 
 function doFilter(g, btn) {
@@ -553,17 +511,8 @@ function doFilter(g, btn) {
   var tabs = document.querySelectorAll(".ft");
   for (var i = 0; i < tabs.length; i++) { tabs[i].classList.remove("on"); }
   btn.classList.add("on");
-  var mb = document.getElementById("meme-bio");
-  if (mb) { mb.style.display = g === "meme" ? "block" : "none"; }
+  document.getElementById("meme-bio").style.display = g === "meme" ? "block" : "none";
   render();
-
-var eu = "wackoprophet4";
-var ed = "gmail.com";
-var ef = eu + "@" + ed;
-var e1 = document.getElementById("cemail1");
-var e2 = document.getElementById("cemail2");
-if (e1) { e1.innerHTML = "<a href=\"mailto:" + ef + "\">" + ef + "</a>"; }
-if (e2) { e2.innerHTML = "<a href=\"mailto:" + ef + "\">" + ef + "</a>"; }
 }
 
 function render() {
@@ -610,23 +559,11 @@ function playB(id) {
 }
 
 function togglePlay() { if (isPlay) { pauseIt(); } else { resumeIt(); } }
-
 function pauseIt() { isPlay = false; clearInterval(tk); render(); updIcon(); }
-
 function resumeIt() { if (!curBeat) return; isPlay = true; startTk(); render(); updIcon(); }
-
 function closePlayer() {
   curBeat = null; isPlay = false; clearInterval(tk); prog = 0;
-  document.getElementById("splayer").classList.remove("on");
-  render();
-
-var eu = "wackoprophet4";
-var ed = "gmail.com";
-var ef = eu + "@" + ed;
-var e1 = document.getElementById("cemail1");
-var e2 = document.getElementById("cemail2");
-if (e1) { e1.innerHTML = "<a href=\"mailto:" + ef + "\">" + ef + "</a>"; }
-if (e2) { e2.innerHTML = "<a href=\"mailto:" + ef + "\">" + ef + "</a>"; }
+  document.getElementById("splayer").classList.remove("on"); render();
 }
 
 function startTk() {
@@ -650,8 +587,9 @@ function doSeek(e) {
 }
 
 function updIcon() {
-  var el = document.getElementById("sppIcon");
-  el.innerHTML = isPlay ? '<div class="pico-pause"><div class="pbar"></div><div class="pbar"></div></div>' : '<div class="ptri"></div>';
+  document.getElementById("sppIcon").innerHTML = isPlay
+    ? '<div class="pico-pause"><div class="pbar"></div><div class="pbar"></div></div>'
+    : '<div class="ptri"></div>';
 }
 
 function doLike(id) { liked[id] = !liked[id]; render(); }
@@ -660,5 +598,22 @@ function toggleAg(id) {
   var el = document.getElementById(id);
   var ic = document.getElementById(id + "-icon");
   if (el.style.display === "none" || el.style.display === "") {
-    el.style.display = "block";
-    ic.textContent = 
+    el.style.display = "block"; ic.textContent = "-";
+  } else {
+    el.style.display = "none"; ic.textContent = "+";
+  }
+}
+
+var toastTimer;
+function doToast(msg) {
+  var el = document.getElementById("toastEl");
+  el.textContent = msg;
+  el.classList.add("on");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() { el.classList.remove("on"); }, 3500);
+}
+
+render();
+</script>
+</body>
+</html>
