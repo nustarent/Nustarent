@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUSTAR — Beats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Mono:wght@300;400;500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080808;--s1:#101010;--s2:#161616;--bd:#252525;--bd2:#333;--txt:#efefef;--dim:#999;--low:#555;--gold:#c9a84c;--gold2:#e8c46a;--r:2px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.6;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;background:rgba(8,8,8,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.04);}
+.nlogo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.nwm{font-family:'Anton',sans-serif;font-size:1.3rem;letter-spacing:.14em;color:var(--txt);line-height:1;}
+.nwm small{display:block;font-family:'DM Mono',monospace;font-weight:300;font-size:.44rem;color:var(--low);letter-spacing:.28em;margin-top:1px;}
+.nlinks{display:flex;align-items:center;gap:20px;list-style:none;}
+.nlinks a{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--low);text-decoration:none;transition:color .2s;}
+.nlinks a:hover{color:var(--txt);}
+.ncta{background:var(--gold)!important;color:#080808!important;padding:8px 14px;border-radius:var(--r);}
+.hero{min-height:100vh;display:grid;place-items:center;text-align:center;padding:100px 24px 60px;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,.05) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{position:relative;z-index:1;}
+.hero-tag{font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.32em;color:var(--gold);text-transform:uppercase;margin-bottom:16px;animation:fu .6s .1s both;}
+.hero-title{font-family:'Anton',sans-serif;font-size:clamp(3.5rem,13vw,9rem);line-height:.9;letter-spacing:.03em;text-transform:uppercase;animation:fu .6s .25s both;}
+.hero-title .dim{-webkit-text-stroke:1px rgba(255,255,255,.18);color:transparent;}
+.hero-title .gold{color:var(--gold);}
+.hero-desc{font-size:.92rem;color:var(--dim);max-width:380px;margin:22px auto 32px;font-weight:300;line-height:1.8;animation:fu .6s .4s both;}
+.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;animation:fu .6s .55s both;}
+.btn{font-family:'Anton',sans-serif;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;padding:12px 26px;border-radius:var(--r);border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;transition:all .2s;}
+.btn-gold{background:var(--gold);color:#080808;}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-2px);}
+.btn-line{background:transparent;color:var(--dim);border:1px solid var(--bd2);}
+.btn-line:hover{color:var(--txt);border-color:#555;}
+@keyframes fu{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.ticker-wrap{overflow:hidden;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);background:var(--s1);padding:11px 0;}
+.ticker{display:flex;animation:tick 24s linear infinite;white-space:nowrap;}
+.ti{font-family:'Anton',sans-serif;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--low);padding:0 22px;flex-shrink:0;}
+.ti.g{color:var(--gold);}
+@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.wrap{max-width:1100px;margin:0 auto;padding:0 36px;}
+.sec{padding:80px 0;}
+.sec-eye{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;}
+.sec-h{font-family:'Anton',sans-serif;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:.04em;text-transform:uppercase;line-height:1;margin-bottom:10px;}
+.sec-sub{font-size:.88rem;color:var(--dim);font-weight:300;max-width:440px;}
+.beats-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:14px;}
+.ftabs{display:flex;gap:4px;flex-wrap:wrap;}
+.ft{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;padding:7px 12px;background:transparent;border:1px solid var(--bd);border-radius:var(--r);color:var(--low);cursor:pointer;transition:all .2s;}
+.ft:hover{color:var(--txt);border-color:var(--bd2);}
+.ft.on{border-color:var(--gold);color:var(--gold);}
+.meme-bio{display:none;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:14px 18px;margin-bottom:18px;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--dim);letter-spacing:.07em;line-height:1.7;}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+.bcard{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;transition:border-color .2s,transform .2s;}
+.bcard:hover{border-color:var(--bd2);transform:translateY(-3px);}
+.bcard.act{border-color:var(--gold);}
+.bcov{height:155px;position:relative;overflow:hidden;}
+.bcov-art{width:100%;height:100%;position:relative;display:flex;align-items:center;justify-content:center;}
+.bcov-bg{position:absolute;inset:0;}
+.bcov-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:28px 28px;}
+.bcov-info{position:relative;z-index:1;text-align:center;}
+.bcov-bpm{font-family:'Anton',sans-serif;font-size:2.4rem;line-height:1;opacity:.11;}
+.bcov-key{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;opacity:.2;margin-top:3px;}
+.bplay-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(8,8,8,.55);opacity:0;transition:opacity .2s;cursor:pointer;}
+.bcard:hover .bplay-ov,.bcard.act .bplay-ov{opacity:1;}
+.bpcircle{width:44px;height:44px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,background .15s;}
+.bpcircle:hover{transform:scale(1.1);background:var(--gold2);}
+.ptri{width:0;height:0;border-style:solid;border-width:7px 0 7px 12px;border-color:transparent transparent transparent #080808;margin-left:2px;}
+.pico-pause{display:flex;gap:3px;}
+.pbar{width:3px;height:13px;background:#080808;border-radius:2px;}
+.btag{position:absolute;top:9px;right:9px;background:rgba(8,8,8,.85);border:1px solid var(--bd);border-radius:var(--r);padding:3px 8px;font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.13em;color:var(--gold);}
+.btag.excl{background:rgba(201,168,76,.12);border-color:var(--gold);}
+.wv{position:absolute;bottom:8px;left:12px;right:12px;height:18px;display:flex;align-items:flex-end;gap:2px;}
+.wb{flex:1;background:rgba(255,255,255,.09);border-radius:1px;}
+.bcard.act .wb{animation:wa var(--d) ease-in-out infinite alternate;background:rgba(201,168,76,.4);}
+@keyframes wa{from{transform:scaleY(.2);}to{transform:scaleY(1);}}
+.binfo{padding:13px 15px;}
+.bname{font-family:'Anton',sans-serif;font-size:1.05rem;letter-spacing:.07em;text-transform:uppercase;line-height:1;margin-bottom:5px;}
+.bmeta{display:flex;gap:12px;margin-bottom:11px;}
+.bm{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.12em;color:var(--dim);}
+.bm b{color:var(--txt);font-weight:400;}
+.bfoot{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--bd);}
+.bprice{font-family:'Anton',sans-serif;font-size:1.3rem;color:var(--gold);letter-spacing:.04em;line-height:1;}
+.bprice-sub{font-family:'DM Mono',monospace;font-size:.48rem;color:var(--low);letter-spacing:.14em;margin-top:1px;}
+.bacts{display:flex;gap:6px;}
+.bbuy{font-family:'Anton',sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 13px;background:var(--gold);color:#080808;border:none;border-radius:var(--r);cursor:pointer;transition:all .15s;}
+.bbuy:hover{background:var(--gold2);}
+.bfav{width:30px;height:30px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:var(--low);transition:all .15s;}
+.bfav:hover{color:var(--txt);border-color:var(--bd2);}
+.bfav.on{color:#ff5555;border-color:rgba(255,85,85,.25);}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:32px;}
+.pcard{background:var(--s2);border:1px solid var(--gold);border-radius:var(--r);padding:24px;position:relative;transition:transform .2s;}
+.pcard:hover{transform:translateY(-3px);}
+.pcard::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(--r) var(--r) 0 0;background:linear-gradient(90deg,var(--gold),var(--gold2));}
+.pack-tag{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+.pack-name{font-family:'Anton',sans-serif;font-size:1.6rem;letter-spacing:.06em;text-transform:uppercase;line-height:1;margin-bottom:4px;}
+.pack-desc{font-size:.8rem;color:var(--dim);font-weight:300;margin-bottom:16px;line-height:1.6;}
+.pack-inc{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:20px;}
+.pack-inc li{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.07em;color:var(--dim);display:flex;align-items:center;gap:8px;}
+.pack-inc li::before{content:'--';color:var(--gold);flex-shrink:0;}
+.pack-foot{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--bd);}
+.pack-price{font-family:'Anton',sans-serif;font-size:2rem;color:var(--gold);letter-spacing:.04em;line-height:1;}
+.pack-price-sub{font-family:'DM Mono',monospace;font-size:.48rem;color:var(--low);letter-spacing:.14em;margin-top:1px;}
+.lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px;}
+.lcard{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:26px 22px;position:relative;transition:transform .2s;}
+.lcard:hover{transform:translateY(-3px);}
+.lcard::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(--r) var(--r) 0 0;}
+.lcard.basic::after{background:var(--bd2);}
+.lcard.prem{border-color:var(--gold);background:linear-gradient(160deg,rgba(201,168,76,.05),var(--s2));}
+.lcard.prem::after{background:linear-gradient(90deg,var(--gold),var(--gold2));}
+.lcard.excl::after{background:linear-gradient(90deg,#eee,var(--gold));}
+.lbadge{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.22em;color:var(--low);text-transform:uppercase;margin-bottom:8px;}
+.lbadge.g{color:var(--gold);}
+.lname{font-family:'Anton',sans-serif;font-size:1.7rem;letter-spacing:.06em;text-transform:uppercase;line-height:1;margin-bottom:2px;}
+.lprice{font-family:'Anton',sans-serif;font-size:2rem;color:var(--gold);letter-spacing:.04em;line-height:1;margin-bottom:18px;}
+.lprice sup{font-size:.95rem;vertical-align:top;margin-top:3px;}
+.ldiv{height:1px;background:var(--bd);margin-bottom:16px;}
+.lfeats{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
+.lfeats li{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.07em;color:var(--dim);display:flex;align-items:center;gap:8px;}
+.lfeats li::before{content:'--';color:var(--gold);flex-shrink:0;}
+.lfeats li.off{opacity:.28;text-decoration:line-through;}
+.lfeats li.off::before{color:var(--low);}
+.ag-wrap{margin-top:44px;}
+.ag-item{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:8px;}
+.ag-btn{width:100%;background:none;border:none;color:var(--txt);font-family:'Anton',sans-serif;font-size:.88rem;letter-spacing:.1em;text-transform:uppercase;padding:15px 18px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+.ag-icon{color:var(--gold);font-size:1.1rem;font-family:'DM Mono',monospace;}
+.ag-body{display:none;padding:0 18px 18px;font-family:'DM Mono',monospace;font-size:.62rem;color:var(--dim);line-height:2;letter-spacing:.06em;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.about-left p{font-size:.88rem;color:var(--dim);font-weight:300;line-height:1.85;margin-bottom:12px;}
+.about-left p strong{color:var(--txt);font-weight:500;}
+.slinks{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px;}
+.sl{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);text-decoration:none;padding:8px 13px;border:1px solid var(--bd);border-radius:var(--r);transition:all .2s;}
+.sl:hover{color:var(--txt);border-color:var(--bd2);}
+.about-right{display:flex;flex-direction:column;gap:10px;}
+.acard{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:18px 20px;}
+.acard-n{font-family:'Anton',sans-serif;font-size:1.8rem;letter-spacing:.04em;color:var(--gold);line-height:1;}
+.acard-l{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-top:3px;}
+.contact-inner{max-width:500px;margin:0 auto;text-align:center;}
+.cform{margin-top:36px;display:flex;flex-direction:column;gap:10px;text-align:left;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.fg label{display:block;font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-bottom:4px;}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);color:var(--txt);font-family:'DM Mono',monospace;font-size:.74rem;padding:10px 12px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold);}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--low);}
+.fg select option{background:var(--s2);}
+.fg textarea{resize:vertical;min-height:88px;}
+footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.ftxt{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.13em;color:var(--low);line-height:1.8;}
+.ftxt strong{color:var(--dim);}
+.splayer{position:fixed;bottom:0;left:0;right:0;height:62px;background:rgba(10,10,10,.97);border-top:1px solid var(--bd);backdrop-filter:blur(20px);z-index:400;display:none;align-items:center;gap:16px;padding:0 22px;}
+.splayer.on{display:flex;}
+.spp{width:34px;height:34px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;}
+.spp:hover{background:var(--gold2);}
+.spinfo{flex:0 0 auto;min-width:110px;}
+.spname{font-family:'Anton',sans-serif;font-size:.84rem;letter-spacing:.08em;text-transform:uppercase;line-height:1;}
+.spmeta{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.1em;color:var(--dim);}
+.spbar{flex:1;display:flex;align-items:center;gap:10px;}
+.sptime{font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);white-space:nowrap;flex-shrink:0;}
+.sptrack{flex:1;height:2px;background:var(--s1);border-radius:2px;cursor:pointer;}
+.spfill{height:100%;background:var(--gold);border-radius:2px;transition:width .1s linear;}
+.spbuy{font-family:'Anton',sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;background:var(--gold);color:#080808;border:none;border-radius:var(--r);cursor:pointer;flex-shrink:0;transition:background .15s;}
+.spbuy:hover{background:var(--gold2);}
+.spx{background:none;border:none;color:var(--low);cursor:pointer;font-size:.9rem;flex-shrink:0;padding:4px;transition:color .15s;}
+.spx:hover{color:var(--txt);}
+.toast{position:fixed;bottom:74px;right:16px;background:var(--s2);border:1px solid var(--gold);color:var(--gold);padding:10px 15px;border-radius:var(--r);font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;z-index:9998;transform:translateY(12px);opacity:0;transition:all .28s;pointer-events:none;max-width:240px;}
+.toast.on{transform:translateY(0);opacity:1;}
+@media(max-width:768px){
+  nav{padding:0 16px;}
+  .nlinks{display:none;}
+  .wrap{padding:0 16px;}
+  .lgrid,.about-grid,.pgrid{grid-template-columns:1fr;}
+  .frow{grid-template-columns:1fr;}
+  footer{padding:22px 16px;flex-direction:column;}
+  .splayer{padding:0 12px;gap:10px;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nlogo" href="#">
+    <svg width="30" height="30" viewBox="0 0 60 60" fill="none">
+      <circle cx="28" cy="30" r="20" stroke="#666" stroke-width="1.4"/>
+      <ellipse cx="28" cy="30" rx="10" ry="20" stroke="#666" stroke-width="1.4"/>
+      <line x1="8" y1="30" x2="48" y2="30" stroke="#666" stroke-width="1.4"/>
+      <line x1="11" y1="20" x2="45" y2="20" stroke="#666" stroke-width="1"/>
+      <line x1="11" y1="40" x2="45" y2="40" stroke="#666" stroke-width="1"/>
+      <path d="M46 17L51 22L46 27L41 22Z" fill="#efefef"/>
+    </svg>
+    <div class="nwm">NUSTAR<small>EST. 2025</small></div>
+  </a>
+  <ul class="nlinks">
+    <li><a href="#beats">Beats</a></li>
+    <li><a href="#packs">Packs</a></li>
+    <li><a href="#licenses">Licenses</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="ncta">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">&#10022; WACKO PROPHET &mdash; NUSTAR &mdash; EST. 2025</div>
+    <h1 class="hero-title">BUY<br><span class="dim">THE</span><br><span class="gold">BEAT</span></h1>
+    <p class="hero-desc">Original beats by Wacko Prophet. Trap, R&amp;B, hip hop and more. License it and make it yours.</p>
+    <div class="hero-btns">
+      <a href="#beats" class="btn btn-gold">Browse Beats</a>
+      <a href="#packs" class="btn btn-line">View Packs</a>
+    </div>
+  </div>
+</section>
+
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="ti">Trap</span><span class="ti g">&#10022;</span>
+    <span class="ti">R&amp;B</span><span class="ti g">&#10022;</span>
+    <span class="ti">Hip Hop</span><span class="ti g">&#10022;</span>
+    <span class="ti">Meme</span><span class="ti g">&#10022;</span>
+    <span class="ti">Wacko Prophet</span><span class="ti g">&#10022;</span>
+    <span class="ti">NJ</span><span class="ti g">&#10022;</span>
+    <span class="ti">Trap</span><span class="ti g">&#10022;</span>
+    <span class="ti">R&amp;B</span><span class="ti g">&#10022;</span>
+    <span class="ti">Hip Hop</span><span class="ti g">&#10022;</span>
+    <span class="ti">Meme</span><span class="ti g">&#10022;</span>
+    <span class="ti">Wacko Prophet</span><span class="ti g">&#10022;</span>
+    <span class="ti">NJ</span><span class="ti g">&#10022;</span>
+  </div>
+</div>
+
+<!-- BEATS -->
+<div id="beats" style="border-top:1px solid var(--bd);">
+  <div class="wrap">
+    <div class="sec">
+      <div class="beats-head">
+        <div>
+          <div class="sec-eye">// CATALOG</div>
+          <h2 class="sec-h">Browse Beats</h2>
+        </div>
+        <div class="ftabs">
+          <button class="ft on" onclick="doFilter('all',this)">All</button>
+          <button class="ft" onclick="doFilter('trap',this)">Trap</button>
+          <button class="ft" onclick="doFilter('rnb',this)">R&amp;B</button>
+          <button class="ft" onclick="doFilter('hiphop',this)">Hip Hop</button>
+          <button class="ft" onclick="doFilter('meme',this)">Meme</button>
+        </div>
+      </div>
+      <div class="meme-bio" id="meme-bio">&#128514; You like ass? Then this the beat for you. Insta reel worthy, TikTok worthy shi. Pure vibes.</div>
+      <div class="bgrid" id="grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PACKS -->
+<div id="packs" style="border-top:1px solid var(--bd);">
+  <div class="wrap">
+    <div class="sec">
+      <div class="sec-eye">// BUNDLES</div>
+      <h2 class="sec-h">Beat Packs</h2>
+      <p class="sec-sub">Grab more for less. Perfect if you got a whole project to fill.</p>
+      <div class="pgrid">
+        <div class="pcard">
+          <div class="pack-tag">&#10022; Best Value</div>
+          <div class="pack-name">Starter Pack</div>
+          <div class="pack-desc">5 beats handpicked by Wacko Prophet. Mix of genres, all original, all yours.</div>
+          <ul class="pack-inc">
+            <li>5 beats (MP3 tagged)</li>
+            <li>Basic lease on each beat</li>
+            <li>Up to 50K streams per beat</li>
+            <li>Music video allowed</li>
+          </ul>
+          <div class="pack-foot">
+            <div><div class="pack-price">$100</div><div class="pack-price-sub">5 BEATS — SAVE $45</div></div>
+            <button class="bbuy" onclick="doToast('Email us: wackoprophet4@gmail.com')">Buy Pack</button>
+          </div>
+        </div>
+        <div class="pcard">
+          <div class="pack-tag">&#10022; Pro Pack</div>
+          <div class="pack-name">Premium Pack</div>
+          <div class="pack-desc">10-12 beats with full WAV files and stems. Every genre covered. Built for artists moving serious.</div>
+          <ul class="pack-inc">
+            <li>10-12 beats (WAV untagged + stems)</li>
+            <li>Premium lease on each beat</li>
+            <li>Up to 500K streams per beat</li>
+            <li>Radio + music video allowed</li>
+          </ul>
+          <div class="pack-foot">
+            <div><div class="pack-price">$850</div><div class="pack-price-sub">10-12 BEATS — SAVE $340+</div></div>
+            <button class="bbuy" onclick="doToast('Email us: wackoprophet4@gmail.com')">Buy Pack</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LICENSES -->
+<div id="licenses" style="border-top:1px solid var(--bd);">
+  <div class="wrap">
+    <div class="sec">
+      <div class="sec-eye">// LICENSING</div>
+      <h2 class="sec-h">License Tiers</h2>
+      <p class="sec-sub">Pick what fits your project. Upgrade anytime.</p>
+      <div class="lgrid">
+        <div class="lcard basic">
+          <div class="lbadge">Lease</div>
+          <div class="lname">Basic</div>
+          <div class="lprice"><sup>$</sup>29</div>
+          <div class="ldiv"></div>
+          <ul class="lfeats">
+            <li>MP3 tagged file</li>
+            <li>Up to 50K streams</li>
+            <li>Non-profit / mixtape</li>
+            <li>Music video ok</li>
+            <li class="off">Untagged WAV</li>
+            <li class="off">Stem files</li>
+            <li class="off">Exclusive rights</li>
+          </ul>
+          <button class="btn btn-line" style="width:100%;justify-content:center;" onclick="doToast('Email us: wackoprophet4@gmail.com')">Select Basic</button>
+        </div>
+        <div class="lcard prem">
+          <div class="lbadge g">Most Popular</div>
+          <div class="lname">Premium</div>
+          <div class="lprice"><sup>$</sup>99</div>
+          <div class="ldiv"></div>
+          <ul class="lfeats">
+            <li>MP3 + WAV untagged</li>
+            <li>Up to 500K streams</li>
+            <li>Profit releases</li>
+            <li>Music video ok</li>
+            <li>Radio broadcast</li>
+            <li>Stems included</li>
+            <li class="off">Exclusive rights</li>
+          </ul>
+          <button class="btn btn-gold" style="width:100%;justify-content:center;" onclick="doToast('Email us: wackoprophet4@gmail.com')">Select Premium</button>
+        </div>
+        <div class="lcard excl">
+          <div class="lbadge g">Exclusive</div>
+          <div class="lname">Excl.</div>
+          <div class="lprice"><sup>$</sup>499<span style="font-size:.85rem;color:var(--low)">+</span></div>
+          <div class="ldiv"></div>
+          <ul class="lfeats">
+            <li>All formats + stems</li>
+            <li>Unlimited streams</li>
+            <li>Full commercial rights</li>
+            <li>Music video ok</li>
+            <li>Radio broadcast</li>
+            <li>Beat off the market</li>
+            <li>You own it outright</li>
+          </ul>
+          <button class="btn btn-line" style="width:100%;justify-content:center;border-color:var(--gold);color:var(--gold);" onclick="doToast('Email us: wackoprophet4@gmail.com')">Inquire</button>
+        </div>
+      </div>
+
+      <!-- AGREEMENTS -->
+      <div class="ag-wrap">
+        <div class="sec-eye" style="margin-bottom:14px;">// LICENSE AGREEMENTS</div>
+        <div class="ag-item">
+          <button class="ag-btn" onclick="toggleAg('ag1')">Basic Lease Agreement <span class="ag-icon" id="ag1-icon">+</span></button>
+          <div class="ag-body" id="ag1">
+            By purchasing this lease you agree to the following:<br><br>
+            -- 1 MP3 file (producer tagged)<br>
+            -- Up to 50,000 streams across all platforms<br>
+            -- Non-profit and mixtape use only<br>
+            -- 1 music video permitted<br>
+            -- No commercial profit from release<br>
+            -- Beat remains for sale to other artists<br>
+            -- Producer credit required: Prod. by Wacko Prophet<br>
+            -- License is non-transferable<br>
+            -- NUSTAR retains full ownership of the beat<br>
+            -- All sales final, no refunds<br>
+            -- Violation of terms may result in DMCA takedown and legal action
+          </div>
+        </div>
+        <div class="ag-item">
+          <button class="ag-btn" onclick="toggleAg('ag2')">Premium Lease Agreement <span class="ag-icon" id="ag2-icon">+</span></button>
+          <div class="ag-body" id="ag2">
+            By purchasing this lease you agree to the following:<br><br>
+            -- MP3 + WAV untagged + stem files<br>
+            -- Up to 500,000 streams across all platforms<br>
+            -- Commercial profit releases allowed<br>
+            -- 1 music video permitted<br>
+            -- Radio broadcasting allowed<br>
+            -- Beat remains for sale to other artists<br>
+            -- Producer credit required: Prod. by Wacko Prophet<br>
+            -- License is non-transferable<br>
+            -- NUSTAR retains full ownership of the beat<br>
+            -- All sales final, no refunds<br>
+            -- Violation of terms may result in DMCA takedown and legal action
+          </div>
+        </div>
+        <div class="ag-item">
+          <button class="ag-btn" onclick="toggleAg('ag3')">Exclusive Agreement <span class="ag-icon" id="ag3-icon">+</span></button>
+          <div class="ag-body" id="ag3">
+            By purchasing this exclusive you agree to the following:<br><br>
+            -- All file formats + full stem kit<br>
+            -- Unlimited streams and commercial use<br>
+            -- Full commercial rights including sync licensing<br>
+            -- Unlimited music videos<br>
+            -- Radio broadcasting allowed<br>
+            -- Beat permanently removed from store after purchase<br>
+            -- Producer credit required: Prod. by Wacko Prophet<br>
+            -- All rights transfer to licensee upon full payment<br>
+            -- NUSTAR waives all future claims to the beat<br>
+            -- License is non-transferable<br>
+            -- Agreement is final and non-refundable
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" style="border-top:1px solid var(--bd);">
+  <div class="wrap">
+    <div class="sec">
+      <div class="about-grid">
+        <div class="about-left">
+          <div class="sec-eye">// WHO WE ARE</div>
+          <h2 class="sec-h" style="margin-bottom:20px;">About</h2>
+          <p><strong>Wacko Prophet</strong> is an independent rapper and producer out of New Jersey.</p>
+          <p>Every beat is made in-house. No samples, no fillers. If you want something custom or have a project in mind reach out.</p>
+          <p>Based in NJ. Built from nothing.</p>
+          <div class="slinks">
+            <a href="https://www.instagram.com/wacko.prophet" target="_blank" class="sl">Instagram</a>
+            <a href="https://linktr.ee/wackoprophet" target="_blank" class="sl">Linktree</a>
+            <a href="https://www.tiktok.com/@wacko.prophet" target="_blank" class="sl">TikTok</a>
+            <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" class="sl">Spotify</a>
+            <a href="https://music.apple.com/us/artist/wacko-prophet/1764215440" target="_blank" class="sl">Apple Music</a>
+          </div>
+        </div>
+        <div class="about-right">
+          <div class="acard"><div class="acard-n">NJ</div><div class="acard-l">Based</div></div>
+          <div class="acard"><div class="acard-n">2025</div><div class="acard-l">Started</div></div>
+          <div class="acard"><div class="acard-n">Original</div><div class="acard-l">Every beat made in-house</div></div>
+          <div class="acard"><div class="acard-n">Independent</div><div class="acard-l">No label. No middleman.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" style="border-top:1px solid var(--bd);">
+  <div class="wrap">
+    <div class="sec">
+      <div class="contact-inner">
+        <div class="sec-eye">// GET IN TOUCH</div>
+        <h2 class="sec-h">Contact</h2>
+        <p class="sec-sub" style="margin:10px auto 0;">Beat purchases, custom requests, features &mdash; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a1d0b0901051a18051a020f1e5e2a0d070b030644090507">[email&#160;protected]</a></p>
+        <div class="cform">
+          <div class="frow">
+            <div class="fg"><label>Name</label><input type="text" placeholder="Your name"></div>
+            <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+          </div>
+          <div class="fg">
+            <label>Inquiry</label>
+            <select>
+              <option>Beat Purchase</option>
+              <option>Beat Pack</option>
+              <option>Custom Beat Request</option>
+              <option>Feature / Collab</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="fg"><label>Message</label><textarea placeholder="Tell us about your project..."></textarea></div>
+          <button class="btn btn-gold" style="justify-content:center;" onclick="doToast('Message sent. We will be in touch.')">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="ftxt"><strong>NUSTAR</strong> &mdash; EST. 2025 &mdash; New Jersey<br>All beats protected under copyright.</div>
+  <div class="ftxt" style="text-align:right;"><strong>Wacko Prophet</strong><br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="344355575f5b44465b445c514000745359555d581a575b59">[email&#160;protected]</a></div>
+</footer>
+
+<div class="splayer" id="splayer">
+  <button class="spp" onclick="togglePlay()">
+    <div id="sppIcon"><div class="ptri"></div></div>
+  </button>
+  <div class="spinfo">
+    <div class="spname" id="spName">--</div>
+    <div class="spmeta" id="spMeta">--</div>
+  </div>
+  <div class="spbar">
+    <div class="sptime" id="spTime">0:00</div>
+    <div class="sptrack" onclick="doSeek(event)"><div class="spfill" id="spFill" style="width:0%"></div></div>
+    <div class="sptime">2:30</div>
+  </div>
+  <button class="spbuy" onclick="doToast('Email us: wackoprophet4@gmail.com')">Buy Beat</button>
+  <button class="spx" onclick="closePlayer()">&#10005;</button>
+</div>
+
+<div class="toast" id="toastEl"></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+var BEATS = [
+  {id:1, name:"ZENITH", bpm:140, key:"TBD", genre:"hiphop", price:40, tag:"NEW", c1:"#0d1520", c2:"#0a1830"},
+  {id:2, name:"DARK MATTER", bpm:140, key:"F# MIN", genre:"trap", price:99, tag:"HOT", c1:"#1a1410", c2:"#2a1e0a"},
+  {id:3, name:"COLD NIGHTS", bpm:72, key:"C MIN", genre:"rnb", price:79, tag:"", c1:"#0f1420", c2:"#0a1228"},
+  {id:4, name:"CAT MODE", bpm:130, key:"C MAJ", genre:"meme", price:29, tag:"NEW", c1:"#1a1520", c2:"#0f1020"},
+  {id:5, name:"GHOST WALK", bpm:138, key:"D MIN", genre:"trap", price:79, tag:"", c1:"#121212", c2:"#1a1a1a"},
+  {id:6, name:"TENDER", bpm:68, key:"Ab MAJ", genre:"rnb", price:99, tag:"EXCLUSIVE", c1:"#0f1810", c2:"#0a2014"},
+  {id:7, name:"REEL READY", bpm:128, key:"G MAJ", genre:"meme", price:29, tag:"HOT", c1:"#1a1510", c2:"#201a08"},
+  {id:8, name:"MIDNIGHT RUN", bpm:135, key:"E MIN", genre:"trap", price:79, tag:"NEW", c1:"#0a1018", c2:"#081424"},
+  {id:9, name:"LAVISH", bpm:75, key:"F MAJ", genre:"rnb", price:79, tag:"", c1:"#181010", c2:"#241818"},
+  {id:10, name:"VIRAL SZN", bpm:132, key:"A MAJ", genre:"meme", price:29, tag:"", c1:"#101818", c2:"#081820"}
+];
+
+var LINKS = {1: "https://nustarent.gumroad.com/l/ltjtrh"};
+var liked = {};
+var sales = {};
+var curBeat = null;
+var isPlay = false;
+var prog = 0;
+var tk = null;
+var cf = "all";
+
+try { var sv = localStorage.getItem("nustar_sales"); if (sv) { sales = JSON.parse(sv); } } catch(e) {}
+
+function saveSales() { try { localStorage.setItem("nustar_sales", JSON.stringify(sales)); } catch(e) {} }
+
+function buyBeat(id) {
+  sales[id] = (sales[id] || 0) + 1;
+  saveSales();
+  for (var x = 0; x < BEATS.length; x++) {
+    if (BEATS[x].id === id && BEATS[x].tag !== "EXCLUSIVE" && sales[id] >= 3) { BEATS[x].tag = "HOT"; }
+  }
+  if (LINKS[id]) {
+    window.open(LINKS[id], "_blank");
+  } else {
+    var bn = "";
+    for (var y = 0; y < BEATS.length; y++) { if (BEATS[y].id === id) { bn = BEATS[y].name; } }
+    doToast("Contact us about " + bn + " at wackoprophet4@gmail.com");
+  }
+  render();
+}
+
+function doFilter(g, btn) {
+  cf = g;
+  var tabs = document.querySelectorAll(".ft");
+  for (var i = 0; i < tabs.length; i++) { tabs[i].classList.remove("on"); }
+  btn.classList.add("on");
+  var mb = document.getElementById("meme-bio");
+  if (mb) { mb.style.display = g === "meme" ? "block" : "none"; }
+  render();
+}
+
+function render() {
+  var list = cf === "all" ? BEATS : BEATS.filter(function(b) { return b.genre === cf; });
+  var h = "";
+  for (var i = 0; i < list.length; i++) {
+    var b = list[i];
+    var bars = "";
+    for (var j = 0; j < 24; j++) {
+      var ht = 12 + Math.round(Math.abs(Math.sin(j * 0.9 + b.id * 1.3)) * 12);
+      var dur = (0.3 + (j % 6) * 0.06).toFixed(2);
+      bars += '<div class="wb" style="height:' + ht + 'px;--d:' + dur + 's;"></div>';
+    }
+    var pc = (curBeat === b.id) ? " act" : "";
+    var th = b.tag ? ('<div class="btag' + (b.tag === "EXCLUSIVE" ? " excl" : "") + '">' + b.tag + "</div>") : "";
+    var fc = liked[b.id] ? " on" : "";
+    var ic = (curBeat === b.id && isPlay) ? '<div class="pico-pause"><div class="pbar"></div><div class="pbar"></div></div>' : '<div class="ptri"></div>';
+    h += '<div class="bcard' + pc + '">';
+    h += '<div class="bcov"><div class="bcov-art">';
+    h += '<div class="bcov-bg" style="background:linear-gradient(150deg,' + b.c1 + ',' + b.c2 + ');"></div>';
+    h += '<div class="bcov-grid"></div>';
+    h += '<div class="bcov-info"><div class="bcov-bpm">' + b.bpm + '</div><div class="bcov-key">' + b.key + '</div></div>';
+    h += '</div>' + th;
+    h += '<div class="bplay-ov" onclick="playB(' + b.id + ')"><button class="bpcircle">' + ic + '</button></div>';
+    h += '<div class="wv">' + bars + '</div></div>';
+    h += '<div class="binfo"><div class="bname">' + b.name + '</div>';
+    h += '<div class="bmeta"><div class="bm">BPM <b>' + b.bpm + '</b></div><div class="bm">KEY <b>' + b.key + '</b></div><div class="bm">TYPE <b>' + b.genre.toUpperCase() + '</b></div></div>';
+    h += '<div class="bfoot"><div><div class="bprice">$' + b.price + '</div><div class="bprice-sub">LEASE FROM</div></div>';
+    h += '<div class="bacts"><button class="bfav' + fc + '" onclick="doLike(' + b.id + ')">&#9825;</button>';
+    h += '<button class="bbuy" onclick="buyBeat(' + b.id + ')">Buy</button></div></div></div></div>';
+  }
+  document.getElementById("grid").innerHTML = h;
+}
+
+function playB(id) {
+  if (curBeat === id && isPlay) { pauseIt(); return; }
+  curBeat = id; isPlay = true; prog = 0;
+  var b = null;
+  for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === id) { b = BEATS[i]; break; } }
+  document.getElementById("spName").textContent = b.name;
+  document.getElementById("spMeta").textContent = b.bpm + " BPM  " + b.key;
+  document.getElementById("splayer").classList.add("on");
+  startTk(); render(); updIcon();
+}
+
+function togglePlay() { if (isPlay) { pauseIt(); } else { resumeIt(); } }
+
+function pauseIt() { isPlay = false; clearInterval(tk); render(); updIcon(); }
+
+function resumeIt() { if (!curBeat) return; isPlay = true; startTk(); render(); updIcon(); }
+
+function closePlayer() {
+  curBeat = null; isPlay = false; clearInterval(tk); prog = 0;
+  document.getElementById("splayer").classList.remove("on");
+  render();
+}
+
+function startTk() {
+  clearInterval(tk);
+  tk = setInterval(function() {
+    if (!isPlay) return;
+    prog = Math.min(prog + (100 / 150), 100);
+    var el = Math.round((prog / 100) * 150);
+    document.getElementById("spFill").style.width = prog + "%";
+    var m = Math.floor(el / 60);
+    var s = el % 60;
+    document.getElementById("spTime").textContent = m + ":" + (s < 10 ? "0" : "") + s;
+    if (prog >= 100) { clearInterval(tk); isPlay = false; updIcon(); render(); }
+  }, 1000);
+}
+
+function doSeek(e) {
+  var r = e.currentTarget.getBoundingClientRect();
+  prog = Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100));
+  document.getElementById("spFill").style.width = prog + "%";
+}
+
+function updIcon() {
+  var el = document.getElementById("sppIcon");
+  el.innerHTML = isPlay ? '<div class="pico-pause"><div class="pbar"></div><div class="pbar"></div></div>' : '<div class="ptri"></div>';
+}
+
+function doLike(id) { liked[id] = !liked[id]; render(); }
+
+function toggleAg(id) {
+  var el = document.getElementById(id);
+  var ic = document.getElementById(id + "-icon");
+  if (el.style.display === "none" || el.style.display === "") {
+    el.style.display = "block";
+    ic.textContent = 
