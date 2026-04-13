@@ -449,7 +449,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
       <div class="contact-inner">
         <div class="sec-eye">// GET IN TOUCH</div>
         <h2 class="sec-h">Contact</h2>
-        <p class="sec-sub" style="margin:10px auto 0;">Beat purchases, custom requests, features &mdash; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a1d0b0901051a18051a020f1e5e2a0d070b030644090507">[email&#160;protected]</a></p>
+        <p class="sec-sub" style="margin:10px auto 0;">Beat purchases, custom requests, features Beat purchases, custom requests, features &mdash; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6a1d0b0901051a18051a020f1e5e2a0d070b030644090507">[email&#160;protected]</a>mdash; <span id="cemail1"></span></p>
         <div class="cform">
           <div class="frow">
             <div class="fg"><label>Name</label><input type="text" placeholder="Your name"></div>
@@ -475,7 +475,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 
 <footer>
   <div class="ftxt"><strong>NUSTAR</strong> &mdash; EST. 2025 &mdash; New Jersey<br>All beats protected under copyright.</div>
-  <div class="ftxt" style="text-align:right;"><strong>Wacko Prophet</strong><br><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="344355575f5b44465b445c514000745359555d581a575b59">[email&#160;protected]</a></div>
+  <div class="ftxt" style="text-align:right;"><strong>Wacko Prophet</strong><br><span id="cemail2"></span></div>
 </footer>
 
 <div class="splayer" id="splayer">
@@ -538,6 +538,14 @@ function buyBeat(id) {
     doToast("Contact us about " + bn + " at wackoprophet4@gmail.com");
   }
   render();
+
+var eu = "wackoprophet4";
+var ed = "gmail.com";
+var ef = eu + "@" + ed;
+var e1 = document.getElementById("cemail1");
+var e2 = document.getElementById("cemail2");
+if (e1) { e1.innerHTML = "<a href=\"mailto:" + ef + "\">" + ef + "</a>"; }
+if (e2) { e2.innerHTML = "<a href=\"mailto:" + ef + "\">" + ef + "</a>"; }
 }
 
 function doFilter(g, btn) {
@@ -548,6 +556,14 @@ function doFilter(g, btn) {
   var mb = document.getElementById("meme-bio");
   if (mb) { mb.style.display = g === "meme" ? "block" : "none"; }
   render();
+
+var eu = "wackoprophet4";
+var ed = "gmail.com";
+var ef = eu + "@" + ed;
+var e1 = document.getElementById("cemail1");
+var e2 = document.getElementById("cemail2");
+if (e1) { e1.innerHTML = "<a href=\"mailto:" + ef + "\">" + ef + "</a>"; }
+if (e2) { e2.innerHTML = "<a href=\"mailto:" + ef + "\">" + ef + "</a>"; }
 }
 
 function render() {
@@ -603,6 +619,14 @@ function closePlayer() {
   curBeat = null; isPlay = false; clearInterval(tk); prog = 0;
   document.getElementById("splayer").classList.remove("on");
   render();
+
+var eu = "wackoprophet4";
+var ed = "gmail.com";
+var ef = eu + "@" + ed;
+var e1 = document.getElementById("cemail1");
+var e2 = document.getElementById("cemail2");
+if (e1) { e1.innerHTML = "<a href=\"mailto:" + ef + "\">" + ef + "</a>"; }
+if (e2) { e2.innerHTML = "<a href=\"mailto:" + ef + "\">" + ef + "</a>"; }
 }
 
 function startTk() {
