@@ -13,6 +13,20 @@ html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.6;}
 nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;background:rgba(8,8,8,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.04);}
 .nlogo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-wrap{position:relative;width:52px;height:52px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.logo-img{position:relative;z-index:2;width:46px;height:46px;object-fit:contain;border-radius:4px;}
+.logo-ring{position:absolute;border-radius:50%;border:1px solid rgba(201,168,76,.5);top:50%;left:50%;opacity:0;transition:opacity .3s;}
+.logo-ring1{width:52px;height:52px;margin-left:-26px;margin-top:-26px;animation:lring1 2s linear infinite paused;}
+.logo-ring2{width:52px;height:18px;margin-left:-26px;margin-top:-9px;border-color:rgba(201,168,76,.35);animation:lring2 1.5s linear infinite paused;}
+.logo-ring3{width:38px;height:38px;margin-left:-19px;margin-top:-19px;border-color:rgba(201,168,76,.2);animation:lring1 3s linear infinite reverse paused;}
+.logo-wrap.spinning .logo-ring{opacity:1;}
+.logo-wrap.spinning .logo-ring1{animation-play-state:running;}
+.logo-wrap.spinning .logo-ring2{animation-play-state:running;}
+.logo-wrap.spinning .logo-ring3{animation-play-state:running;}
+.logo-star-svg{position:absolute;top:1px;right:-2px;width:11px;height:11px;z-index:3;animation:starPulse 2s ease-in-out infinite;}
+@keyframes lring1{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+@keyframes lring2{from{transform:rotateX(70deg) rotate(0deg);}to{transform:rotateX(70deg) rotate(360deg);}}
+@keyframes starPulse{0%,100%{transform:rotate(0deg) scale(1);}50%{transform:rotate(180deg) scale(1.2);}}
 .nwm{font-family:'Anton',sans-serif;font-size:1.3rem;letter-spacing:.14em;color:var(--txt);line-height:1;}
 .nwm small{display:block;font-family:'DM Mono',monospace;font-weight:300;font-size:.44rem;color:var(--low);letter-spacing:.28em;margin-top:1px;}
 .nlinks{display:flex;align-items:center;gap:20px;list-style:none;}
@@ -215,21 +229,23 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 }
 @keyframes lbIn{from{opacity:0;transform:scale(.92);}to{opacity:1;transform:scale(1);}}
 
+/* GLOBE RINGS */
+
+/* SCROLL STAR */
+
 </style>
 </head>
 <body>
 
 <nav>
   <a class="nlogo" href="#">
-    <svg width="30" height="30" viewBox="0 0 60 60" fill="none">
-      <circle cx="28" cy="30" r="20" stroke="#666" stroke-width="1.4"/>
-      <ellipse cx="28" cy="30" rx="10" ry="20" stroke="#666" stroke-width="1.4"/>
-      <line x1="8" y1="30" x2="48" y2="30" stroke="#666" stroke-width="1.4"/>
-      <line x1="11" y1="20" x2="45" y2="20" stroke="#666" stroke-width="1"/>
-      <line x1="11" y1="40" x2="45" y2="40" stroke="#666" stroke-width="1"/>
-      <path d="M46 17L51 22L46 27L41 22Z" fill="#efefef"/>
-    </svg>
-    <div class="nwm">NUSTAR<small>EST. 2025</small></div>
+    <div class="logo-wrap" id="logoWrap">
+      <div class="logo-ring logo-ring1"></div>
+      <div class="logo-ring logo-ring2"></div>
+      <div class="logo-ring logo-ring3"></div>
+      <img class="logo-img" src="https://github.com/nustarent/Nustarent/blob/main/nustar1.jpg?raw=true" alt="NUSTAR">
+      <svg class="logo-star-svg" viewBox="0 0 24 24" fill="white"><path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5Z"/></svg>
+    </div>
   </a>
   <ul class="nlinks">
     <li><a href="#beats">Beats</a></li>
@@ -239,6 +255,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
     <li><a href="#contact" class="ncta">Contact</a></li>
   </ul>
 </nav>
+
 
 <section class="hero">
   <div class="hero-glow"></div>
@@ -431,10 +448,10 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
         <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">But Nate did not stop after Dentes Country fell apart. He tried again with a new group called <strong style="color:var(--txt);">Troubled Youth</strong>. Did not go anywhere either. Then came <strong style="color:var(--txt);">Origins</strong>. Different lineup, same dream. Then COVID hit and shut everything down before it could breathe.</p>
         <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">Years passed. Around 2023, <a href="https://www.instagram.com/wyolkens_/" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">Wyolkens</a> was on a college campus and found a music studio. He immediately thought of Nate. Not because it was the logical choice. Just because when he thought about making music, Nate was the person he wanted to be in the room with. Even though Nate had moved away during sophomore year they never lost touch. <a href="https://www.instagram.com/wyolkens_/" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">Wyolkens</a> made the call, Nate was in, and they locked in.</p>
         <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">They had no real plan. No engineer. No idea how to record properly. They booked studio sessions anyway and figured they would figure it out. They did not figure it out. Nobody helped them. Nothing got done. But the idea never died.</p>
-        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">In 2024, Nate stepped out on his own under the name <a href="https://linktr.ee/wackoprophet" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;"><strong>WACKO PROPHET</strong></a> and released an instrumental album called <strong style="color:var(--txt);">THE PARTY ENDED AN HOUR AGO</strong>. No lyrics, just beats. If they had figured out that college studio maybe it would have been different. But that album exists and it started something.</p>
+        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">In 2024, Nate stepped out on his own under the name <a href="https://linktr.ee/wackoprophet" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;"><strong>WACKO PROPHET</strong></a> and released an instrumental album called <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);"><strong>THE PARTY ENDED AN HOUR AGO</strong></a>. No lyrics, just beats. If they had figured out that college studio maybe it would have been different. But that album exists and it started something.</p>
         <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">Then 2025 came. Six years after that first after school session in 2019, Nate still had the vision he always had. <a href="https://www.instagram.com/wyolkens_/" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">Wyolkens</a> said forget trying to do it alone. They found a studio through a random search, locked in with the right people, and booked their sessions for real. The studio was called <strong style="color:var(--txt);">Dumblit</strong>.</p>
         <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">The album process was not easy. Getting the right people together took real effort. <a href="https://www.instagram.com/wyolkens_/" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">Wyolkens</a> reached out to everyone he knew looking for female vocalists. Nate did the same. Three women came through. One said she was in and then ghosted Nate completely. You cannot make that up. But the ones who showed up delivered, and the album got made.</p>
-        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">The first single <strong style="color:var(--txt);">New Egypt</strong> dropped October 3rd, 2025. The album <strong style="color:var(--txt);">LAFAYETTE</strong> followed on October 24th, 2025.</p>
+        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">The first single <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);"><strong>New Egypt</strong></a> dropped October 3rd, 2025. The album <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);"><strong>LAFAYETTE</strong></a> followed on October 24th, 2025.</p>
         <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:36px;">Next up is <strong style="color:var(--gold);">UNISEX</strong>, dropping June 2026. That is where NUSTAR truly began. And it is only getting started.</p>
 
         <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;color:var(--low);padding-top:24px;border-top:1px solid var(--bd);">Special thank you to <strong style="color:var(--dim);">Rayden</strong> &#10022; The camera man. The goat.</div>
@@ -731,11 +748,23 @@ function closeLightbox() {
   document.body.style.overflow = "";
 }
 
-// Close lightbox on escape key
 document.addEventListener("keydown", function(e) {
   if (e.key === "Escape") { closeLightbox(); }
 });
 
+
+// LOGO RINGS SPIN ON SCROLL
+var logoWrap = document.getElementById("logoWrap");
+var logoScrollTimer = null;
+window.addEventListener("scroll", function() {
+  if (logoWrap) {
+    logoWrap.classList.add("spinning");
+    clearTimeout(logoScrollTimer);
+    logoScrollTimer = setTimeout(function() {
+      logoWrap.classList.remove("spinning");
+    }, 1000);
+  }
+});
 var observer = new IntersectionObserver(function(entries) {
   entries.forEach(function(entry) {
     if (entry.isIntersecting) {
