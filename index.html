@@ -12,6 +12,12 @@
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.6;}
 nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;background:rgba(8,8,8,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.04);}
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0%;z-index:600;transition:width .05s linear;}
+.faq-item{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:8px;}
+.faq-btn{width:100%;background:none;border:none;color:var(--txt);font-family:'Barlow',sans-serif;font-weight:500;font-size:.88rem;padding:18px 20px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:color .2s;}
+.faq-btn:hover{color:var(--gold);}
+.faq-icon{color:var(--gold);font-size:1.1rem;font-family:'DM Mono',monospace;flex-shrink:0;margin-left:16px;}
+.faq-body{display:none;padding:0 20px 18px;font-family:'Barlow',sans-serif;font-size:.85rem;color:var(--dim);line-height:1.8;}
 .nlogo{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .logo-wrap{position:relative;width:52px;height:52px;flex-shrink:0;}
 .logo-wrap.spinning .globe-ring{animation-play-state:running;}
@@ -310,10 +316,13 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
     <li><a href="#packs">Packs</a></li>
     <li><a href="#licenses">Licenses</a></li>
     <li><a href="#about">About</a></li>
+    <li><a href="#artist">Artist</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="#contact" class="ncta">Contact</a></li>
   </ul>
 </nav>
 
+<div class="progress-bar" id="progressBar"></div>
 
 <section class="hero">
   <div class="hero-glow"></div>
@@ -509,7 +518,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
         <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">In 2024, Nate stepped out on his own under the name <a href="https://linktr.ee/wackoprophet" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;"><strong>WACKO PROPHET</strong></a> and released an instrumental album called <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);"><strong>THE PARTY ENDED AN HOUR AGO</strong></a>. No lyrics, just beats. If they had figured out that college studio maybe it would have been different. But that album exists and it started something.</p>
         <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">Then 2025 came. Six years after that first after school session in 2019, Nate still had the vision he always had. <a href="https://www.instagram.com/wyolkens_/" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">Wyolkens</a> said forget trying to do it alone. They found a studio through a random search, locked in with the right people, and booked their sessions for real. The studio was called <strong style="color:var(--txt);">Dumblit</strong>.</p>
         <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">The album process was not easy. Getting the right people together took real effort. <a href="https://www.instagram.com/wyolkens_/" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">Wyolkens</a> reached out to everyone he knew looking for female vocalists. Nate did the same. Three women came through. One said she was in and then ghosted Nate completely. You cannot make that up. But the ones who showed up delivered, and the album got made.</p>
-        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">The first single <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);"><strong>New Egypt</strong></a> dropped October 3rd, 2025. The album <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);"><strong>LAFAYETTE</strong></a> followed on October 24th, 2025.</p>
+        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">The first single <a href="https://open.spotify.com/album/05g9yXwAZk5HlVym6oKEKn" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);"><strong>New Egypt</strong></a> dropped October 3rd, 2025. The album <a href="https://open.spotify.com/album/094GEjFluHQZB1Lk5jZR8N" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);"><strong>LAFAYETTE</strong></a> followed on October 24th, 2025.</p>
         <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:36px;">Next up is <strong style="color:var(--gold);">UNISEX</strong>, dropping June 2026. That is where NUSTAR truly began. And it is only getting started.</p>
 
         <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;color:var(--low);padding-top:24px;border-top:1px solid var(--bd);">Special thank you to <strong style="color:var(--dim);">Rayden</strong> &#10022; The camera man. The goat.</div>
@@ -522,6 +531,87 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
         <a href="https://www.tiktok.com/@wacko.prophet" target="_blank" class="sl">TikTok</a>
         <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" class="sl">Spotify</a>
         <a href="https://music.apple.com/us/artist/wacko-prophet/1764215440" target="_blank" class="sl">Apple Music</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- WACKO PROPHET SECTION -->
+<div id="artist" style="border-top:1px solid var(--bd);background:var(--s1);">
+  <div class="wrap">
+    <div class="sec">
+      <div class="sec-eye reveal">// THE ARTIST</div>
+      <h2 class="sec-h reveal" style="margin-bottom:40px;">Wacko Prophet</h2>
+
+      <!-- ARTIST PHOTOS -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:48px;">
+        <div class="photo-wrap reveal-left" style="transition-delay:.1s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/DSC02756.jpg?raw=true','Wacko Prophet')"><img src="https://github.com/nustarent/Nustarent/blob/main/DSC02756.jpg?raw=true" alt="Wacko Prophet"></div>
+        <div class="photo-wrap reveal-scale" style="transition-delay:.25s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/DSC03810.jpg?raw=true','Wacko Prophet')"><img src="https://github.com/nustarent/Nustarent/blob/main/DSC03810.jpg?raw=true" alt="Wacko Prophet"></div>
+        <div class="photo-wrap reveal-right" style="transition-delay:.4s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/5F91C727-2AA9-418C-8EBB-61324A3D5B3E.jpg?raw=true','Wacko Prophet')"><img src="https://github.com/nustarent/Nustarent/blob/main/5F91C727-2AA9-418C-8EBB-61324A3D5B3E.jpg?raw=true" alt="Wacko Prophet"></div>
+      </div>
+
+      <!-- ARTIST BIO + DISCOGRAPHY -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;max-width:1000px;margin:0 auto;">
+        <div>
+          <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;"><strong style="color:var(--txt);">Wacko Prophet</strong> is a rapper and producer from New Jersey. Still in his 20s, still figuring it out — but the music has never been in question. What started as pure passion has slowly turned into something that feels more like a job. He will tell you himself he is not complaining about that at all.</p>
+          <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">His sound is hard to pin down because that is kind of the point. He is always chasing something new — a concept nobody has fully explored yet, a direction that feels fresh and satisfying to build out. That curiosity is what gets him into the studio and what keeps him there. He genuinely loves this.</p>
+          <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">When he is not making music he is watching films. Older stuff mostly, and he has a real thing for A24 — the atmosphere, the storytelling, the way everything just feels intentional. He talks about bringing that same energy into his music and if you listen closely you can already hear it starting to bleed through.</p>
+          <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;"><strong style="color:var(--txt);">2Pac</strong> is the reason he started — no debate. From there it became <strong style="color:var(--txt);">Kendrick, Tyler, Childish Gambino</strong>. These days <strong style="color:var(--txt);">KAYTRANADA</strong> is the one he keeps coming back to — shout out to him for real. And underneath all of it, always, the <strong style="color:var(--txt);">Neptunes, Nas, and Wu-Tang</strong>. The foundation does not move.</p>
+          <div class="slinks" style="margin-top:28px;">
+            <a href="https://www.instagram.com/wacko.prophet" target="_blank" class="sl">Instagram</a>
+            <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" class="sl">Spotify</a>
+            <a href="https://music.apple.com/us/artist/wacko-prophet/1764215440" target="_blank" class="sl">Apple Music</a>
+            <a href="https://linktr.ee/wackoprophet" target="_blank" class="sl">Linktree</a>
+          </div>
+        </div>
+
+        <!-- DISCOGRAPHY -->
+        <div class="reveal">
+          <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.24em;color:var(--low);text-transform:uppercase;margin-bottom:16px;">// Discography</div>
+          <div style="border-top:1px solid var(--bd);">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--bd);">
+              <div>
+                <div style="font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.06em;color:var(--txt);">LAFAYETTE</div>
+                <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);margin-top:3px;">Album</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--dim);">Oct 24, 2025</div>
+                <a href="https://open.spotify.com/album/094GEjFluHQZB1Lk5jZR8N" target="_blank" style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--gold);text-decoration:none;">Stream ↗</a>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--bd);">
+              <div>
+                <div style="font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.06em;color:var(--txt);">NEW EGYPT</div>
+                <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);margin-top:3px;">Single</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--dim);">Oct 3, 2025</div>
+                <a href="https://open.spotify.com/album/05g9yXwAZk5HlVym6oKEKn" target="_blank" style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--gold);text-decoration:none;">Stream ↗</a>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--bd);">
+              <div>
+                <div style="font-family:'Anton',sans-serif;font-size:.85rem;letter-spacing:.04em;color:var(--txt);">THE PARTY ENDED AN HOUR AGO</div>
+                <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);margin-top:3px;">Instrumental Album</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--dim);">2024</div>
+                <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--gold);text-decoration:none;">Stream ↗</a>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;">
+              <div>
+                <div style="font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.06em;color:var(--gold);">UNISEX</div>
+                <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);margin-top:3px;">Album</div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--gold);">June 2026</div>
+                <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);">Coming Soon</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -566,6 +656,54 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
   </div>
 </div>
 
+<!-- FAQ -->
+<div id="faq" style="border-top:1px solid var(--bd);">
+  <div class="wrap">
+    <div class="sec">
+      <div class="sec-eye reveal">// FAQ</div>
+      <h2 class="sec-h reveal" style="margin-bottom:36px;">Common Questions</h2>
+      <div style="max-width:720px;">
+
+        <div class="faq-item reveal">
+          <button class="faq-btn" onclick="toggleFaq('f1')">How do I receive my beat after purchase? <span class="faq-icon" id="f1-icon">+</span></button>
+          <div class="faq-body" id="f1">After you complete your purchase through Gumroad you will receive an automatic download link straight to your email. The file downloads immediately — no waiting, no manual delivery. If you do not see it check your spam folder or email us at <span id="faq-email"></span></div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-btn" onclick="toggleFaq('f2')">Can I use the beat on YouTube or streaming platforms? <span class="faq-icon" id="f2-icon">+</span></button>
+          <div class="faq-body" id="f2">Yes. Basic lease covers non-profit and mixtape use up to 50,000 streams. Premium lease covers commercial releases up to 500,000 streams across all platforms including Spotify, Apple Music, YouTube, and more. Exclusive gives you unlimited rights across everything. Just make sure to credit Prod. by Wacko Prophet in your release.</div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-btn" onclick="toggleFaq('f3')">What is the difference between Basic and Premium? <span class="faq-icon" id="f3-icon">+</span></button>
+          <div class="faq-body" id="f3">Basic gives you a tagged MP3 for non-commercial use up to 50K streams. Premium gives you an untagged WAV file plus stems, allows commercial profit releases, radio broadcasting, and covers up to 500K streams. If you are putting out a serious release go Premium — the untagged audio alone makes it worth it.</div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-btn" onclick="toggleFaq('f4')">Can someone else buy the same beat I bought? <span class="faq-icon" id="f4-icon">+</span></button>
+          <div class="faq-body" id="f4">On Basic and Premium leases yes — the beat stays in the store and others can lease it too. That is standard in the industry. If you want to be the only one who can use it you need the Exclusive license, which permanently removes the beat from the store and transfers all rights to you.</div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-btn" onclick="toggleFaq('f5')">Can I request a custom beat? <span class="faq-icon" id="f5-icon">+</span></button>
+          <div class="faq-body" id="f5">Yes. Hit us through the contact form or email us directly and tell us what you are looking for — the vibe, BPM, reference tracks, whatever you have. We will get back to you within 24 hours to discuss.</div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-btn" onclick="toggleFaq('f6')">Do you offer refunds? <span class="faq-icon" id="f6-icon">+</span></button>
+          <div class="faq-body" id="f6">All sales are final. Because beats are digital files that are delivered instantly we do not offer refunds once the download has been accessed. If you have a technical issue with your file reach out and we will sort it out.</div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-btn" onclick="toggleFaq('f7')">What does the producer tag sound like and can I remove it? <span class="faq-icon" id="f7-icon">+</span></button>
+          <div class="faq-body" id="f7">The Basic lease comes with a producer tag that plays at the start of the beat — it says Prod. by Wacko Prophet. If you want the clean untagged version you need the Premium or Exclusive license. The tag is there to protect ownership on leased files.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="contact" style="border-top:1px solid var(--bd);">
   <div class="wrap">
     <div class="sec">
@@ -573,14 +711,14 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
         <div class="sec-eye reveal">// GET IN TOUCH</div>
         <h2 class="sec-h">Contact</h2>
         <p class="sec-sub" style="margin:10px auto 0;" id="contact-sub">Beat purchases, custom requests, features</p>
-        <div class="cform reveal">
+        <form class="cform reveal" action="https://formspree.io/f/xwvakzpy" method="POST" id="contactForm">
           <div class="frow">
-            <div class="fg"><label>Name</label><input type="text" placeholder="Your name"></div>
-            <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+            <div class="fg"><label>Name</label><input type="text" name="name" placeholder="Your name" required></div>
+            <div class="fg"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required></div>
           </div>
           <div class="fg">
             <label>Inquiry</label>
-            <select>
+            <select name="inquiry">
               <option>Beat Purchase</option>
               <option>Beat Pack</option>
               <option>Custom Beat Request</option>
@@ -589,9 +727,11 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
               <option>Other</option>
             </select>
           </div>
-          <div class="fg"><label>Message</label><textarea placeholder="Tell us about your project..."></textarea></div>
-          <button class="btn btn-gold" style="justify-content:center;" id="sendBtn">Send Message</button>
-        </div>
+          <div class="fg"><label>Message</label><textarea name="message" placeholder="Tell us about your project..." required></textarea></div>
+          <button type="submit" class="btn btn-gold" style="justify-content:center;" id="sendBtn">Send Message</button>
+          <div id="form-success" style="display:none;font-family:'DM Mono',monospace;font-size:.72rem;color:var(--gold);letter-spacing:.1em;text-align:center;padding:12px;">Message sent. We will be in touch.</div>
+          <div id="form-error" style="display:none;font-family:'DM Mono',monospace;font-size:.72rem;color:#ff5555;letter-spacing:.1em;text-align:center;padding:12px;">Something went wrong. Email us directly.</div>
+        </form>
       </div>
     </div>
   </div>
@@ -634,6 +774,8 @@ var EM = "wackoprophet4" + "@" + "gmail" + "." + "com";
 
 // Set email in all places
 document.getElementById("footer-email").textContent = EM;
+var faqEmail = document.getElementById("faq-email");
+if (faqEmail) { faqEmail.textContent = EM; }
 document.getElementById("contact-sub").textContent = "Beat purchases, custom requests, features — " + EM;
 document.getElementById("pack1btn").onclick = function(){ doToast("Email us: " + EM); };
 document.getElementById("pack2btn").onclick = function(){ doToast("Email us: " + EM); };
@@ -641,6 +783,39 @@ document.getElementById("lic1btn").onclick = function(){ doToast("Email us: " + 
 document.getElementById("lic2btn").onclick = function(){ doToast("Email us: " + EM); };
 document.getElementById("lic3btn").onclick = function(){ doToast("Email us: " + EM); };
 document.getElementById("sendBtn").onclick = function(){ doToast("Message sent. We will be in touch."); };
+
+var contactForm = document.getElementById("contactForm");
+if (contactForm) {
+  contactForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    var btn = document.getElementById("sendBtn");
+    var success = document.getElementById("form-success");
+    var error = document.getElementById("form-error");
+    btn.textContent = "Sending...";
+    btn.disabled = true;
+    fetch("https://formspree.io/f/xwvakzpy", {
+      method: "POST",
+      body: new FormData(contactForm),
+      headers: { "Accept": "application/json" }
+    }).then(function(res) {
+      if (res.ok) {
+        success.style.display = "block";
+        error.style.display = "none";
+        contactForm.reset();
+        btn.textContent = "Sent!";
+        setTimeout(function() { btn.textContent = "Send Message"; btn.disabled = false; success.style.display = "none"; }, 4000);
+      } else {
+        error.style.display = "block";
+        btn.textContent = "Send Message";
+        btn.disabled = false;
+      }
+    }).catch(function() {
+      error.style.display = "block";
+      btn.textContent = "Send Message";
+      btn.disabled = false;
+    });
+  });
+}
 document.getElementById("spBuyBtn").onclick = function(){ doToast("Email us: " + EM); };
 
 var BEATS = [
@@ -781,6 +956,24 @@ function toggleAg(id) {
     el.style.display = "none"; ic.textContent = "+";
   }
 }
+
+function toggleFaq(id) {
+  var el = document.getElementById(id);
+  var ic = document.getElementById(id + "-icon");
+  var isOpen = el.style.display === "block";
+  document.querySelectorAll(".faq-body").forEach(function(b) { b.style.display = "none"; });
+  document.querySelectorAll(".faq-icon").forEach(function(i) { i.textContent = "+"; });
+  if (!isOpen) { el.style.display = "block"; ic.textContent = "-"; }
+}
+
+// SCROLL PROGRESS BAR
+var progressBar = document.getElementById("progressBar");
+window.addEventListener("scroll", function() {
+  var scrollTop = window.scrollY;
+  var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  if (progressBar) { progressBar.style.width = pct + "%"; }
+});
 
 var toastTimer;
 function doToast(msg) {
