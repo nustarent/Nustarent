@@ -34,14 +34,46 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .btn-line{background:transparent;color:var(--dim);border:1px solid var(--bd2);}
 .btn-line:hover{color:var(--txt);border-color:#555;}
 @keyframes fu{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+/* REVEAL ANIMATIONS */
 .reveal{opacity:0;transform:translateY(40px) scale(0.97);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
 .reveal.visible{opacity:1;transform:translateY(0) scale(1);}
-.reveal-left{opacity:0;transform:translateX(-30px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
-.reveal-left.visible{opacity:1;transform:translateX(0);}
+.reveal-left{opacity:0;transform:translateX(-60px) scale(0.97);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.reveal-left.visible{opacity:1;transform:translateX(0) scale(1);}
+.reveal-right{opacity:0;transform:translateX(60px) scale(0.97);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.reveal-right.visible{opacity:1;transform:translateX(0) scale(1);}
+.reveal-scale{opacity:0;transform:scale(0.85);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);}
+.reveal-scale.visible{opacity:1;transform:scale(1);}
+
+/* PHOTO ANIMATIONS */
 .photo-wrap{position:relative;overflow:hidden;border-radius:var(--r);border:1px solid var(--bd);}
-.photo-wrap img{width:100%;aspect-ratio:.85;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1);filter:grayscale(20%);}
-.photo-wrap:hover img{transform:scale(1.04);filter:grayscale(0%);}
-.photo-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.7) 0%,transparent 50%);pointer-events:none;}
+.photo-wrap img{width:100%;aspect-ratio:.85;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.16,1,.3,1),filter .8s ease;filter:grayscale(30%) brightness(.85);}
+.photo-wrap:hover img{transform:scale(1.06);filter:grayscale(0%) brightness(1);}
+.photo-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.75) 0%,transparent 55%);pointer-events:none;}
+.photo-wrap::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.08),transparent);pointer-events:none;z-index:1;opacity:0;transition:opacity .4s;}
+.photo-wrap:hover::before{opacity:1;}
+
+/* GOLD LINE DRAW */
+.gold-line{height:1px;background:var(--gold);width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
+.gold-line.visible{width:100%;}
+
+/* GLOW PULSE */
+@keyframes glowPulse{0%,100%{text-shadow:0 0 20px rgba(201,168,76,.2);}50%{text-shadow:0 0 60px rgba(201,168,76,.5),0 0 100px rgba(201,168,76,.2);}}
+.glow-text{animation:glowPulse 3s ease-in-out infinite;}
+
+/* CLICK RIPPLE */
+.ripple{position:fixed;border-radius:50%;background:rgba(201,168,76,.25);pointer-events:none;transform:scale(0);animation:rippleOut .6s ease-out forwards;z-index:9999;}
+@keyframes rippleOut{to{transform:scale(4);opacity:0;}}
+
+/* BEAT CARD HOVER */
+.bcard{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;}
+.bcard:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 12px 40px rgba(201,168,76,.12);}
+.bcard.act{border-color:var(--gold);box-shadow:0 0 30px rgba(201,168,76,.15);}
+
+/* SECTION TITLE ANIMATION */
+.sec-h-anim{overflow:hidden;}
+.sec-h-anim span{display:inline-block;transform:translateY(100%);opacity:0;transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .7s;}
+.sec-h-anim.visible span{transform:translateY(0);opacity:1;}
 .ticker-wrap{overflow:hidden;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);background:var(--s1);padding:11px 0;}
 .ticker{display:flex;animation:tick 24s linear infinite;white-space:nowrap;}
 .ti{font-family:'Anton',sans-serif;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--low);padding:0 22px;flex-shrink:0;}
@@ -382,11 +414,12 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
       <h2 class="sec-h" style="margin-bottom:40px;">About</h2>
 
       <!-- PHOTOS -->
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:60px;">
-        <div class="photo-wrap reveal" style="transition-delay:.1s"><img src="https://github.com/nustarent/Nustarent/blob/main/photoshoot1.png?raw=true" alt="NUSTAR"></div>
-        <div class="photo-wrap reveal" style="transition-delay:.25s"><img src="https://github.com/nustarent/Nustarent/blob/main/photoshoot2.jpg?raw=true" alt="NUSTAR"></div>
-        <div class="photo-wrap reveal" style="transition-delay:.4s"><img src="https://github.com/nustarent/Nustarent/blob/main/photoshoot3.jpg?raw=true" alt="NUSTAR"></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">
+        <div class="photo-wrap reveal-left" style="transition-delay:.1s"><img src="https://github.com/nustarent/Nustarent/blob/main/photoshoot1.png?raw=true" alt="NUSTAR" style="aspect-ratio:unset;height:auto;"></div>
+        <div class="photo-wrap reveal-scale" style="transition-delay:.25s"><img src="https://github.com/nustarent/Nustarent/blob/main/photoshoot2.jpg?raw=true" alt="NUSTAR" style="aspect-ratio:unset;height:auto;"></div>
+        <div class="photo-wrap reveal-right" style="transition-delay:.4s"><img src="https://github.com/nustarent/Nustarent/blob/main/photoshoot3.jpg?raw=true" alt="NUSTAR" style="aspect-ratio:unset;height:auto;"></div>
       </div>
+      <div class="gold-line reveal" style="margin-bottom:40px;"></div>
       <div class="reveal" style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.18em;color:var(--low);text-align:center;margin-top:-48px;margin-bottom:56px;">Photos by Rayden &#10022; The Goat</div>
 
       <!-- BIO -->
@@ -704,6 +737,28 @@ function updateCountdown() {
 }
 updateCountdown();
 setInterval(updateCountdown, 1000);
+
+// CLICK RIPPLE
+document.addEventListener("click", function(e) {
+  var r = document.createElement("div");
+  r.className = "ripple";
+  var size = 60;
+  r.style.cssText = "width:" + size + "px;height:" + size + "px;left:" + (e.clientX - size/2) + "px;top:" + (e.clientY - size/2) + "px;";
+  document.body.appendChild(r);
+  setTimeout(function() { r.remove(); }, 700);
+});
+
+// UPDATE OBSERVER TO INCLUDE NEW CLASSES
+var obs2 = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    } else {
+      entry.target.classList.remove("visible");
+    }
+  });
+}, {threshold: 0.1, rootMargin: "0px 0px -40px 0px"});
+document.querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale, .gold-line").forEach(function(el) { obs2.observe(el); });
 </script>
 </body>
 </html>
