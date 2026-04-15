@@ -120,7 +120,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .bcard:hover .bplay-ov,.bcard.act .bplay-ov{opacity:1;}
 .bpcircle{width:44px;height:44px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,background .15s;}
 .bpcircle:hover{transform:scale(1.1);background:var(--gold2);}
-.ptri{width:0;height:0;border-style:solid;border-width:7px 0 7px 12px;border-color:transparent transparent transparent #080808;margin-left:2px;}
+.ptri{font-size:13px;color:#080808;line-height:1;margin-left:2px;}
 .pico-pause{display:flex;gap:3px;}
 .pbar{width:3px;height:13px;background:#080808;border-radius:2px;}
 .btag{position:absolute;top:9px;right:9px;background:rgba(8,8,8,.85);border:1px solid var(--bd);border-radius:var(--r);padding:3px 8px;font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.13em;color:var(--gold);}
@@ -792,7 +792,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 
 <div class="splayer" id="splayer">
   <button class="spp" onclick="togglePlay()">
-    <div id="sppIcon"><div class="ptri"></div></div>
+    <div id="sppIcon"><span class="ptri"><div id="sppIcon"><div class="ptri"></div></div>#9654;</span></div>
   </button>
   <div class="spinfo">
     <div class="spname" id="spName">--</div>
@@ -901,7 +901,7 @@ if (contactForm) {
 document.getElementById("spBuyBtn").onclick = function(){ doToast("Email us: " + EM); };
 
 var BEATS = [
-  {id:1, name:"ZENITH", bpm:140, key:"TBD", genre:"hiphop", price:40, tag:"NEW", c1:"#0d1520", c2:"#0a1830", audio:"https://github.com/nustarent/Nustarent/blob/main/ZENITH%20FINAL.mp3?raw=true"},
+  {id:1, name:"ZENITH", bpm:140, key:"TBD", genre:"hiphop", price:40, tag:"NEW", c1:"#0d1520", c2:"#0a1830", audio:"https://soundcloud.com/nustar-entertainment/zenith-final"},
   {id:2, name:"DARK MATTER", bpm:140, key:"F# MIN", genre:"trap", price:99, tag:"HOT", c1:"#1a1410", c2:"#2a1e0a"},
   {id:3, name:"COLD NIGHTS", bpm:72, key:"C MIN", genre:"rnb", price:79, tag:"", c1:"#0f1420", c2:"#0a1228"},
   {id:4, name:"CAT MODE", bpm:130, key:"C MAJ", genre:"meme", price:29, tag:"NEW", c1:"#1a1520", c2:"#0f1020"},
@@ -1270,7 +1270,7 @@ function render() {
     var pc = (curBeat === b.id) ? " act" : "";
     var th = b.tag ? ('<div class="btag' + (b.tag === "EXCLUSIVE" ? " excl" : "") + '">' + b.tag + "</div>") : "";
     var fc = liked[b.id] ? " on" : "";
-    var ic = (curBeat === b.id && isPlay) ? '<div class="pico-pause"><div class="pbar"></div><div class="pbar"></div></div>' : '<div class="ptri"></div>';
+    var ic = (curBeat === b.id && isPlay) ? '<div class="pico-pause"><div class="pbar"></div><div class="pbar"></div></div>' : '<span class="ptri">'<div class="ptri"></div>'#9654;</span>';
     h += '<div class="bcard' + pc + '">';
     h += '<div class="bcov"><div class="bcov-art">';
     h += '<div class="bcov-bg" style="background:linear-gradient(150deg,' + b.c1 + ',' + b.c2 + ');"></div>';
@@ -1293,7 +1293,50 @@ function render() {
   document.getElementById("grid").innerHTML = h;
 }
 
-// Real audio player
+// SoundCloud Widget
+var scWidget = null;
+var scReady = false;
+var scIframe = document.createElement('iframe');
+scIframe.id = 'sc-player';
+scIframe.style.display = 'none';
+scIframe.allow = 'autoplay';
+document.body.appendChild(scIframe);
+
+function loadSC(url, callback) {
+  scIframe.src = 'https://w.soundcloud.com/player/?url=' + encodeURIComponent(url) + '&auto_play=false&show_artwork=false&buying=false&download=false&sharing=false';
+  scIframe.onload = function() {
+    if (window.SC && window.SC.Widget) {
+      scWidget = window.SC.Widget(scIframe);
+      scWidget.bind(window.SC.Widget.Events.READY, function() {
+        scReady = true;
+        if (callback) callback();
+      });
+      scWidget.bind(window.SC.Widget.Events.PLAY_PROGRESS, function(e) {
+        if (e.loadedProgress > 0) {
+          var pct = (e.currentPosition / e.relativePosition / 1000) * 100;
+          if (!isNaN(pct)) {
+            prog = Math.min(pct, 100);
+            document.getElementById("spFill").style.width = prog + "%";
+            var secs = Math.floor(e.currentPosition / 1000);
+            var m = Math.floor(secs / 60);
+            var s = secs % 60;
+            document.getElementById("spTime").textContent = m + ":" + (s < 10 ? "0" : "") + s;
+          }
+        }
+      });
+      scWidget.bind(window.SC.Widget.Events.FINISH, function() {
+        isPlay = false; prog = 0; updIcon(); render();
+      });
+    }
+  };
+}
+
+// Load SC API
+var scScript = document.createElement('script');
+scScript.src = 'https://w.soundcloud.com/player/api.js';
+document.head.appendChild(scScript);
+
+// Fallback audio for non-SC beats
 var audioEl = new Audio();
 audioEl.addEventListener('timeupdate', function() {
   if (audioEl.duration) {
@@ -1310,14 +1353,30 @@ audioEl.addEventListener('ended', function() {
 
 function playB(id) {
   if (curBeat === id && isPlay) { pauseIt(); return; }
-  curBeat = id; isPlay = true; prog = 0;
   var b = null;
   for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === id) { b = BEATS[i]; break; } }
+  if (!b) return;
+
+  // Stop whatever is playing
+  if (scWidget && scReady) scWidget.pause();
+  audioEl.pause();
+
+  curBeat = id; isPlay = true; prog = 0;
   document.getElementById("spName").textContent = b.name;
   document.getElementById("spMeta").textContent = b.bpm + " BPM  " + b.key;
   document.getElementById("splayer").classList.add("on");
-  // Load real audio if available
-  if (b.audio) {
+
+  if (b.audio && b.audio.indexOf('soundcloud.com') > -1) {
+    // SoundCloud beat
+    if (scWidget && scReady) {
+      scWidget.load(b.audio, {auto_play: true, buying: false, download: false, sharing: false});
+    } else {
+      loadSC(b.audio, function() {
+        scWidget.play();
+      });
+    }
+  } else if (b.audio) {
+    // Direct audio file
     audioEl.src = b.audio;
     audioEl.play().catch(function() {});
   } else {
@@ -1326,27 +1385,32 @@ function playB(id) {
   render(); updIcon();
 }
 
-function togglePlay() {
-  if (isPlay) { pauseIt(); } else { resumeIt(); }
-}
+function togglePlay() { if (isPlay) { pauseIt(); } else { resumeIt(); } }
+
 function pauseIt() {
   isPlay = false;
+  if (scWidget && scReady) scWidget.pause();
   audioEl.pause();
   clearInterval(tk); render(); updIcon();
 }
+
 function resumeIt() {
   if (!curBeat) return;
   isPlay = true;
   var b = null;
   for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === curBeat) { b = BEATS[i]; break; } }
-  if (b && b.audio) {
+  if (b && b.audio && b.audio.indexOf('soundcloud.com') > -1) {
+    if (scWidget && scReady) scWidget.play();
+  } else if (b && b.audio) {
     audioEl.play().catch(function() {});
   } else {
     startTk();
   }
   render(); updIcon();
 }
+
 function closePlayer() {
+  if (scWidget && scReady) scWidget.pause();
   audioEl.pause(); audioEl.src = "";
   curBeat = null; isPlay = false; clearInterval(tk); prog = 0;
   document.getElementById("splayer").classList.remove("on"); render();
@@ -1379,7 +1443,7 @@ function doSeek(e) {
 function updIcon() {
   document.getElementById("sppIcon").innerHTML = isPlay
     ? '<div class="pico-pause"><div class="pbar"></div><div class="pbar"></div></div>'
-    : '<div class="ptri"></div>';
+    : '<span class="ptri">'<div class="ptri"></div>'#9654;</span>';
 }
 
 function doLike(id) { liked[id] = !liked[id]; render(); }
