@@ -813,6 +813,23 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 // Email built in JS so Cloudflare cannot detect or scramble it
 var EM = "wackoprophet4" + "@" + "gmail" + "." + "com";
 
+// ANALYTICS TRACKING
+function trackEvent(event, beat) {
+  fetch(SB_URL + "/rest/v1/analytics", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "apikey": SB_KEY,
+      "Authorization": "Bearer " + SB_KEY,
+      "Prefer": "return=minimal"
+    },
+    body: JSON.stringify({ event: event, beat: beat || null })
+  }).catch(function() {});
+}
+
+// Track page view on load
+trackEvent("page_view");
+
 // SUPABASE CONFIG
 var SB_URL = "https://fmjnuyakdujordnhsvuk.supabase.co";
 var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtam51eWFrZHVqb3JkbmhzdnVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyMDkyNTcsImV4cCI6MjA5MTc4NTI1N30.EtX-g8ZBi0Rga_v3kh6PceQQPALKFyViwUnvm0S8W6s";
@@ -921,6 +938,10 @@ function buyTier(id, tier) {
   var b = null;
   for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === id) { b = BEATS[i]; break; } }
   if (!b) return;
+
+  // Track the click
+  trackEvent("beat_click_" + tier, b.name);
+
   if (tier === 'exclusive') {
     openExclModal(b);
     return;
