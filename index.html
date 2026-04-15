@@ -965,44 +965,109 @@ function generateExclContract() {
 
   var { jsPDF } = window.jspdf;
   var doc = new jsPDF({ unit: 'pt', format: 'letter' });
-  var margin = 60;
-  var pw = doc.internal.pageSize.getWidth() - margin * 2;
-  var y = margin;
+  var ml = 72, mr = 72;
+  var pw = doc.internal.pageSize.getWidth() - ml - mr;
+  var y = 72;
 
-  function ln(text, opts) {
-    opts = opts || {};
-    doc.setFont('helvetica', opts.bold ? 'bold' : 'normal');
-    doc.setFontSize(opts.size || 10);
-    doc.setTextColor(opts.color || '#111111');
-    var lines = doc.splitTextToSize(text, opts.width || pw);
-    lines.forEach(function(line) {
-      if (y > 730) { doc.addPage(); y = margin; }
-      doc.text(line, opts.x || margin, y);
-      y += opts.lh || 15;
-    });
-    if (opts.after) y += opts.after;
+  function checkPage(needed) {
+    if (y + (needed||20) > 740) { doc.addPage(); y = 72; }
   }
 
-  // Header
-  ln('NUSTAR ENTERTAINMENT', {bold:true, size:18, after:4});
-  ln('EXCLUSIVE BEAT LICENSE AGREEMENT', {bold:true, size:13, after:8});
-  doc.setDrawColor('#cccccc'); doc.line(margin, y, margin+pw, y); y += 16;
+  function txt(text, opts) {
+    opts = opts || {};
+    doc.setFont(opts.font || 'times', opts.style || 'normal');
+    doc.setFontSize(opts.size || 11);
+    doc.setTextColor(opts.color || 0);
+    var x = opts.x || ml;
+    var w = opts.w || pw;
+    var lines = doc.splitTextToSize(text, w);
+    lines.forEach(function(line) {
+      checkPage();
+      doc.text(line, x, y, {align: opts.align || 'left'});
+      y += opts.lh || (opts.size ? opts.size * 1.4 : 16);
+    });
+    if (opts.after !== undefined) y += opts.after;
+  }
 
-  ln('This Exclusive Beat License Agreement is entered into as of ' + today + ' between:', {after:8});
-  ln('Producer: NUSTAR ENTERTAINMENT', {bold:true, after:2});
-  ln('Nathan Jorge Rosario (Owner & Beat Maker) and Wyolkens Beaubrun (Manager & Co-Owner)', {after:8});
-  ln('Licensee: ' + artist + (stage ? ' — Artist Name: ' + stage : ''), {bold:true, after:4});
-  if (email) ln('Email: ' + email, {after:4});
+  function rule(color) {
+    doc.setDrawColor(color || 180, color || 180, color || 180);
+    doc.setLineWidth(0.5);
+    doc.line(ml, y, ml + pw, y);
+    y += 10;
+  }
+
+  function sectionHead(num, title) {
+    checkPage(30);
+    y += 8;
+    doc.setFont('times', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(0);
+    doc.text(num + '. ' + title.toUpperCase(), ml, y);
+    y += 18;
+    rule(200);
+  }
+
+  // ── HEADER ──────────────────────────────────────────────
+  doc.setFont('times', 'bold');
+  doc.setFontSize(20);
+  doc.setTextColor(0);
+  doc.text('NUSTAR ENTERTAINMENT', ml + pw / 2, y, {align:'center'});
+  y += 26;
+
+  doc.setFont('times', 'normal');
+  doc.setFontSize(12);
+  doc.setTextColor(80);
+  doc.text('EXCLUSIVE BEAT LICENSE AGREEMENT', ml + pw / 2, y, {align:'center'});
   y += 8;
 
-  ln('1. BEAT INFORMATION', {bold:true, size:11, after:6});
-  ln('Beat Title: ' + b.name, {after:3});
-  ln('BPM: ' + b.bpm + '   Key: ' + b.key, {after:3});
-  ln('License Type: Exclusive', {after:3});
-  ln('Purchase Price: $499', {after:3});
-  ln('Date: ' + today, {after:14});
+  doc.setDrawColor(0); doc.setLineWidth(1);
+  doc.line(ml, y, ml + pw, y); y += 2;
+  doc.setLineWidth(0.3);
+  doc.line(ml, y, ml + pw, y); y += 18;
 
-  ln('2. RIGHTS GRANTED TO LICENSEE', {bold:true, size:11, after:6});
+  // ── INTRO ───────────────────────────────────────────────
+  txt('This Exclusive Beat License Agreement (the "Agreement") is entered into as of ' + today + ', between:', {size:11, after:12});
+
+  // Parties table style
+  doc.setFillColor(248, 248, 248);
+  doc.rect(ml, y, pw, 52, 'F');
+  doc.setDrawColor(220); doc.setLineWidth(0.5);
+  doc.rect(ml, y, pw, 52, 'S');
+  y += 12;
+  txt('Producer:', {style:'bold', size:10, after:0});
+  doc.setFont('times','normal'); doc.setFontSize(10);
+  doc.text('NUSTAR ENTERTAINMENT — Nathan Jorge Rosario (Owner & Beat Maker)', ml + 70, y - 14);
+  y += 2;
+  txt('', {after:0});
+  doc.text('and Wyolkens Beaubrun (Manager & Co-Owner)', ml + 70, y);
+  y += 16;
+  txt('Licensee:', {style:'bold', size:10, after:0});
+  doc.setFont('times','normal'); doc.setFontSize(10);
+  doc.text(artist + (stage ? '  (Artist Name: ' + stage + ')' : ''), ml + 70, y - 14);
+  if (email) { y += 2; doc.text('Email: ' + email, ml + 70, y); }
+  y += 20;
+
+  // ── BEAT INFO ───────────────────────────────────────────
+  sectionHead('1', 'Beat Information');
+  var beatInfo = [
+    ['Beat Title', b.name],
+    ['BPM', String(b.bpm)],
+    ['Key', b.key],
+    ['License Type', 'Exclusive'],
+    ['Purchase Price', '$499'],
+    ['Date of Agreement', today]
+  ];
+  beatInfo.forEach(function(row) {
+    txt(row[0] + ':', {style:'bold', size:10, after:0});
+    doc.setFont('times','normal'); doc.setFontSize(10);
+    doc.text(row[1], ml + 130, y - 14);
+    y += 4;
+  });
+  y += 8;
+
+  // ── RIGHTS GRANTED ──────────────────────────────────────
+  sectionHead('2', 'Rights Granted to Licensee');
+  txt('Upon full payment, the Licensee is granted the following exclusive rights:', {size:10, after:8});
   var rights = [
     'The exclusive right to use the beat for one (1) commercial recording.',
     'Unlimited distribution across all platforms including Spotify, Apple Music, YouTube, and all digital stores.',
@@ -1012,43 +1077,116 @@ function generateExclContract() {
     'Beat permanently removed from the NUSTAR store after the date of this agreement.',
     'All audio files delivered: MP3 (tagged and untagged), WAV (untagged), and full stem/trackout kit.'
   ];
-  rights.forEach(function(r,i){ ln((i+1)+'. '+r, {after:3}); });
-  y += 8;
+  rights.forEach(function(r, i) {
+    checkPage();
+    doc.setFont('times','normal'); doc.setFontSize(10);
+    var lines = doc.splitTextToSize((i+1) + '.  ' + r, pw - 20);
+    lines.forEach(function(line, li) {
+      doc.text(line, li === 0 ? ml : ml + 16, y);
+      y += 15;
+    });
+    y += 2;
+  });
 
-  ln('3. RIGHTS RETAINED BY PRODUCER', {bold:true, size:11, after:6});
-  ln('1. Full composition copyright ownership including all melodies, chords, and arrangements.', {after:3});
-  ln('2. Right to collect publishing royalties through BMI for radio, streaming, and performance.', {after:3});
-  ln('3. Right to be credited as composer in all PRO registrations.', {after:3});
-  ln('4. Producer does NOT transfer songwriting or publishing rights. Licensee acquires master use rights only.', {after:14});
+  // ── RIGHTS RETAINED ─────────────────────────────────────
+  sectionHead('3', 'Rights Retained by Producer');
+  txt('Notwithstanding the rights granted above, the Producer retains the following:', {size:10, after:8});
+  var retained = [
+    'Full composition copyright ownership of the beat, including all underlying melodies, chords, arrangements, and instrumentals.',
+    'The right to collect publishing royalties through BMI and any performing rights organization (PRO) for radio play, streaming royalties, sync licensing, and public performance.',
+    'The right to be credited as the composer of the beat in all PRO registrations.',
+    'Producer does NOT transfer songwriting or publishing rights. Licensee acquires master use rights for their recording only.'
+  ];
+  retained.forEach(function(r, i) {
+    checkPage();
+    doc.setFont('times','normal'); doc.setFontSize(10);
+    var lines = doc.splitTextToSize((i+1) + '.  ' + r, pw - 20);
+    lines.forEach(function(line, li) {
+      doc.text(line, li === 0 ? ml : ml + 16, y);
+      y += 15;
+    });
+    y += 2;
+  });
 
-  ln('4. CREDIT REQUIREMENT', {bold:true, size:11, after:6});
-  ln('Licensee must credit "Prod. by Wacko Prophet" in all song metadata, streaming descriptions, YouTube descriptions, and release credits. Failure constitutes breach of this agreement.', {after:14});
+  // ── CREDIT ──────────────────────────────────────────────
+  sectionHead('4', 'Credit Requirement');
+  txt('The Licensee agrees to credit the Producer in all releases using the beat. Required format:', {size:10, after:8});
+  doc.setFillColor(248,248,248); doc.rect(ml + 40, y, pw - 80, 24, 'F');
+  doc.setFont('times','bold'); doc.setFontSize(12); doc.setTextColor(0);
+  doc.text('Prod. by Wacko Prophet', ml + pw/2, y + 16, {align:'center'});
+  y += 34;
+  txt('This credit must appear in all song metadata, streaming platform descriptions, YouTube video descriptions, and any physical or digital release credits. Failure to provide credit constitutes a breach of this agreement.', {size:10, after:8});
 
-  ln('5. BREACH OF AGREEMENT', {bold:true, size:11, after:6});
-  ln('In the event of a breach, NUSTAR ENTERTAINMENT reserves the right to issue a cease and desist, file a DMCA takedown removing content from all platforms within 24-48 hours, and pursue legal action seeking damages and legal fees.', {after:14});
+  // ── BREACH ──────────────────────────────────────────────
+  sectionHead('5', 'Breach of Agreement');
+  txt('In the event of a breach of any terms of this Agreement, the Producer reserves the right to:', {size:10, after:8});
+  ['Issue a formal cease and desist letter.',
+   'File a DMCA takedown notice, resulting in removal from all platforms within 24-48 hours.',
+   'Pursue legal action and seek damages including the full value of the exclusive license, lost royalties, and legal fees.'
+  ].forEach(function(r,i){
+    checkPage();
+    doc.setFont('times','normal'); doc.setFontSize(10);
+    var lines = doc.splitTextToSize((i+1)+'.  '+r, pw-20);
+    lines.forEach(function(line,li){ doc.text(line, li===0?ml:ml+16, y); y+=15; });
+    y+=2;
+  });
 
-  ln('6. GENERAL TERMS', {bold:true, size:11, after:6});
-  ln('1. Governed by the laws of the State of New Jersey.', {after:3});
-  ln('2. Non-transferable. May not be sublicensed or sold to a third party.', {after:3});
-  ln('3. All sales final. No refunds once files delivered.', {after:14});
+  // ── GENERAL ─────────────────────────────────────────────
+  sectionHead('6', 'General Terms');
+  ['This Agreement is governed by the laws of the State of New Jersey.',
+   'This Agreement is non-transferable and may not be sublicensed, sold, or transferred to a third party.',
+   'All sales are final. No refunds will be issued once files have been delivered.',
+   'By completing the purchase, Licensee acknowledges they have read and agreed to all terms.'
+  ].forEach(function(r,i){
+    checkPage();
+    doc.setFont('times','normal'); doc.setFontSize(10);
+    var lines = doc.splitTextToSize((i+1)+'.  '+r, pw-20);
+    lines.forEach(function(line,li){ doc.text(line, li===0?ml:ml+16, y); y+=15; });
+    y+=2;
+  });
 
-  if (y > 580) { doc.addPage(); y = margin; }
-  ln('7. SIGNATURES', {bold:true, size:11, after:12});
+  // ── SIGNATURES ──────────────────────────────────────────
+  checkPage(180);
+  sectionHead('7', 'Signatures');
+  txt('By signing below, both parties agree to the terms and conditions of this Exclusive Beat License Agreement.', {size:10, after:18});
 
-  ln('PRODUCER — NUSTAR ENTERTAINMENT', {bold:true, after:10});
-  ln('Signature: ___________________________________', {after:8});
-  ln('Printed Name: Nathan Jorge Rosario & Wyolkens Beaubrun', {after:8});
-  ln('On behalf of: NUSTAR ENTERTAINMENT', {after:8});
-  ln('Date: ' + today, {after:22});
+  // Producer sig
+  doc.setFont('times','bold'); doc.setFontSize(10); doc.setTextColor(0);
+  doc.text('PRODUCER — NUSTAR ENTERTAINMENT', ml, y); y += 18;
+  doc.setFont('times','normal');
+  doc.text('Signature:', ml, y);
+  doc.setDrawColor(0); doc.setLineWidth(0.5);
+  doc.line(ml + 70, y, ml + 320, y); y += 18;
+  doc.text('Printed Name:', ml, y);
+  doc.setFont('times','bold');
+  doc.text('Nathan Jorge Rosario & Wyolkens Beaubrun', ml + 90, y); y += 18;
+  doc.setFont('times','normal');
+  doc.text('On behalf of: NUSTAR ENTERTAINMENT', ml, y); y += 18;
+  doc.text('Date:', ml, y);
+  doc.setFont('times','bold');
+  doc.text(today, ml + 40, y); y += 30;
 
-  ln('LICENSEE — ARTIST', {bold:true, after:10});
-  ln('Signature: ___________________________________', {after:8});
-  ln('Printed Name: ' + artist, {after:8});
-  ln('Artist Name: ' + (stage || '___________________________________'), {after:8});
-  ln('Date: ___________________________________', {after:20});
+  // Artist sig
+  doc.setFont('times','bold'); doc.setFontSize(10);
+  doc.text('LICENSEE — ARTIST', ml, y); y += 18;
+  doc.setFont('times','normal');
+  doc.text('Signature:', ml, y);
+  doc.line(ml + 70, y, ml + 320, y); y += 18;
+  doc.text('Printed Name:', ml, y);
+  doc.text(artist, ml + 90, y); y += 18;
+  doc.text('Artist Name:', ml, y);
+  doc.text(stage || '_________________________________', ml + 80, y); y += 18;
+  doc.text('Date:', ml, y);
+  doc.line(ml + 40, y, ml + 240, y); y += 30;
 
-  doc.setFontSize(8); doc.setTextColor('#888888');
-  doc.text('NUSTAR ENTERTAINMENT  •  All beats protected under copyright  •  New Jersey', margin, 760);
+  // Footer
+  var pageCount = doc.internal.getNumberOfPages();
+  for (var i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.setFont('times','normal'); doc.setFontSize(8); doc.setTextColor(150);
+    doc.text('NUSTAR ENTERTAINMENT  •  All beats protected under copyright  •  New Jersey', ml + pw/2, 760, {align:'center'});
+    doc.text('Page ' + i + ' of ' + pageCount, ml + pw, 760, {align:'right'});
+  }
 
   doc.save('NUSTAR_Exclusive_' + b.name.replace(/\s+/g,'_') + '.pdf');
 
