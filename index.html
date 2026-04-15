@@ -779,6 +779,13 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
     </div>
 
     <button onclick="generateExclContract()" style="width:100%;font-family:'Anton',sans-serif;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;padding:14px;background:var(--gold);color:#080808;border:none;border-radius:var(--r);cursor:pointer;">Generate Contract & Download PDF</button>
+
+    <!-- Shown after contract is generated -->
+    <div id="postContract" style="display:none;margin-top:16px;">
+      <div style="height:1px;background:var(--bd);margin-bottom:16px;"></div>
+      <p style="font-family:'DM Mono',monospace;font-size:.58rem;color:var(--dim);text-align:center;margin-bottom:12px;line-height:1.8;">Contract downloaded. Print it, sign it, and email the signed copy to <span id="modal-email2"></span><br>Then complete your purchase below.</p>
+      <a id="gumroadBtn" href="#" target="_blank" style="display:block;width:100%;font-family:'Anton',sans-serif;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;padding:14px;background:transparent;color:var(--gold);border:2px solid var(--gold);border-radius:var(--r);cursor:pointer;text-decoration:none;text-align:center;box-sizing:border-box;">Complete Purchase on Gumroad ↗</a>
+    </div>
     <p style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);text-align:center;margin-top:12px;line-height:1.7;">Contract will download as a PDF. Email the signed copy to <span id="modal-email"></span></p>
   </div>
 </div>
@@ -894,7 +901,7 @@ if (contactForm) {
 document.getElementById("spBuyBtn").onclick = function(){ doToast("Email us: " + EM); };
 
 var BEATS = [
-  {id:1, name:"ZENITH", bpm:140, key:"TBD", genre:"hiphop", price:40, tag:"NEW", c1:"#0d1520", c2:"#0a1830"},
+  {id:1, name:"ZENITH", bpm:140, key:"TBD", genre:"hiphop", price:40, tag:"NEW", c1:"#0d1520", c2:"#0a1830", audio:"https://github.com/nustarent/Nustarent/blob/main/ZENITH%20FINAL.mp3?raw=true"},
   {id:2, name:"DARK MATTER", bpm:140, key:"F# MIN", genre:"trap", price:99, tag:"HOT", c1:"#1a1410", c2:"#2a1e0a"},
   {id:3, name:"COLD NIGHTS", bpm:72, key:"C MIN", genre:"rnb", price:79, tag:"", c1:"#0f1420", c2:"#0a1228"},
   {id:4, name:"CAT MODE", bpm:130, key:"C MAJ", genre:"meme", price:29, tag:"NEW", c1:"#1a1520", c2:"#0f1020"},
@@ -966,6 +973,11 @@ function openExclModal(beat) {
   document.getElementById("exclModal").style.display = "block";
   document.getElementById("modalBeatName").textContent = beat.name;
   document.getElementById("modal-email").textContent = EM;
+  document.getElementById("modal-email2").textContent = EM;
+  document.getElementById("postContract").style.display = "none";
+  // Set Gumroad link for this beat
+  var link = LINKS[beat.id] || ("mailto:" + EM + "?subject=Exclusive%20Purchase%20-%20" + beat.name);
+  document.getElementById("gumroadBtn").href = link;
   document.body.style.overflow = "hidden";
 }
 
@@ -1171,13 +1183,16 @@ function generateExclContract() {
   sectionHead('7', 'Signatures');
   txt('By signing below, both parties agree to the terms and conditions of this Exclusive Beat License Agreement.', {size:10, after:18});
 
-  // Producer sig
+  // Producer signature — styled cursive text
   doc.setFont('times','bold'); doc.setFontSize(10); doc.setTextColor(0);
   doc.text('PRODUCER — NUSTAR ENTERTAINMENT', ml, y); y += 18;
   doc.setFont('times','normal');
   doc.text('Signature:', ml, y);
-  doc.setDrawColor(0); doc.setLineWidth(0.5);
-  doc.line(ml + 70, y, ml + 320, y); y += 18;
+  // Cursive style signature for NUSTAR
+  doc.setFont('times','bolditalic'); doc.setFontSize(16); doc.setTextColor(20,20,120);
+  doc.text('NUSTAR Entertainment', ml + 70, y + 2);
+  doc.setFont('times','normal'); doc.setFontSize(10); doc.setTextColor(0);
+  y += 18;
   doc.text('Printed Name:', ml, y);
   doc.setFont('times','bold');
   doc.text('Nathan Jorge Rosario & Wyolkens Beaubrun', ml + 90, y); y += 18;
@@ -1187,18 +1202,19 @@ function generateExclContract() {
   doc.setFont('times','bold');
   doc.text(today, ml + 40, y); y += 30;
 
-  // Artist sig
-  doc.setFont('times','bold'); doc.setFontSize(10);
+  // Artist signature — their typed name in cursive style
+  doc.setFont('times','bold'); doc.setFontSize(10); doc.setTextColor(0);
   doc.text('LICENSEE — ARTIST', ml, y); y += 18;
   doc.setFont('times','normal');
   doc.text('Signature:', ml, y);
-  doc.line(ml + 70, y, ml + 320, y); y += 18;
-  doc.text('Printed Name:', ml, y);
-  doc.text(artist, ml + 90, y); y += 18;
-  doc.text('Artist Name:', ml, y);
-  doc.text(stage || '_________________________________', ml + 80, y); y += 18;
-  doc.text('Date:', ml, y);
-  doc.line(ml + 40, y, ml + 240, y); y += 30;
+  // Cursive style signature using their name
+  doc.setFont('times','bolditalic'); doc.setFontSize(16); doc.setTextColor(20,20,120);
+  doc.text(artist, ml + 70, y + 2);
+  doc.setFont('times','normal'); doc.setFontSize(10); doc.setTextColor(0);
+  y += 18;
+  doc.text('Printed Name: ' + artist, ml, y); y += 18;
+  doc.text('Artist Name: ' + (stage || '___________________________________'), ml, y); y += 18;
+  doc.text('Date: ' + today, ml, y); y += 30;
 
   // Footer
   var pageCount = doc.internal.getNumberOfPages();
@@ -1211,8 +1227,9 @@ function generateExclContract() {
 
   doc.save('NUSTAR_Exclusive_' + b.name.replace(/\s+/g,'_') + '.pdf');
 
-  closeExclModal();
-  doToast('Contract downloaded — email signed copy to ' + EM);
+  // Show proceed to purchase section instead of closing
+  document.getElementById("postContract").style.display = "block";
+  doToast('Contract downloaded — sign it and complete your purchase');
 
   // Save to Supabase
   sbInsert({
@@ -1276,6 +1293,21 @@ function render() {
   document.getElementById("grid").innerHTML = h;
 }
 
+// Real audio player
+var audioEl = new Audio();
+audioEl.addEventListener('timeupdate', function() {
+  if (audioEl.duration) {
+    prog = (audioEl.currentTime / audioEl.duration) * 100;
+    document.getElementById("spFill").style.width = prog + "%";
+    var m = Math.floor(audioEl.currentTime / 60);
+    var s = Math.floor(audioEl.currentTime % 60);
+    document.getElementById("spTime").textContent = m + ":" + (s < 10 ? "0" : "") + s;
+  }
+});
+audioEl.addEventListener('ended', function() {
+  isPlay = false; prog = 0; updIcon(); render();
+});
+
 function playB(id) {
   if (curBeat === id && isPlay) { pauseIt(); return; }
   curBeat = id; isPlay = true; prog = 0;
@@ -1284,13 +1316,38 @@ function playB(id) {
   document.getElementById("spName").textContent = b.name;
   document.getElementById("spMeta").textContent = b.bpm + " BPM  " + b.key;
   document.getElementById("splayer").classList.add("on");
-  startTk(); render(); updIcon();
+  // Load real audio if available
+  if (b.audio) {
+    audioEl.src = b.audio;
+    audioEl.play().catch(function() {});
+  } else {
+    startTk();
+  }
+  render(); updIcon();
 }
 
-function togglePlay() { if (isPlay) { pauseIt(); } else { resumeIt(); } }
-function pauseIt() { isPlay = false; clearInterval(tk); render(); updIcon(); }
-function resumeIt() { if (!curBeat) return; isPlay = true; startTk(); render(); updIcon(); }
+function togglePlay() {
+  if (isPlay) { pauseIt(); } else { resumeIt(); }
+}
+function pauseIt() {
+  isPlay = false;
+  audioEl.pause();
+  clearInterval(tk); render(); updIcon();
+}
+function resumeIt() {
+  if (!curBeat) return;
+  isPlay = true;
+  var b = null;
+  for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === curBeat) { b = BEATS[i]; break; } }
+  if (b && b.audio) {
+    audioEl.play().catch(function() {});
+  } else {
+    startTk();
+  }
+  render(); updIcon();
+}
 function closePlayer() {
+  audioEl.pause(); audioEl.src = "";
   curBeat = null; isPlay = false; clearInterval(tk); prog = 0;
   document.getElementById("splayer").classList.remove("on"); render();
 }
@@ -1311,8 +1368,12 @@ function startTk() {
 
 function doSeek(e) {
   var r = e.currentTarget.getBoundingClientRect();
-  prog = Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100));
-  document.getElementById("spFill").style.width = prog + "%";
+  var pct = Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100));
+  prog = pct;
+  document.getElementById("spFill").style.width = pct + "%";
+  if (audioEl.duration) {
+    audioEl.currentTime = (pct / 100) * audioEl.duration;
+  }
 }
 
 function updIcon() {
