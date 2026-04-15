@@ -187,8 +187,15 @@ var SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI
 
 function sbFetch(){
   return fetch(SB_URL+"/rest/v1/Contracts?select=*&order=created_at.desc",{
-    headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY}
-  }).then(function(r){return r.json();});
+    headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json"}
+  }).then(function(r){
+    if(!r.ok) {
+      return fetch(SB_URL+"/rest/v1/contracts?select=*&order=created_at.desc",{
+        headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json"}
+      }).then(function(r2){ return r2.json(); });
+    }
+    return r.json();
+  });
 }
 
 function sbInsert(data){
@@ -296,8 +303,9 @@ function renderLog(){
       h+='</td></tr>';
     });
     tbody.innerHTML=h;
-  }).catch(function(){
-    tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--red);font-family:\'DM Mono\',monospace;font-size:.6rem;padding:20px;">Could not load contracts. Check connection.</td></tr>';
+  }).catch(function(err){
+    tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--red);font-family:\'DM Mono\',monospace;font-size:.6rem;padding:20px;">Error: '+err.message+'. Check console.</td></tr>';
+    console.error('Supabase fetch error:', err);
   });
 }
 
