@@ -245,34 +245,41 @@ function showPanel(id,btn){
 }
 
 function renderAnalytics(){
-  var s=getSales(),a=getA();
+  var s=getSales();
   var totalSales=Object.values(s).reduce(function(acc,v){return acc+v;},0);
   var totalRev=0;
   BEATS.forEach(function(b){totalRev+=(s[b.id]||0)*b.price;});
-  var maxS=Math.max.apply(null,BEATS.map(function(b){return s[b.id]||0;}).concat([1]));
-  var h="";
-  BEATS.forEach(function(b){
-    var sold=s[b.id]||0,clk=(a["clicks_"+b.id])||0,rev=sold*b.price,pct=Math.round((sold/maxS)*100);
-    var tg=b.tag?"<span class=\"tag "+(b.tag==="HOT"?"tag-hot":"tag-new")+"\">"+b.tag+"</span>":"";
-    h+="<tr><td><b>"+b.name+"</b> "+tg+"</td><td>"+b.genre+"</td><td>$"+b.price+"</td>";
-    h+="<td>"+clk+"</td><td><b>"+sold+"</b></td><td style=\"color:var(--gold);\"><b>$"+rev+"</b></td>";
-    h+="<td><div class=\"bar-wrap\"><div class=\"bar-fill\" style=\"width:"+pct+"%\"></div></div></td></tr>";
-  });
-  document.getElementById("beatPerfBody").innerHTML=h;
-  sbFetch().then(function(rows){
-    var safeRows = Array.isArray(rows) ? rows : [];
-    var total=safeRows.length;
-    var signed=safeRows.filter(function(c){return c.status==="Signed";}).length;
-    document.getElementById("statsGrid").innerHTML=
-      "<div class=\"stat-card\"><div class=\"stat-label\">Page Views</div><div class=\"stat-val\">"+(a.pageViews||0)+"</div><div class=\"stat-change\">Tracked on visit</div></div>"+
-      "<div class=\"stat-card\"><div class=\"stat-label\">Beat Clicks</div><div class=\"stat-val\">"+(a.totalClicks||0)+"</div><div class=\"stat-change\">Buy button clicks</div></div>"+
-      "<div class=\"stat-card\"><div class=\"stat-label\">Total Sales</div><div class=\"stat-val green\">"+totalSales+"</div><div class=\"stat-change\">All beats</div></div>"+
-      "<div class=\"stat-card\"><div class=\"stat-label\">Revenue</div><div class=\"stat-val gold\">$"+totalRev+"</div><div class=\"stat-change\">Estimated</div></div>"+
-      "<div class=\"stat-card\"><div class=\"stat-label\">Contracts Sent</div><div class=\"stat-val\">"+total+"</div><div class=\"stat-change\">Live from database</div></div>"+
-      "<div class=\"stat-card\"><div class=\"stat-label\">Signed</div><div class=\"stat-val green\">"+signed+"</div><div class=\"stat-change\">Confirmed</div></div>";
-  }).catch(function(){
-    document.getElementById("statsGrid").innerHTML="<div class=\"stat-card\"><div class=\"stat-label\">Revenue</div><div class=\"stat-val gold\">$"+totalRev+"</div></div>";
-  });
+
+  fetch(SB_URL+"/rest/v1/analytics?select=*",{
+    headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json"}
+  }).then(function(r){return r.json();}).then(function(events){
+    if(!Array.isArray(events)) events=[];
+    var pageViews=events.filter(function(e){return e.event==="page_view";}).length;
+    var beatClicks=events.filter(function(e){return e.event&&e.event.indexOf("beat_click")===0;}).length;
+    var maxS=Math.max.apply(null,BEATS.map(function(b){return s[b.id]||0;}).concat([1]));
+    var h="";
+    BEATS.forEach(function(b){
+      var sold=s[b.id]||0;
+      var clk=events.filter(function(e){return e.beat===b.name;}).length;
+      var rev=sold*b.price,pct=Math.round((sold/maxS)*100);
+      var tg=b.tag?"<span class=\"tag "+(b.tag==="HOT"?"tag-hot":"tag-new")+"\">"+b.tag+"</span>":"";
+      h+="<tr><td><b>"+b.name+"</b> "+tg+"</td><td>"+b.genre+"</td><td>$"+b.price+"</td>";
+      h+="<td>"+clk+"</td><td><b>"+sold+"</b></td><td style=\"color:var(--gold);\"><b>$"+rev+"</b></td>";
+      h+="<td><div class=\"bar-wrap\"><div class=\"bar-fill\" style=\"width:"+pct+"%\"></div></div></td></tr>";
+    });
+    document.getElementById("beatPerfBody").innerHTML=h;
+
+    sbFetch().then(function(rows){
+      var safeRows=Array.isArray(rows)?rows:[];
+      document.getElementById("statsGrid").innerHTML=
+        "<div class=\"stat-card\"><div class=\"stat-label\">Page Views</div><div class=\"stat-val\">"+pageViews+"</div><div class=\"stat-change\">Live from database</div></div>"+
+        "<div class=\"stat-card\"><div class=\"stat-label\">Beat Clicks</div><div class=\"stat-val\">"+beatClicks+"</div><div class=\"stat-change\">All tiers combined</div></div>"+
+        "<div class=\"stat-card\"><div class=\"stat-label\">Total Sales</div><div class=\"stat-val green\">"+totalSales+"</div><div class=\"stat-change\">All beats combined</div></div>"+
+        "<div class=\"stat-card\"><div class=\"stat-label\">Revenue</div><div class=\"stat-val gold\">$"+totalRev+"</div><div class=\"stat-change\">Estimated</div></div>"+
+        "<div class=\"stat-card\"><div class=\"stat-label\">Contracts Sent</div><div class=\"stat-val\">"+safeRows.length+"</div><div class=\"stat-change\">Live from database</div></div>"+
+        "<div class=\"stat-card\"><div class=\"stat-label\">Signed</div><div class=\"stat-val green\">"+safeRows.filter(function(c){return c.status==="Signed";}).length+"</div><div class=\"stat-change\">Confirmed</div></div>";
+    });
+  }).catch(function(e){console.log("Analytics error:",e);});
 }
 
 function renderCatalog(){
