@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUSTAR — Manager Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Mono:wght@300;400;500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--bg:#080808;--s1:#101010;--s2:#161616;--bd:#252525;--bd2:#333;--txt:#efefef;--dim:#999;--low:#555;--gold:#c9a84c;--gold2:#e8c46a;--r:2px;--green:#4caf7d;--red:#e05555;--blue:#4a9eff;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;font-weight:300;min-height:100vh;}
+.top{background:rgba(8,8,8,.97);border-bottom:1px solid var(--bd);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.top-logo{font-family:'Anton',sans-serif;font-size:1rem;letter-spacing:.14em;}
+.top-logo span{color:var(--gold);}
+.top-nav{display:flex;gap:4px;}
+.tn{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;background:transparent;border:1px solid var(--bd);border-radius:var(--r);color:var(--low);cursor:pointer;transition:all .2s;}
+.tn:hover,.tn.on{color:var(--gold);border-color:var(--gold);}
+.wrap{max-width:1140px;margin:0 auto;padding:28px;}
+.panel{display:none;}
+.panel.on{display:block;}
+.sec-eye{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.28em;color:var(--gold);text-transform:uppercase;margin-bottom:5px;}
+.sec-h{font-family:'Anton',sans-serif;font-size:1.8rem;letter-spacing:.06em;text-transform:uppercase;line-height:1;margin-bottom:6px;}
+.sec-sub{font-size:.8rem;color:var(--dim);font-weight:300;}
+.divider{height:1px;background:var(--bd);margin:24px 0;}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin:20px 0;}
+.stat-card{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:18px 20px;}
+.stat-label{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-bottom:8px;}
+.stat-val{font-family:'Anton',sans-serif;font-size:2rem;letter-spacing:.04em;line-height:1;}
+.stat-val.gold{color:var(--gold);}
+.stat-val.green{color:var(--green);}
+.stat-change{font-family:'DM Mono',monospace;font-size:.52rem;color:var(--low);margin-top:4px;}
+.tbl{width:100%;border-collapse:collapse;margin-top:16px;}
+.tbl th{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.16em;color:var(--low);text-transform:uppercase;padding:10px 14px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap;}
+.tbl td{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--dim);padding:11px 14px;border-bottom:1px solid rgba(37,37,37,.6);vertical-align:middle;}
+.tbl td b{color:var(--txt);font-weight:400;}
+.tbl tr:hover td{background:rgba(255,255,255,.015);}
+.tag{display:inline-block;font-size:.48rem;letter-spacing:.12em;padding:2px 7px;border-radius:var(--r);font-family:'DM Mono',monospace;}
+.tag-hot{background:rgba(201,168,76,.12);border:1px solid var(--gold);color:var(--gold);}
+.tag-new{background:rgba(76,175,125,.1);border:1px solid var(--green);color:var(--green);}
+.bar-wrap{background:var(--s1);border-radius:2px;height:6px;width:90px;overflow:hidden;display:inline-block;vertical-align:middle;}
+.bar-fill{height:100%;background:var(--gold);border-radius:2px;}
+.cf{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:24px;max-width:660px;}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.cf-row.one{grid-template-columns:1fr;}
+.fg label{display:block;font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-bottom:3px;}
+.fg input,.fg select{width:100%;background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);color:var(--txt);font-family:'DM Mono',monospace;font-size:.72rem;padding:9px 11px;outline:none;transition:border-color .2s;}
+.fg input:focus,.fg select:focus{border-color:var(--gold);}
+.fg select option{background:var(--s2);}
+.gbtn{font-family:'Anton',sans-serif;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;padding:12px 22px;background:var(--gold);color:#080808;border:none;border-radius:var(--r);cursor:pointer;transition:background .15s;margin-top:6px;}
+.gbtn:hover{background:var(--gold2);}
+.gbtn.ghost{background:transparent;color:var(--dim);border:1px solid var(--bd);margin-left:8px;}
+.gbtn.ghost:hover{color:var(--txt);border-color:var(--bd2);}
+.status-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:.48rem;letter-spacing:.12em;padding:3px 8px;border-radius:var(--r);}
+.sb-sent{background:rgba(201,168,76,.1);border:1px solid var(--gold);color:var(--gold);}
+.sb-signed{background:rgba(76,175,125,.1);border:1px solid var(--green);color:var(--green);}
+.ab{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--low);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.ab:hover{color:var(--txt);border-color:var(--bd2);}
+.ab.sign{border-color:rgba(76,175,125,.4);color:var(--green);}
+.ab.del{border-color:rgba(224,85,85,.3);color:var(--red);}
+.empty-state{text-align:center;padding:50px;font-family:'DM Mono',monospace;font-size:.6rem;color:var(--low);letter-spacing:.1em;}
+.toast{position:fixed;bottom:16px;right:16px;background:var(--s2);border:1px solid var(--gold);color:var(--gold);padding:10px 15px;border-radius:var(--r);font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.08em;z-index:9999;transform:translateY(12px);opacity:0;transition:all .28s;pointer-events:none;}
+.toast.on{transform:translateY(0);opacity:1;}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-logo">NU<span>STAR</span> — MANAGER</div>
+  <div class="top-nav">
+    <button class="tn on" onclick="showPanel('analytics',this)">Analytics</button>
+    <button class="tn" onclick="showPanel('beats',this)">Beats</button>
+    <button class="tn" onclick="showPanel('contract',this)">Contract</button>
+    <button class="tn" onclick="showPanel('log',this)">Log</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ANALYTICS -->
+  <div class="panel on" id="panel-analytics">
+    <div class="sec-eye">// Overview</div>
+    <h2 class="sec-h">Analytics</h2>
+    <p class="sec-sub">Site activity, beat clicks, sales, and revenue.</p>
+    <div class="stats-grid" id="statsGrid"></div>
+    <div class="divider"></div>
+    <div class="sec-eye" style="margin-bottom:8px;">// Beat Performance</div>
+    <table class="tbl">
+      <thead><tr><th>Beat</th><th>Genre</th><th>Price</th><th>Clicks</th><th>Sales</th><th>Revenue</th><th>Popularity</th></tr></thead>
+      <tbody id="beatPerfBody"></tbody>
+    </table>
+    <div class="divider"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="ab" onclick="addFakeSale()">+ Simulate Sale (Test)</button>
+      <button class="ab del" onclick="resetAnalytics()">Reset All Data</button>
+    </div>
+  </div>
+
+  <!-- BEATS -->
+  <div class="panel" id="panel-beats">
+    <div class="sec-eye">// Catalog</div>
+    <h2 class="sec-h">Beat Catalog</h2>
+    <p class="sec-sub">Full catalog overview with pricing tiers and sales status.</p>
+    <div class="divider"></div>
+    <table class="tbl">
+      <thead><tr><th>Beat</th><th>BPM</th><th>Key</th><th>Genre</th><th>Basic</th><th>Premium</th><th>Exclusive</th><th>Tag</th><th>Sales</th></tr></thead>
+      <tbody id="beatCatalogBody"></tbody>
+    </table>
+  </div>
+
+  <!-- CONTRACT -->
+  <div class="panel" id="panel-contract">
+    <div class="sec-eye">// Legal</div>
+    <h2 class="sec-h">Contract Generator</h2>
+    <p class="sec-sub">Generate a ready-to-send PDF contract for any beat and license type.</p>
+    <div class="divider"></div>
+    <div class="cf">
+      <div class="cf-row">
+        <div class="fg"><label>Beat Title</label><input type="text" id="cf-beat" placeholder="e.g. ZENITH"></div>
+        <div class="fg"><label>License Type</label>
+          <select id="cf-license">
+            <option>Exclusive</option>
+            <option>Premium</option>
+            <option>Basic</option>
+          </select>
+        </div>
+      </div>
+      <div class="cf-row">
+        <div class="fg"><label>BPM</label><input type="text" id="cf-bpm" placeholder="140"></div>
+        <div class="fg"><label>Key</label><input type="text" id="cf-key" placeholder="F# MIN"></div>
+      </div>
+      <div class="cf-row">
+        <div class="fg"><label>Price ($)</label><input type="text" id="cf-price" placeholder="499"></div>
+        <div class="fg"><label>Date</label><input type="date" id="cf-date"></div>
+      </div>
+      <div class="divider" style="margin:14px 0;"></div>
+      <div class="cf-row">
+        <div class="fg"><label>Artist Legal Name</label><input type="text" id="cf-artist" placeholder="Full legal name"></div>
+        <div class="fg"><label>Artist Email</label><input type="email" id="cf-email" placeholder="artist@email.com"></div>
+      </div>
+      <div class="cf-row one">
+        <div class="fg"><label>Artist / Stage Name</label><input type="text" id="cf-stage" placeholder="Stage name"></div>
+      </div>
+      <button class="gbtn" onclick="generatePDF()">Generate & Download PDF</button>
+      <button class="gbtn ghost" onclick="saveLog()">Save to Log</button>
+    </div>
+  </div>
+
+  <!-- LOG -->
+  <div class="panel" id="panel-log">
+    <div class="sec-eye">// Records</div>
+    <h2 class="sec-h">Contract Log</h2>
+    <p class="sec-sub">Every contract generated. Track who signed what and when.</p>
+    <div class="divider"></div>
+    <div id="emptyLog" class="empty-state">No contracts logged yet. Generate one to get started.</div>
+    <table class="tbl" id="logTable" style="display:none;">
+      <thead><tr><th>Beat</th><th>Artist</th><th>License</th><th>Price</th><th>Date</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody id="logBody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="toast" id="toastEl"></div>
+
+<script>
+var BEATS=[
+  {id:1,name:"ZENITH",bpm:140,key:"TBD",genre:"Hip Hop",price:40,tag:"NEW"},
+  {id:2,name:"DARK MATTER",bpm:140,key:"F# MIN",genre:"Trap",price:99,tag:"HOT"},
+  {id:3,name:"COLD NIGHTS",bpm:72,key:"C MIN",genre:"R&B",price:79,tag:""},
+  {id:4,name:"CAT MODE",bpm:130,key:"C MAJ",genre:"Meme",price:29,tag:"NEW"},
+  {id:5,name:"GHOST WALK",bpm:138,key:"D MIN",genre:"Trap",price:79,tag:""},
+  {id:6,name:"TENDER",bpm:68,key:"Ab MAJ",genre:"R&B",price:99,tag:"EXCLUSIVE"},
+  {id:7,name:"REEL READY",bpm:128,key:"G MAJ",genre:"Meme",price:29,tag:"HOT"},
+  {id:8,name:"MIDNIGHT RUN",bpm:135,key:"E MIN",genre:"Trap",price:79,tag:"NEW"},
+  {id:9,name:"LAVISH",bpm:75,key:"F MAJ",genre:"R&B",price:79,tag:""},
+  {id:10,name:"VIRAL SZN",bpm:132,key:"A MAJ",genre:"Meme",price:29,tag:""}
+];
+
+function getSales(){return JSON.parse(localStorage.getItem('nustar_sales')||'{}');}
+function getLog(){return JSON.parse(localStorage.getItem('nustar_log')||'[]');}
+function getA(){return JSON.parse(localStorage.getItem('nustar_analytics')||'{}');}
+
+// SUPABASE
+var SB_URL="https://fmjnuyakdujordnhsvuk.supabase.co";
+var SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtam51eWFrZHVqb3JkbmhzdnVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyMDkyNTcsImV4cCI6MjA5MTc4NTI1N30.EtX-g8ZBi0Rga_v3kh6PceQQPALKFyViwUnvm0S8W6s";
+
+function sbFetch(){
+  return fetch(SB_URL+"/rest/v1/contracts?select=*&order=created_at.desc",{
+    headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY}
+  }).then(function(r){return r.json();});
+}
+
+function sbInsert(data){
+  return fetch(SB_URL+"/rest/v1/contracts",{
+    method:"POST",
+    headers:{"Content-Type":"application/json","apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Prefer":"return=minimal"},
+    body:JSON.stringify(data)
+  });
+}
+
+function sbUpdate(id,data){
+  return fetch(SB_URL+"/rest/v1/contracts?id=eq."+id,{
+    method:"PATCH",
+    headers:{"Content-Type":"application/json","apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY},
+    body:JSON.stringify(data)
+  });
+}
+
+function sbDelete(id){
+  return fetch(SB_URL+"/rest/v1/contracts?id=eq."+id,{
+    method:"DELETE",
+    headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY}
+  });
+}
+
+function showPanel(id,btn){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.tn').forEach(function(b){b.classList.remove('on');});
+  document.getElementById('panel-'+id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='analytics')renderAnalytics();
+  if(id==='beats')renderCatalog();
+  if(id==='log')renderLog();
+}
+
+function renderAnalytics(){
+  var s=getSales(),a=getA();
+  var totalSales=Object.values(s).reduce(function(acc,v){return acc+v;},0);
+  var totalRev=0;
+  BEATS.forEach(function(b){totalRev+=(s[b.id]||0)*b.price;});
+  var maxS=Math.max.apply(null,BEATS.map(function(b){return s[b.id]||0;}).concat([1]));
+  var h="";
+  BEATS.forEach(function(b){
+    var sold=s[b.id]||0,clk=(a["clicks_"+b.id])||0,rev=sold*b.price,pct=Math.round((sold/maxS)*100);
+    var tg=b.tag?"<span class=\"tag "+(b.tag==="HOT"?"tag-hot":"tag-new")+"\">"+b.tag+"</span>":"";
+    h+="<tr><td><b>"+b.name+"</b> "+tg+"</td><td>"+b.genre+"</td><td>$"+b.price+"</td>";
+    h+="<td>"+clk+"</td><td><b>"+sold+"</b></td><td style=\"color:var(--gold);\"><b>$"+rev+"</b></td>";
+    h+="<td><div class=\"bar-wrap\"><div class=\"bar-fill\" style=\"width:"+pct+"%\"></div></div></td></tr>";
+  });
+  document.getElementById("beatPerfBody").innerHTML=h;
+  sbFetch().then(function(rows){
+    var total=rows?rows.length:0;
+    var signed=rows?rows.filter(function(c){return c.status==="Signed";}).length:0;
+    document.getElementById("statsGrid").innerHTML=
+      "<div class=\"stat-card\"><div class=\"stat-label\">Page Views</div><div class=\"stat-val\">"+(a.pageViews||0)+"</div><div class=\"stat-change\">Tracked on visit</div></div>"+
+      "<div class=\"stat-card\"><div class=\"stat-label\">Beat Clicks</div><div class=\"stat-val\">"+(a.totalClicks||0)+"</div><div class=\"stat-change\">Buy button clicks</div></div>"+
+      "<div class=\"stat-card\"><div class=\"stat-label\">Total Sales</div><div class=\"stat-val green\">"+totalSales+"</div><div class=\"stat-change\">All beats</div></div>"+
+      "<div class=\"stat-card\"><div class=\"stat-label\">Revenue</div><div class=\"stat-val gold\">$"+totalRev+"</div><div class=\"stat-change\">Estimated</div></div>"+
+      "<div class=\"stat-card\"><div class=\"stat-label\">Contracts Sent</div><div class=\"stat-val\">"+total+"</div><div class=\"stat-change\">Live from database</div></div>"+
+      "<div class=\"stat-card\"><div class=\"stat-label\">Signed</div><div class=\"stat-val green\">"+signed+"</div><div class=\"stat-change\">Confirmed</div></div>";
+  }).catch(function(){
+    document.getElementById("statsGrid").innerHTML="<div class=\"stat-card\"><div class=\"stat-label\">Revenue</div><div class=\"stat-val gold\">$"+totalRev+"</div></div>";
+  });
+}
+
+function renderCatalog(){
+  var s=getSales();
+  var h='';
+  BEATS.forEach(function(b){
+    var sold=s[b.id]||0;
+    var tg=b.tag?'<span class="tag '+(b.tag==='HOT'?'tag-hot':'tag-new')+'">'+b.tag+'</span>':'<span style="color:var(--low);">—</span>';
+    h+='<tr><td><b>'+b.name+'</b></td><td>'+b.bpm+'</td><td>'+b.key+'</td><td>'+b.genre+'</td>';
+    h+='<td>$'+b.price+'</td><td style="color:var(--gold);">$'+(b.price<=29?49:99)+'</td>';
+    h+='<td style="color:var(--gold2);">$499</td><td>'+tg+'</td>';
+    h+='<td style="color:'+(sold>0?'var(--green)':'var(--low)')+';">'+(sold>0?sold+' sold':'—')+'</td></tr>';
+  });
+  document.getElementById('beatCatalogBody').innerHTML=h;
+}
+
+function renderLog(){
+  var empty=document.getElementById('emptyLog');
+  var table=document.getElementById('logTable');
+  var tbody=document.getElementById('logBody');
+  tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--low);font-family:\'DM Mono\',monospace;font-size:.6rem;padding:20px;">Loading...</td></tr>';
+  table.style.display='table';empty.style.display='none';
+
+  sbFetch().then(function(rows){
+    if(!rows||rows.length===0){
+      empty.style.display='block';table.style.display='none';return;
+    }
+    var h='';
+    rows.forEach(function(c){
+      var sc=c.status==='Signed'?'sb-signed':'sb-sent';
+      h+='<tr>';
+      h+='<td><b>'+(c.beat||'—')+'</b></td>';
+      h+='<td>'+(c.artist||'—')+(c.stage?'<br><span style="font-size:.52rem;color:var(--low);">'+c.stage+'</span>':'')+'</td>';
+      h+='<td>'+(c.license||'—')+'</td>';
+      h+='<td><b>$'+(c.price||'—')+'</b></td>';
+      h+='<td>'+(c.date||'—')+'</td>';
+      h+='<td><span class="status-badge '+sc+'">'+(c.status||'Sent')+'</span></td>';
+      h+='<td style="display:flex;gap:5px;">';
+      if(c.status!=='Signed')h+='<button class="ab sign" onclick="markSigned(\''+c.id+'\')">Mark Signed</button>';
+      h+='<button class="ab" onclick="regenPDF('+JSON.stringify(c).replace(/"/g,"&quot;")+')" >PDF</button>';
+      h+='<button class="ab del" onclick="delLog(\''+c.id+'\')">Delete</button>';
+      h+='</td></tr>';
+    });
+    tbody.innerHTML=h;
+  }).catch(function(){
+    tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--red);font-family:\'DM Mono\',monospace;font-size:.6rem;padding:20px;">Could not load contracts. Check connection.</td></tr>';
+  });
+}
+
+function getFormData(){
+  return {
+    beat:document.getElementById('cf-beat').value.trim(),
+    license:document.getElementById('cf-license').value,
+    bpm:document.getElementById('cf-bpm').value.trim(),
+    key:document.getElementById('cf-key').value.trim(),
+    price:document.getElementById('cf-price').value.trim(),
+    date:document.getElementById('cf-date').value,
+    artist:document.getElementById('cf-artist').value.trim(),
+    email:document.getElementById('cf-email').value.trim(),
+    stage:document.getElementById('cf-stage').value.trim()
+  };
+}
+
+function generatePDF(){
+  var d=getFormData();
+  if(!d.beat||!d.artist){doToast('Fill in beat title and artist name');return;}
+  buildPDF(d);
+  doToast('PDF downloaded');
+}
+
+function saveLog(){
+  var d=getFormData();
+  if(!d.beat||!d.artist){doToast('Fill in beat title and artist name');return;}
+  sbInsert({
+    beat:d.beat,license:d.license,artist:d.artist,
+    email:d.email,stage:d.stage,price:d.price,
+    date:d.date,status:'Sent'
+  }).then(function(res){
+    if(res.ok){doToast('Saved to Supabase log');}
+    else{doToast('Error saving — check connection');}
+  });
+}
+
+function markSigned(id){
+  sbUpdate(id,{status:'Signed'}).then(function(){
+    renderLog();doToast('Marked as signed');
+  });
+}
+
+function delLog(id){
+  sbDelete(id).then(function(){
+    renderLog();doToast('Deleted');
+  });
+}
+
+function regenPDF(c){
+  if(typeof c === 'string') c = JSON.parse(c);
+  buildPDF(c);
+}
+
+function buildPDF(d){
+  var {jsPDF}=window.jspdf;
+  var doc=new jsPDF({unit:'pt',format:'letter'});
+  var m=60,pw=doc.internal.pageSize.getWidth()-m*2,y=m;
+
+  function ln(t,o){
+    o=o||{};
+    doc.setFont('helvetica',o.bold?'bold':'normal');
+    doc.setFontSize(o.size||10);
+    doc.setTextColor(o.color||'#111111');
+    doc.splitTextToSize(t,o.w||pw).forEach(function(l){
+      if(y>730){doc.addPage();y=m;}
+      doc.text(l,o.x||m,y);y+=o.lh||15;
+    });
+    if(o.after)y+=o.after;
+  }
+
+  var today=d.date?new Date(d.date+'T00:00:00').toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}):new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  var license=d.license||'Exclusive';
+
+  ln('NUSTAR ENTERTAINMENT',{bold:true,size:18,after:4});
+  ln(license.toUpperCase()+' BEAT LICENSE AGREEMENT',{bold:true,size:13,after:8});
+  doc.setDrawColor('#cccccc');doc.line(m,y,m+pw,y);y+=16;
+
+  ln('This Beat License Agreement is entered into as of '+today+' between:',{after:8});
+  ln('Producer: NUSTAR ENTERTAINMENT',{bold:true,after:2});
+  ln('Nathan Jorge Rosario (Owner & Beat Maker) and Wyolkens Beaubrun (Manager & Co-Owner)',{after:8});
+  ln('Licensee: '+(d.artist||'')+(d.stage?' — Artist Name: '+d.stage:''),{bold:true,after:4});
+  if(d.email)ln('Email: '+d.email,{after:4});
+  y+=8;
+
+  ln('1. BEAT INFORMATION',{bold:true,size:11,after:6});
+  ln('Beat Title: '+(d.beat||'').toUpperCase(),{after:3});
+  if(d.bpm||d.key)ln('BPM: '+(d.bpm||'—')+'   Key: '+(d.key||'—'),{after:3});
+  ln('License Type: '+license,{after:3});
+  ln('Purchase Price: $'+(d.price||'499'),{after:3});
+  ln('Date: '+today,{after:14});
+
+  var rm={'Exclusive':['The exclusive right to use the beat for one (1) commercial recording.','Unlimited distribution across all platforms including Spotify, Apple Music, YouTube, and all digital stores.','Unlimited audio streams with no cap.','Unlimited music video use.','Radio broadcasting rights, unlimited.','Beat permanently removed from NUSTAR store after this agreement.','All files delivered: MP3 (tagged/untagged), WAV (untagged), full stem kit.'],'Premium':['Non-exclusive right for commercial recordings.','Up to 500,000 streams across all platforms.','One (1) music video permitted.','Radio broadcasting rights.','Beat remains for sale to other artists.','Files: MP3 + WAV untagged + stems.'],'Basic':['Non-exclusive right for non-profit and mixtape releases.','Up to 50,000 streams across all platforms.','One (1) music video permitted.','Beat remains for sale to other artists.','Files: MP3 (tagged).']};
+  var rights=rm[license]||rm['Exclusive'];
+
+  ln('2. RIGHTS GRANTED',{bold:true,size:11,after:6});
+  rights.forEach(function(r,i){ln((i+1)+'. '+r,{after:3});});y+=8;
+
+  ln('3. RIGHTS RETAINED BY PRODUCER',{bold:true,size:11,after:6});
+  ['Full composition copyright ownership of all melodies, chords, and arrangements.','Right to collect publishing royalties through BMI for radio, streaming, and performance.','Right to be credited as composer in all PRO registrations.','Producer does NOT transfer songwriting or publishing rights.'].forEach(function(r,i){ln((i+1)+'. '+r,{after:3});});y+=8;
+
+  ln('4. CREDIT REQUIREMENT',{bold:true,size:11,after:6});
+  ln('Licensee must credit "Prod. by Wacko Prophet" in all song metadata, streaming descriptions, YouTube descriptions, and release credits.',{after:14});
+
+  ln('5. BREACH OF AGREEMENT',{bold:true,size:11,after:6});
+  ln('In the event of a breach, NUSTAR ENTERTAINMENT reserves the right to issue a cease and desist, file a DMCA takedown, and pursue legal action seeking damages and legal fees.',{after:14});
+
+  ln('6. GENERAL TERMS',{bold:true,size:11,after:6});
+  ['Governed by the laws of the State of New Jersey.','Non-transferable. May not be sublicensed or sold to a third party.','All sales final. No refunds once files delivered.'].forEach(function(r,i){ln((i+1)+'. '+r,{after:3});});y+=8;
+
+  if(y>600){doc.addPage();y=m;}
+  ln('7. SIGNATURES',{bold:true,size:11,after:12});
+  ln('PRODUCER — NUSTAR ENTERTAINMENT',{bold:true,after:10});
+  ln('Signature: ___________________________________',{after:8});
+  ln('Printed Name: Nathan Jorge Rosario & Wyolkens Beaubrun',{after:8});
+  ln('On behalf of: NUSTAR ENTERTAINMENT',{after:8});
+  ln('Date: '+today,{after:22});
+  ln('LICENSEE — ARTIST',{bold:true,after:10});
+  ln('Signature: ___________________________________',{after:8});
+  ln('Printed Name: '+(d.artist||'___________________________________'),{after:8});
+  ln('Artist Name: '+(d.stage||'___________________________________'),{after:8});
+  ln('Date: ___________________________________',{after:20});
+
+  doc.setFontSize(8);doc.setTextColor('#888888');
+  doc.text('NUSTAR ENTERTAINMENT  •  All beats protected under copyright  •  New Jersey',m,760);
+  doc.save('NUSTAR_'+(d.beat||'Contract').replace(/\s+/g,'_')+'_'+(d.artist||'').replace(/\s+/g,'_')+'.pdf');
+}
+
+function addFakeSale(){
+  var s=getSales();
+  var rid=Math.ceil(Math.random()*10);
+  s[rid]=(s[rid]||0)+1;
+  localStorage.setItem('nustar_sales',JSON.stringify(s));
+  var a=getA();
+  a.totalClicks=(a.totalClicks||0)+1;
+  localStorage.setItem('nustar_analytics',JSON.stringify(a));
+  renderAnalytics();
+  doToast('Simulated sale for beat #'+rid);
+}
+
+function resetAnalytics(){
+  if(confirm('Reset all analytics and sales data?')){
+    localStorage.removeItem('nustar_analytics');
+    localStorage.removeItem('nustar_sales');
+    renderAnalytics();
+    doToast('Data reset');
+  }
+}
+
+var toastTimer;
+function doToast(msg){
+  var el=document.getElementById('toastEl');
+  el.textContent=msg;el.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){el.classList.remove('on');},3000);
+}
+
+document.getElementById('cf-date').value=new Date().toISOString().split('T')[0];
+renderAnalytics();
+</script>
+</body>
+</html>
