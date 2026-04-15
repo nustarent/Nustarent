@@ -188,13 +188,13 @@ var SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI
 function sbFetch(){
   return fetch(SB_URL+"/rest/v1/Contracts?select=*&order=created_at.desc",{
     headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json"}
-  }).then(function(r){
-    if(!r.ok) {
-      return fetch(SB_URL+"/rest/v1/contracts?select=*&order=created_at.desc",{
-        headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json"}
-      }).then(function(r2){ return r2.json(); });
-    }
-    return r.json();
+  }).then(function(r){ return r.json(); })
+  .then(function(data){
+    if(Array.isArray(data)) return data;
+    // If error, try lowercase
+    return fetch(SB_URL+"/rest/v1/contracts?select=*&order=created_at.desc",{
+      headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json"}
+    }).then(function(r2){ return r2.json(); });
   });
 }
 
@@ -247,8 +247,9 @@ function renderAnalytics(){
   });
   document.getElementById("beatPerfBody").innerHTML=h;
   sbFetch().then(function(rows){
-    var total=rows?rows.length:0;
-    var signed=rows?rows.filter(function(c){return c.status==="Signed";}).length:0;
+    var safeRows = Array.isArray(rows) ? rows : [];
+    var total=safeRows.length;
+    var signed=safeRows.filter(function(c){return c.status==="Signed";}).length;
     document.getElementById("statsGrid").innerHTML=
       "<div class=\"stat-card\"><div class=\"stat-label\">Page Views</div><div class=\"stat-val\">"+(a.pageViews||0)+"</div><div class=\"stat-change\">Tracked on visit</div></div>"+
       "<div class=\"stat-card\"><div class=\"stat-label\">Beat Clicks</div><div class=\"stat-val\">"+(a.totalClicks||0)+"</div><div class=\"stat-change\">Buy button clicks</div></div>"+
@@ -283,7 +284,7 @@ function renderLog(){
   table.style.display='table';empty.style.display='none';
 
   sbFetch().then(function(rows){
-    if(!rows||rows.length===0){
+    if(!rows || !Array.isArray(rows) || rows.length===0){
       empty.style.display='block';table.style.display='none';return;
     }
     var h='';
