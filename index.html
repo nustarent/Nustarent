@@ -134,7 +134,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .bmeta{display:flex;gap:12px;margin-bottom:11px;}
 .bm{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.12em;color:var(--dim);}
 .bm b{color:var(--txt);font-weight:400;}
-.bfoot{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--bd);}
+.bfoot{border-top:1px solid var(--bd);}
+.btiers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;padding:10px 15px 14px;}
+.btier{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.08em;text-transform:uppercase;padding:8px 4px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--dim);cursor:pointer;transition:all .15s;text-align:center;line-height:1.5;}
+.btier:hover{color:var(--txt);border-color:var(--bd2);}
+.btier.t-basic:hover{border-color:#4a9eff;color:#4a9eff;}
+.btier.t-prem{border-color:rgba(201,168,76,.35);color:var(--gold);}
+.btier.t-prem:hover{background:rgba(201,168,76,.08);border-color:var(--gold);}
+.btier.t-excl{background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.4);color:var(--gold2);}
+.btier.t-excl:hover{background:rgba(201,168,76,.14);}
 .bprice{font-family:'Anton',sans-serif;font-size:1.3rem;color:var(--gold);letter-spacing:.04em;line-height:1;}
 .bprice-sub{font-family:'DM Mono',monospace;font-size:.48rem;color:var(--low);letter-spacing:.14em;margin-top:1px;}
 .bacts{display:flex;gap:6px;}
@@ -478,15 +486,15 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
         <div class="sec-eye" style="margin-bottom:14px;">// LICENSE AGREEMENTS</div>
         <div class="ag-item">
           <button class="ag-btn" onclick="toggleAg('ag1')">Basic Lease Agreement <span class="ag-icon" id="ag1-icon">+</span></button>
-          <div class="ag-body" id="ag1">By purchasing this lease you agree to the following:<br><br>-- 1 MP3 file (producer tagged)<br>-- Up to 50,000 streams across all platforms<br>-- Non-profit and mixtape use only<br>-- 1 music video permitted<br>-- No commercial profit from release<br>-- Beat remains for sale to other artists<br>-- Producer credit required: Prod. by Wacko Prophet<br>-- License is non-transferable<br>-- NUSTAR retains full ownership of the beat<br>-- All sales final, no refunds<br>-- Violation may result in DMCA takedown and legal action</div>
+          <div class="ag-body" id="ag1">By purchasing this lease you agree to the following:<br><br>-- 1 MP3 file (producer tagged)<br>-- Up to 50,000 streams across all platforms<br>-- Non-profit and mixtape use only<br>-- 1 music video permitted<br>-- No commercial profit from release<br>-- Beat remains for sale to other artists<br>-- Producer credit required: Wacko Prophet<br>-- License is non-transferable<br>-- NUSTAR retains full ownership of the beat<br>-- All sales final, no refunds<br>-- Violation may result in DMCA takedown and legal action</div>
         </div>
         <div class="ag-item">
           <button class="ag-btn" onclick="toggleAg('ag2')">Premium Lease Agreement <span class="ag-icon" id="ag2-icon">+</span></button>
-          <div class="ag-body" id="ag2">By purchasing this lease you agree to the following:<br><br>-- MP3 + WAV untagged + stem files<br>-- Up to 500,000 streams across all platforms<br>-- Commercial profit releases allowed<br>-- 1 music video permitted<br>-- Radio broadcasting allowed<br>-- Beat remains for sale to other artists<br>-- Producer credit required: Prod. by Wacko Prophet<br>-- License is non-transferable<br>-- NUSTAR retains full ownership of the beat<br>-- All sales final, no refunds<br>-- Violation may result in DMCA takedown and legal action</div>
+          <div class="ag-body" id="ag2">By purchasing this lease you agree to the following:<br><br>-- MP3 + WAV untagged + stem files<br>-- Up to 500,000 streams across all platforms<br>-- Commercial profit releases allowed<br>-- 1 music video permitted<br>-- Radio broadcasting allowed<br>-- Beat remains for sale to other artists<br>-- Producer credit required: Wacko Prophet<br>-- License is non-transferable<br>-- NUSTAR retains full ownership of the beat<br>-- All sales final, no refunds<br>-- Violation may result in DMCA takedown and legal action</div>
         </div>
         <div class="ag-item">
           <button class="ag-btn" onclick="toggleAg('ag3')">Exclusive Agreement <span class="ag-icon" id="ag3-icon">+</span></button>
-          <div class="ag-body" id="ag3">By purchasing this exclusive you agree to the following:<br><br>-- All file formats + full stem kit<br>-- Unlimited streams and commercial use<br>-- Full commercial rights including sync licensing<br>-- Unlimited music videos<br>-- Radio broadcasting allowed<br>-- Beat permanently removed from store after purchase<br>-- Producer credit required: Prod. by Wacko Prophet<br>-- All rights transfer to licensee upon full payment<br>-- NUSTAR waives all future claims to the beat<br>-- License is non-transferable<br>-- Agreement is final and non-refundable</div>
+          <div class="ag-body" id="ag3">By purchasing this exclusive you agree to the following:<br><br>-- All file formats + full stem kit<br>-- Unlimited streams and commercial use<br>-- Full commercial rights including sync licensing<br>-- Unlimited music videos<br>-- Radio broadcasting allowed<br>-- Beat permanently removed from store after purchase<br>-- Producer credit required: Wacko Prophet<br>-- All rights transfer to licensee upon full payment<br>-- NUSTAR waives all future claims to the beat<br>-- License is non-transferable<br>-- Agreement is final and non-refundable</div>
         </div>
       </div>
     </div>
@@ -671,7 +679,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 
         <div class="faq-item reveal">
           <button class="faq-btn" onclick="toggleFaq('f2')">Can I use the beat on YouTube or streaming platforms? <span class="faq-icon" id="f2-icon">+</span></button>
-          <div class="faq-body" id="f2">Yes. Basic lease covers non-profit and mixtape use up to 50,000 streams. Premium lease covers commercial releases up to 500,000 streams across all platforms including Spotify, Apple Music, YouTube, and more. Exclusive gives you unlimited rights across everything. Just make sure to credit Prod. by Wacko Prophet in your release.</div>
+          <div class="faq-body" id="f2">Yes. Basic lease covers non-profit and mixtape use up to 50,000 streams. Premium lease covers commercial releases up to 500,000 streams across all platforms including Spotify, Apple Music, YouTube, and more. Exclusive gives you unlimited rights across everything. Just make sure to credit Wacko Prophet in your release.</div>
         </div>
 
         <div class="faq-item reveal">
@@ -696,7 +704,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 
         <div class="faq-item reveal">
           <button class="faq-btn" onclick="toggleFaq('f7')">What does the producer tag sound like and can I remove it? <span class="faq-icon" id="f7-icon">+</span></button>
-          <div class="faq-body" id="f7">The Basic lease comes with a producer tag that plays at the start of the beat — it says Prod. by Wacko Prophet. If you want the clean untagged version you need the Premium or Exclusive license. The tag is there to protect ownership on leased files.</div>
+          <div class="faq-body" id="f7">The Basic lease comes with a producer tag that plays at the start of the beat — it says Wacko Prophet. If you want the clean untagged version you need the Premium or Exclusive license. The tag is there to protect ownership on leased files.</div>
         </div>
 
       </div>
@@ -742,6 +750,39 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
   <div class="ftxt" style="text-align:right;"><strong>Wacko Prophet</strong><br><span id="footer-email"></span></div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- EXCLUSIVE CONTRACT MODAL -->
+<div id="exclModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9900;overflow-y:auto;padding:40px 16px;">
+  <div style="max-width:580px;margin:0 auto;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:32px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;margin-bottom:4px;">// Exclusive License</div>
+        <div style="font-family:'Anton',sans-serif;font-size:1.5rem;letter-spacing:.06em;text-transform:uppercase;" id="modalBeatName">BEAT NAME</div>
+      </div>
+      <button onclick="closeExclModal()" style="background:none;border:none;color:var(--low);font-size:1.2rem;cursor:pointer;">&#10005;</button>
+    </div>
+
+    <div style="background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:20px;">
+      <div style="font-family:'DM Mono',monospace;font-size:.58rem;color:var(--dim);line-height:1.8;">
+        <span style="color:var(--gold);">$499</span> — Full ownership. Beat off the market. Unlimited streams, all files + stems, full commercial rights.
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+      <div class="fg"><label style="display:block;font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-bottom:4px;">Your Legal Name</label><input type="text" id="ex-artist" placeholder="Full legal name" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);color:var(--txt);font-family:'DM Mono',monospace;font-size:.72rem;padding:10px 12px;outline:none;"></div>
+      <div class="fg"><label style="display:block;font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-bottom:4px;">Your Email</label><input type="email" id="ex-email" placeholder="your@email.com" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);color:var(--txt);font-family:'DM Mono',monospace;font-size:.72rem;padding:10px 12px;outline:none;"></div>
+    </div>
+    <div style="margin-bottom:20px;">
+      <label style="display:block;font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-bottom:4px;">Artist / Stage Name</label>
+      <input type="text" id="ex-stage" placeholder="Your artist name or page" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);color:var(--txt);font-family:'DM Mono',monospace;font-size:.72rem;padding:10px 12px;outline:none;">
+    </div>
+
+    <button onclick="generateExclContract()" style="width:100%;font-family:'Anton',sans-serif;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;padding:14px;background:var(--gold);color:#080808;border:none;border-radius:var(--r);cursor:pointer;">Generate Contract & Download PDF</button>
+    <p style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);text-align:center;margin-top:12px;line-height:1.7;">Contract will download as a PDF. Email the signed copy to <span id="modal-email"></span></p>
+  </div>
+</div>
+
 <div class="splayer" id="splayer">
   <button class="spp" onclick="togglePlay()">
     <div id="sppIcon"><div class="ptri"></div></div>
@@ -771,6 +812,23 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 <script>
 // Email built in JS so Cloudflare cannot detect or scramble it
 var EM = "wackoprophet4" + "@" + "gmail" + "." + "com";
+
+// SUPABASE CONFIG
+var SB_URL = "https://fmjnuyakdujordnhsvuk.supabase.co";
+var SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtam51eWFrZHVqb3JkbmhzdnVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyMDkyNTcsImV4cCI6MjA5MTc4NTI1N30.EtX-g8ZBi0Rga_v3kh6PceQQPALKFyViwUnvm0S8W6s";
+
+function sbInsert(data) {
+  return fetch(SB_URL + "/rest/v1/Contracts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "apikey": SB_KEY,
+      "Authorization": "Bearer " + SB_KEY,
+      "Prefer": "return=minimal"
+    },
+    body: JSON.stringify(data)
+  });
+}
 
 // Set email in all places
 document.getElementById("footer-email").textContent = EM;
@@ -859,6 +917,160 @@ function buyBeat(id) {
   render();
 }
 
+function buyTier(id, tier) {
+  var b = null;
+  for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === id) { b = BEATS[i]; break; } }
+  if (!b) return;
+  if (tier === 'exclusive') {
+    openExclModal(b);
+    return;
+  }
+  sales[id] = (sales[id] || 0) + 1;
+  saveSales();
+  for (var x = 0; x < BEATS.length; x++) {
+    if (BEATS[x].id === id && BEATS[x].tag !== "EXCLUSIVE" && sales[id] >= 3) { BEATS[x].tag = "HOT"; }
+  }
+  if (LINKS[id]) {
+    window.open(LINKS[id], "_blank");
+  } else {
+    doToast("Email us: " + EM + " for " + b.name + " — " + tier.charAt(0).toUpperCase() + tier.slice(1));
+  }
+  render();
+}
+
+var currentExclBeat = null;
+
+function openExclModal(beat) {
+  currentExclBeat = beat;
+  document.getElementById("exclModal").style.display = "block";
+  document.getElementById("modalBeatName").textContent = beat.name;
+  document.getElementById("modal-email").textContent = EM;
+  document.body.style.overflow = "hidden";
+}
+
+function closeExclModal() {
+  document.getElementById("exclModal").style.display = "none";
+  document.body.style.overflow = "";
+}
+
+function generateExclContract() {
+  var artist = document.getElementById("ex-artist").value.trim();
+  var email = document.getElementById("ex-email").value.trim();
+  var stage = document.getElementById("ex-stage").value.trim();
+  if (!artist) { doToast("Enter your legal name to continue"); return; }
+  if (!currentExclBeat) return;
+
+  var b = currentExclBeat;
+  var today = new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+
+  var { jsPDF } = window.jspdf;
+  var doc = new jsPDF({ unit: 'pt', format: 'letter' });
+  var margin = 60;
+  var pw = doc.internal.pageSize.getWidth() - margin * 2;
+  var y = margin;
+
+  function ln(text, opts) {
+    opts = opts || {};
+    doc.setFont('helvetica', opts.bold ? 'bold' : 'normal');
+    doc.setFontSize(opts.size || 10);
+    doc.setTextColor(opts.color || '#111111');
+    var lines = doc.splitTextToSize(text, opts.width || pw);
+    lines.forEach(function(line) {
+      if (y > 730) { doc.addPage(); y = margin; }
+      doc.text(line, opts.x || margin, y);
+      y += opts.lh || 15;
+    });
+    if (opts.after) y += opts.after;
+  }
+
+  // Header
+  ln('NUSTAR ENTERTAINMENT', {bold:true, size:18, after:4});
+  ln('EXCLUSIVE BEAT LICENSE AGREEMENT', {bold:true, size:13, after:8});
+  doc.setDrawColor('#cccccc'); doc.line(margin, y, margin+pw, y); y += 16;
+
+  ln('This Exclusive Beat License Agreement is entered into as of ' + today + ' between:', {after:8});
+  ln('Producer: NUSTAR ENTERTAINMENT', {bold:true, after:2});
+  ln('Nathan Jorge Rosario (Owner & Beat Maker) and Wyolkens Beaubrun (Manager & Co-Owner)', {after:8});
+  ln('Licensee: ' + artist + (stage ? ' — Artist Name: ' + stage : ''), {bold:true, after:4});
+  if (email) ln('Email: ' + email, {after:4});
+  y += 8;
+
+  ln('1. BEAT INFORMATION', {bold:true, size:11, after:6});
+  ln('Beat Title: ' + b.name, {after:3});
+  ln('BPM: ' + b.bpm + '   Key: ' + b.key, {after:3});
+  ln('License Type: Exclusive', {after:3});
+  ln('Purchase Price: $499', {after:3});
+  ln('Date: ' + today, {after:14});
+
+  ln('2. RIGHTS GRANTED TO LICENSEE', {bold:true, size:11, after:6});
+  var rights = [
+    'The exclusive right to use the beat for one (1) commercial recording.',
+    'Unlimited distribution across all platforms including Spotify, Apple Music, YouTube, and all digital stores.',
+    'Unlimited audio streams with no cap.',
+    'Unlimited music video use.',
+    'Radio broadcasting rights, unlimited.',
+    'Beat permanently removed from the NUSTAR store after the date of this agreement.',
+    'All audio files delivered: MP3 (tagged and untagged), WAV (untagged), and full stem/trackout kit.'
+  ];
+  rights.forEach(function(r,i){ ln((i+1)+'. '+r, {after:3}); });
+  y += 8;
+
+  ln('3. RIGHTS RETAINED BY PRODUCER', {bold:true, size:11, after:6});
+  ln('1. Full composition copyright ownership including all melodies, chords, and arrangements.', {after:3});
+  ln('2. Right to collect publishing royalties through BMI for radio, streaming, and performance.', {after:3});
+  ln('3. Right to be credited as composer in all PRO registrations.', {after:3});
+  ln('4. Producer does NOT transfer songwriting or publishing rights. Licensee acquires master use rights only.', {after:14});
+
+  ln('4. CREDIT REQUIREMENT', {bold:true, size:11, after:6});
+  ln('Licensee must credit "Prod. by Wacko Prophet" in all song metadata, streaming descriptions, YouTube descriptions, and release credits. Failure constitutes breach of this agreement.', {after:14});
+
+  ln('5. BREACH OF AGREEMENT', {bold:true, size:11, after:6});
+  ln('In the event of a breach, NUSTAR ENTERTAINMENT reserves the right to issue a cease and desist, file a DMCA takedown removing content from all platforms within 24-48 hours, and pursue legal action seeking damages and legal fees.', {after:14});
+
+  ln('6. GENERAL TERMS', {bold:true, size:11, after:6});
+  ln('1. Governed by the laws of the State of New Jersey.', {after:3});
+  ln('2. Non-transferable. May not be sublicensed or sold to a third party.', {after:3});
+  ln('3. All sales final. No refunds once files delivered.', {after:14});
+
+  if (y > 580) { doc.addPage(); y = margin; }
+  ln('7. SIGNATURES', {bold:true, size:11, after:12});
+
+  ln('PRODUCER — NUSTAR ENTERTAINMENT', {bold:true, after:10});
+  ln('Signature: ___________________________________', {after:8});
+  ln('Printed Name: Nathan Jorge Rosario & Wyolkens Beaubrun', {after:8});
+  ln('On behalf of: NUSTAR ENTERTAINMENT', {after:8});
+  ln('Date: ' + today, {after:22});
+
+  ln('LICENSEE — ARTIST', {bold:true, after:10});
+  ln('Signature: ___________________________________', {after:8});
+  ln('Printed Name: ' + artist, {after:8});
+  ln('Artist Name: ' + (stage || '___________________________________'), {after:8});
+  ln('Date: ___________________________________', {after:20});
+
+  doc.setFontSize(8); doc.setTextColor('#888888');
+  doc.text('NUSTAR ENTERTAINMENT  •  All beats protected under copyright  •  New Jersey', margin, 760);
+
+  doc.save('NUSTAR_Exclusive_' + b.name.replace(/\s+/g,'_') + '.pdf');
+
+  closeExclModal();
+  doToast('Contract downloaded — email signed copy to ' + EM);
+
+  // Save to Supabase
+  sbInsert({
+    beat: b.name,
+    license: "Exclusive",
+    artist: artist,
+    email: email,
+    stage: stage,
+    price: "499",
+    date: new Date().toISOString().split('T')[0],
+    status: "Sent"
+  }).then(function(res) {
+    if (res.ok) { console.log('Contract logged to Supabase'); }
+    else { console.log('Supabase error', res.status); }
+  }).catch(function(e) { console.log('Supabase error', e); });
+}
+
 function doFilter(g, btn) {
   cf = g;
   var tabs = document.querySelectorAll(".ft");
@@ -893,9 +1105,14 @@ function render() {
     h += '<div class="wv">' + bars + '</div></div>';
     h += '<div class="binfo"><div class="bname">' + b.name + '</div>';
     h += '<div class="bmeta"><div class="bm">BPM <b>' + b.bpm + '</b></div><div class="bm">KEY <b>' + b.key + '</b></div><div class="bm">TYPE <b>' + b.genre.toUpperCase() + '</b></div></div>';
-    h += '<div class="bfoot"><div><div class="bprice">$' + b.price + '</div><div class="bprice-sub">LEASE FROM</div></div>';
-    h += '<div class="bacts"><button class="bfav' + fc + '" onclick="doLike(' + b.id + ')">&#9825;</button>';
-    h += '<button class="bbuy" onclick="buyBeat(' + b.id + ')">Buy</button></div></div></div></div>';
+    h += '<div class="bfoot">';
+    h += '<div class="btiers">';
+    h += '<button class="btier t-basic" onclick="buyTier(' + b.id + ',\'basic\')">$' + b.price + '<br>Basic</button>';
+    h += '<button class="btier t-prem" onclick="buyTier(' + b.id + ',\'premium\')">$' + (b.price <= 29 ? 49 : 99) + '<br>Premium</button>';
+    h += '<button class="btier t-excl" onclick="buyTier(' + b.id + ',\'exclusive\')">$499<br>Exclusive</button>';
+    h += '</div>';
+    h += '<div class="bacts" style="padding:0 15px 14px;"><button class="bfav' + fc + '" onclick="doLike(' + b.id + ')">&#9825;</button></div>';
+    h += '</div></div></div>';
   }
   document.getElementById("grid").innerHTML = h;
 }
