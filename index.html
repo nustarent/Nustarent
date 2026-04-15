@@ -365,7 +365,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 <div id="beats" style="border-top:1px solid var(--bd);">
   <div class="wrap">
     <div class="sec">
-      <div class="beats-head reveal">
+      <div class="beats-head">
         <div>
           <div class="sec-eye">// CATALOG</div>
           <h2 class="sec-h">Browse Beats</h2>
@@ -379,7 +379,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
         </div>
       </div>
       <div class="meme-bio" id="meme-bio">&#128514; You like ass? Then this the beat for you. Insta reel worthy, TikTok worthy shi. Pure vibes.</div>
-      <div class="bgrid reveal" id="grid"></div>
+      <div class="bgrid" id="grid"></div>
     </div>
   </div>
 </div>
@@ -432,7 +432,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
       <div class="sec-eye reveal">// LICENSING</div>
       <h2 class="sec-h">License Tiers</h2>
       <p class="sec-sub">Pick what fits your project. Upgrade anytime.</p>
-      <div class="lgrid reveal">
+      <div class="lgrid">
         <div class="lcard basic reveal-left">
           <div class="lbadge">Lease</div>
           <div class="lname">Basic</div>
@@ -482,7 +482,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
           <button class="btn btn-line" style="width:100%;justify-content:center;border-color:var(--gold);color:var(--gold);" id="lic3btn">Inquire</button>
         </div>
       </div>
-      <div class="ag-wrap reveal">
+      <div class="ag-wrap">
         <div class="sec-eye" style="margin-bottom:14px;">// LICENSE AGREEMENTS</div>
         <div class="ag-item">
           <button class="ag-btn" onclick="toggleAg('ag1')">Basic Lease Agreement <span class="ag-icon" id="ag1-icon">+</span></button>
@@ -792,7 +792,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 
 <div class="splayer" id="splayer">
   <button class="spp" onclick="togglePlay()">
-    <div id="sppIcon"><span class="ptri"><div id="sppIcon"><div class="ptri"></div></div>#9654;</span></div>
+    <div id="sppIcon"><span class="ptri">&#9654;</span></div>
   </button>
   <div class="spinfo">
     <div class="spname" id="spName">--</div>
@@ -1270,7 +1270,7 @@ function render() {
     var pc = (curBeat === b.id) ? " act" : "";
     var th = b.tag ? ('<div class="btag' + (b.tag === "EXCLUSIVE" ? " excl" : "") + '">' + b.tag + "</div>") : "";
     var fc = liked[b.id] ? " on" : "";
-    var ic = (curBeat === b.id && isPlay) ? '<div class="pico-pause"><div class="pbar"></div><div class="pbar"></div></div>' : '<span class="ptri">'<div class="ptri"></div>'#9654;</span>';
+    var ic = (curBeat === b.id && isPlay) ? '<div class="pico-pause"><div class="pbar"></div><div class="pbar"></div></div>' : '<span class="ptri">&#9654;</span>';
     h += '<div class="bcard' + pc + '">';
     h += '<div class="bcov"><div class="bcov-art">';
     h += '<div class="bcov-bg" style="background:linear-gradient(150deg,' + b.c1 + ',' + b.c2 + ');"></div>';
@@ -1443,7 +1443,7 @@ function doSeek(e) {
 function updIcon() {
   document.getElementById("sppIcon").innerHTML = isPlay
     ? '<div class="pico-pause"><div class="pbar"></div><div class="pbar"></div></div>'
-    : '<span class="ptri">'<div class="ptri"></div>'#9654;</span>';
+    : '<span class="ptri">&#9654;</span>';
 }
 
 function doLike(id) { liked[id] = !liked[id]; render(); }
