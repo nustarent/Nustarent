@@ -184,22 +184,35 @@ function getA(){return JSON.parse(localStorage.getItem('nustar_analytics')||'{}'
 // SUPABASE
 var SB_URL="https://fmjnuyakdujordnhsvuk.supabase.co";
 var SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZtam51eWFrZHVqb3JkbmhzdnVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyMDkyNTcsImV4cCI6MjA5MTc4NTI1N30.EtX-g8ZBi0Rga_v3kh6PceQQPALKFyViwUnvm0S8W6s";
+var TABLE="Contracts";
 
 function sbFetch(){
-  return fetch(SB_URL+"/rest/v1/Contracts?select=*&order=created_at.desc",{
-    headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json"}
-  }).then(function(r){ return r.json(); })
-  .then(function(data){
-    if(Array.isArray(data)) return data;
-    // If error, try lowercase
-    return fetch(SB_URL+"/rest/v1/contracts?select=*&order=created_at.desc",{
-      headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json"}
-    }).then(function(r2){ return r2.json(); });
+  return fetch(SB_URL+"/rest/v1/"+TABLE+"?select=*&order=created_at.desc",{
+    headers:{
+      "apikey":SB_KEY,
+      "Authorization":"Bearer "+SB_KEY,
+      "Content-Type":"application/json",
+      "Accept":"application/json"
+    }
+  }).then(function(r){
+    console.log("Supabase status:", r.status);
+    return r.text();
+  }).then(function(text){
+    console.log("Supabase raw response:", text.substring(0,200));
+    try {
+      var data = JSON.parse(text);
+      if(Array.isArray(data)) return data;
+      console.log("Not an array:", data);
+      return [];
+    } catch(e) {
+      console.log("JSON parse error:", e);
+      return [];
+    }
   });
 }
 
 function sbInsert(data){
-  return fetch(SB_URL+"/rest/v1/Contracts",{
+  return fetch(SB_URL+"/rest/v1/"+TABLE,{
     method:"POST",
     headers:{"Content-Type":"application/json","apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Prefer":"return=minimal"},
     body:JSON.stringify(data)
@@ -207,7 +220,7 @@ function sbInsert(data){
 }
 
 function sbUpdate(id,data){
-  return fetch(SB_URL+"/rest/v1/Contracts?id=eq."+id,{
+  return fetch(SB_URL+"/rest/v1/"+TABLE+"?id=eq."+id,{
     method:"PATCH",
     headers:{"Content-Type":"application/json","apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY},
     body:JSON.stringify(data)
@@ -215,7 +228,7 @@ function sbUpdate(id,data){
 }
 
 function sbDelete(id){
-  return fetch(SB_URL+"/rest/v1/Contracts?id=eq."+id,{
+  return fetch(SB_URL+"/rest/v1/"+TABLE+"?id=eq."+id,{
     method:"DELETE",
     headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY}
   });
