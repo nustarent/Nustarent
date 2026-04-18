@@ -210,21 +210,29 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
 .ftxt{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.13em;color:var(--low);line-height:1.8;}
 .ftxt strong{color:var(--dim);}
-.splayer{position:fixed;bottom:0;left:0;right:0;height:62px;background:rgba(10,10,10,.97);border-top:1px solid var(--bd);backdrop-filter:blur(20px);z-index:400;display:none;align-items:center;gap:16px;padding:0 22px;}
+.splayer{position:fixed;bottom:0;left:0;right:0;height:72px;background:rgba(8,8,8,.98);border-top:1px solid var(--bd);backdrop-filter:blur(24px);z-index:400;display:none;align-items:center;padding:0 20px;gap:20px;}
 .splayer.on{display:flex;}
-.spp{width:34px;height:34px;border-radius:50%;background:var(--gold);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;}
-.spp:hover{background:var(--gold2);}
-.spinfo{flex:0 0 auto;min-width:110px;}
-.spname{font-family:'Anton',sans-serif;font-size:.84rem;letter-spacing:.08em;text-transform:uppercase;line-height:1;}
-.spmeta{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.1em;color:var(--dim);}
-.spbar{flex:1;display:flex;align-items:center;gap:10px;}
-.sptime{font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);white-space:nowrap;flex-shrink:0;}
-.sptrack{flex:1;height:2px;background:var(--s1);border-radius:2px;cursor:pointer;}
-.spfill{height:100%;background:var(--gold);border-radius:2px;transition:width .1s linear;}
-.spbuy{font-family:'Anton',sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;background:var(--gold);color:#080808;border:none;border-radius:var(--r);cursor:pointer;flex-shrink:0;transition:background .15s;}
-.spbuy:hover{background:var(--gold2);}
-.spx{background:none;border:none;color:var(--low);cursor:pointer;font-size:.9rem;flex-shrink:0;padding:4px;transition:color .15s;}
-.spx:hover{color:var(--txt);}
+.sp-left{display:flex;align-items:center;gap:12px;flex:0 0 220px;min-width:0;}
+.sp-art{width:46px;height:46px;border-radius:3px;background:var(--s2);border:1px solid var(--bd);flex-shrink:0;overflow:hidden;}
+.sp-info{min-width:0;}
+.sp-name{font-family:'Anton',sans-serif;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sp-meta{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.12em;color:var(--dim);margin-top:3px;}
+.sp-center{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.sp-controls{display:flex;align-items:center;gap:12px;}
+.sp-btn{background:none;border:none;cursor:pointer;color:var(--low);transition:color .15s;padding:4px;font-size:.7rem;display:flex;align-items:center;justify-content:center;}
+.sp-btn:hover{color:var(--txt);}
+.sp-play{width:36px;height:36px;border-radius:50%!important;background:var(--gold)!important;color:#080808!important;font-size:.75rem;}
+.sp-play:hover{background:var(--gold2)!important;}
+.sp-wave-wrap{width:100%;display:flex;align-items:center;gap:8px;}
+.sp-time{font-family:'DM Mono',monospace;font-size:.5rem;color:var(--low);white-space:nowrap;flex-shrink:0;min-width:28px;}
+.sp-waveform{flex:1;height:32px;position:relative;cursor:pointer;overflow:hidden;}
+#spCanvas{position:absolute;inset:0;width:100%;height:100%;}
+.sp-progress{position:absolute;top:0;left:0;height:100%;background:rgba(201,168,76,.15);pointer-events:none;transition:width .1s linear;}
+.sp-right{display:flex;align-items:center;gap:10px;flex:0 0 auto;}
+.sp-buy{font-family:'Anton',sans-serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;padding:9px 16px;background:var(--gold);color:#080808;border:none;border-radius:var(--r);cursor:pointer;transition:background .15s;white-space:nowrap;}
+.sp-buy:hover{background:var(--gold2);}
+.sp-close{background:none;border:none;color:var(--low);cursor:pointer;font-size:.85rem;padding:6px;transition:color .15s;}
+.sp-close:hover{color:var(--txt);}
 .toast{position:fixed;bottom:74px;right:16px;background:var(--s2);border:1px solid var(--gold);color:var(--gold);padding:10px 15px;border-radius:var(--r);font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;z-index:9998;transform:translateY(12px);opacity:0;transition:all .28s;pointer-events:none;max-width:260px;}
 .toast.on{transform:translateY(0);opacity:1;}
 @media(max-width:768px){
@@ -247,9 +255,9 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
   .about-grid{grid-template-columns:1fr;gap:32px;}
   .frow{grid-template-columns:1fr;}
   footer{padding:22px 18px;flex-direction:column;align-items:flex-start;}
-  .splayer{padding:0 12px;gap:10px;height:72px;}
-  .spinfo{min-width:90px;}
-  .spbar{display:none;}
+  .splayer{padding:0 10px;gap:8px;height:68px;}
+  .sp-left{flex:0 0 140px;}
+  .sp-wave-wrap{display:none;}
   .bgrid{grid-template-columns:1fr;}
   .beats-head{flex-direction:column;align-items:flex-start;}
   .ftabs{gap:6px;}
@@ -273,7 +281,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
   .sec-h{font-size:2rem;}
   .lgrid{grid-template-columns:1fr;}
   .pgrid{grid-template-columns:1fr;}
-  .splayer .spbuy{font-size:.65rem;padding:7px 10px;}
+  .sp-buy{font-size:.6rem;padding:7px 10px;}
 }
 @keyframes lbIn{from{opacity:0;transform:scale(.92);}to{opacity:1;transform:scale(1);}}
 
@@ -819,20 +827,37 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 </div>
 
 <div class="splayer" id="splayer">
-  <button class="spp" onclick="togglePlay()">
-    <div id="sppIcon"><span class="ptri">&#9654;</span></div>
-  </button>
-  <div class="spinfo">
-    <div class="spname" id="spName">--</div>
-    <div class="spmeta" id="spMeta">--</div>
+  <!-- Left: artwork + info -->
+  <div class="sp-left">
+    <div class="sp-art" id="spArt"></div>
+    <div class="sp-info">
+      <div class="sp-name" id="spName">--</div>
+      <div class="sp-meta" id="spMeta">-- BPM</div>
+    </div>
   </div>
-  <div class="spbar">
-    <div class="sptime" id="spTime">0:00</div>
-    <div class="sptrack" onclick="doSeek(event)"><div class="spfill" id="spFill" style="width:0%"></div></div>
-    <div class="sptime">2:30</div>
+  <!-- Center: controls + waveform -->
+  <div class="sp-center">
+    <div class="sp-controls">
+      <button class="sp-btn sp-prev" onclick="prevBeat()" title="Previous">&#9664;&#9664;</button>
+      <button class="sp-btn sp-play" onclick="togglePlay()" id="spPlayBtn">
+        <span class="ptri">&#9654;</span>
+      </button>
+      <button class="sp-btn sp-next" onclick="nextBeat()" title="Next">&#9654;&#9654;</button>
+    </div>
+    <div class="sp-wave-wrap">
+      <div class="sp-time" id="spTime">0:00</div>
+      <div class="sp-waveform" id="spWaveform" onclick="doSeek(event)">
+        <canvas id="spCanvas"></canvas>
+        <div class="sp-progress" id="spProgress" style="width:0%"></div>
+      </div>
+      <div class="sp-time" id="spDur">0:00</div>
+    </div>
   </div>
-  <button class="spbuy" id="spBuyBtn">Buy Beat</button>
-  <button class="spx" onclick="closePlayer()">&#10005;</button>
+  <!-- Right: buy + close -->
+  <div class="sp-right">
+    <button class="sp-buy" id="spBuyBtn">BUY BEAT</button>
+    <button class="sp-close" onclick="closePlayer()">&#10005;</button>
+  </div>
 </div>
 
 <!-- LIGHTBOX -->
@@ -944,10 +969,7 @@ var BEATS = [
 var LINKS = {1: "https://nustarent.gumroad.com/l/ltjtrh"};
 var liked = {};
 var sales = {};
-var curBeat = null;
-var isPlay = false;
-var prog = 0;
-var tk = null;
+// player state defined below
 var cf = "all";
 
 try { var sv = localStorage.getItem("nustar_sales"); if (sv) { sales = JSON.parse(sv); } } catch(e) {}
@@ -1322,142 +1344,214 @@ function render() {
 }
 
 // SoundCloud Widget
-var scWidget = null;
-var scReady = false;
-// Preload SC widget on page load
-var scIframe = document.createElement('iframe');
-scIframe.id = 'sc-player';
-scIframe.style.cssText = 'display:none;position:fixed;bottom:-999px;left:-999px;width:1px;height:1px;';
-scIframe.allow = 'autoplay';
-scIframe.src = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2303258327&auto_play=false&buying=false&download=false&sharing=false&show_artwork=false&show_comments=false&show_user=false&show_reposts=false';
-document.body.appendChild(scIframe);
-
-var scScript = document.createElement('script');
-scScript.src = 'https://w.soundcloud.com/player/api.js';
-scScript.onload = function() {
-  scWidget = window.SC.Widget(scIframe);
-  scWidget.bind(window.SC.Widget.Events.READY, function() {
-    scReady = true;
-    scWidget.bind(window.SC.Widget.Events.PLAY_PROGRESS, function(e) {
-      if (e.duration > 0) {
-        prog = (e.currentPosition / e.duration) * 100;
-        var fill = document.getElementById("spFill");
-        var time = document.getElementById("spTime");
-        if (fill) fill.style.width = prog + "%";
-        if (time) {
-          var secs = Math.floor(e.currentPosition / 1000);
-          var m = Math.floor(secs / 60);
-          var s = secs % 60;
-          time.textContent = m + ":" + (s < 10 ? "0" : "") + s;
-        }
-      }
-    });
-    scWidget.bind(window.SC.Widget.Events.FINISH, function() {
-      isPlay = false; prog = 0; updIcon(); render();
-    });
-  });
-};
-document.head.appendChild(scScript);
-
-// Fallback audio for non-SC beats
+// ── BEATSTARS-STYLE PLAYER ────────────────────────────────
+var curBeat = null, isPlay = false, prog = 0, blobUrl = null;
 var audioEl = new Audio();
-audioEl.crossOrigin = "anonymous";
+var waveData = null;
+
+// Generate fake waveform bars for visual
+function genWave(n) {
+  var bars = [];
+  for (var i = 0; i < n; i++) {
+    var h = 0.15 + Math.random() * 0.85;
+    // Make it look like a real waveform — louder in middle
+    var pos = i / n;
+    var env = Math.sin(pos * Math.PI) * 0.5 + 0.5;
+    bars.push(Math.max(0.08, h * env));
+  }
+  return bars;
+}
+
+// Draw waveform on canvas
+function drawWave(pct) {
+  var canvas = document.getElementById('spCanvas');
+  if (!canvas || !waveData) return;
+  var ctx = canvas.getContext('2d');
+  var w = canvas.width = canvas.offsetWidth;
+  var h = canvas.height = canvas.offsetHeight;
+  ctx.clearRect(0, 0, w, h);
+  var barW = w / waveData.length;
+  var gap = Math.max(1, barW * 0.25);
+  var playedX = (pct / 100) * w;
+  for (var i = 0; i < waveData.length; i++) {
+    var x = i * barW;
+    var barH = waveData[i] * h;
+    var y = (h - barH) / 2;
+    ctx.fillStyle = x < playedX ? '#c9a84c' : 'rgba(255,255,255,0.15)';
+    ctx.fillRect(x + gap/2, y, barW - gap, barH);
+  }
+}
+
+// Fetch audio as blob to hide real URL
+function fetchBlob(url, cb) {
+  fetch(url)
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.blob();
+    })
+    .then(function(blob) {
+      if (blobUrl) URL.revokeObjectURL(blobUrl);
+      blobUrl = URL.createObjectURL(blob);
+      cb(blobUrl);
+    })
+    .catch(function(err) {
+      console.log('Fetch error:', err);
+      // Fallback: try direct play
+      cb(url);
+    });
+}
+
 audioEl.addEventListener('timeupdate', function() {
   if (audioEl.duration) {
     prog = (audioEl.currentTime / audioEl.duration) * 100;
-    var fill = document.getElementById("spFill");
-    var time = document.getElementById("spTime");
-    if (fill) fill.style.width = prog + "%";
+    var fill = document.getElementById('spProgress');
+    var time = document.getElementById('spTime');
+    if (fill) fill.style.width = prog + '%';
     if (time) {
-      var m = Math.floor(audioEl.currentTime / 60);
-      var s = Math.floor(audioEl.currentTime % 60);
-      time.textContent = m + ":" + (s < 10 ? "0" : "") + s;
+      var s = Math.floor(audioEl.currentTime);
+      time.textContent = Math.floor(s/60) + ':' + (s%60<10?'0':'') + (s%60);
     }
+    drawWave(prog);
   }
 });
-audioEl.addEventListener('ended', function() {
-  isPlay = false; prog = 0; updIcon(); render();
+
+audioEl.addEventListener('loadedmetadata', function() {
+  var dur = document.getElementById('spDur');
+  if (dur && audioEl.duration) {
+    var s = Math.floor(audioEl.duration);
+    dur.textContent = Math.floor(s/60) + ':' + (s%60<10?'0':'') + (s%60);
+  }
 });
-audioEl.addEventListener('error', function(e) {
-  console.log('Audio error:', e);
-  doToast('Audio failed to load — check connection');
+
+audioEl.addEventListener('ended', function() {
+  isPlay = false; prog = 0; updIcon(); render(); drawWave(0);
+  nextBeat();
+});
+
+audioEl.addEventListener('error', function() {
+  doToast('Audio error — check connection');
   isPlay = false; updIcon(); render();
 });
 
 function playB(id) {
-  if (curBeat === id && isPlay) { pauseIt(); return; }
   var b = null;
   for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === id) { b = BEATS[i]; break; } }
   if (!b) return;
+
+  // Same beat toggle
+  if (curBeat === id) {
+    if (isPlay) { pauseIt(); } else { resumeIt(); }
+    return;
+  }
+
   audioEl.pause();
   curBeat = id; isPlay = true; prog = 0;
-  document.getElementById("spName").textContent = b.name;
-  document.getElementById("spMeta").textContent = b.bpm + " BPM  " + b.key;
-  document.getElementById("splayer").classList.add("on");
-  if (b.audio && b.audio.indexOf('soundcloud') > -1) {
-    if (scReady && scWidget) {
-      scWidget.play();
-    } else {
-      var waitPlay = setInterval(function() {
-        if (scReady && scWidget) { clearInterval(waitPlay); scWidget.play(); }
-      }, 100);
-    }
-  } else if (b.audio) {
-    audioEl.crossOrigin = null;
-    audioEl.src = b.audio;
-    audioEl.load();
-    audioEl.play().catch(function(err) { 
-      console.log('Play error:', err);
-      doToast('Tap play again to start audio');
+  waveData = genWave(80);
+
+  // Update player UI
+  var nameEl = document.getElementById('spName');
+  var metaEl = document.getElementById('spMeta');
+  var artEl = document.getElementById('spArt');
+  if (nameEl) nameEl.textContent = b.name;
+  if (metaEl) metaEl.textContent = b.bpm + ' BPM  •  ' + b.key + '  •  ' + b.genre.toUpperCase();
+  if (artEl) artEl.style.background = 'linear-gradient(135deg,' + b.c1 + ',' + b.c2 + ')';
+
+  // Set buy button
+  var buyBtn = document.getElementById('spBuyBtn');
+  if (buyBtn) {
+    buyBtn.onclick = function() {
+      var link = LINKS[b.id];
+      if (link) window.open(link, '_blank');
+      else openExclModal(b);
+    };
+  }
+
+  document.getElementById('splayer').classList.add('on');
+  drawWave(0);
+  updIcon();
+  render();
+
+  if (b.audio) {
+    fetchBlob(b.audio, function(src) {
+      audioEl.src = src;
+      audioEl.load();
+      audioEl.play().catch(function(err) {
+        console.log('Play error:', err);
+        doToast('Tap play again');
+      });
     });
-  } else { startTk(); }
-  render(); updIcon();
+  }
 }
 
 function togglePlay() { if (isPlay) { pauseIt(); } else { resumeIt(); } }
 
 function pauseIt() {
   isPlay = false;
-  if (scWidget && scReady) scWidget.pause();
   audioEl.pause();
-  clearInterval(tk); render(); updIcon();
+  updIcon(); render();
 }
 
 function resumeIt() {
   if (!curBeat) return;
   isPlay = true;
-  var b = null;
-  for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === curBeat) { b = BEATS[i]; break; } }
-  if (b && b.audio && b.audio.indexOf('soundcloud') > -1) {
-    if (scWidget && scReady) scWidget.play();
-  } else if (b && b.audio) {
-    audioEl.play().catch(function() {});
-  } else { startTk(); }
-  render(); updIcon();
+  audioEl.play().catch(function() {});
+  updIcon(); render();
 }
 
 function closePlayer() {
-  if (scWidget && scReady) scWidget.pause();
-  audioEl.pause(); audioEl.src = "";
-  curBeat = null; isPlay = false; clearInterval(tk); prog = 0;
-  document.getElementById("splayer").classList.remove("on"); render();
+  audioEl.pause();
+  if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
+  curBeat = null; isPlay = false; prog = 0;
+  document.getElementById('splayer').classList.remove('on');
+  render();
+}
+
+function prevBeat() {
+  if (!curBeat) return;
+  var idx = 0;
+  for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === curBeat) { idx = i; break; } }
+  var prev = BEATS[(idx - 1 + BEATS.length) % BEATS.length];
+  playB(prev.id);
+}
+
+function nextBeat() {
+  if (!curBeat) return;
+  var idx = 0;
+  for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === curBeat) { idx = i; break; } }
+  var next = BEATS[(idx + 1) % BEATS.length];
+  playB(next.id);
 }
 
 function doSeek(e) {
   var r = e.currentTarget.getBoundingClientRect();
   var pct = Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100));
   prog = pct;
-  document.getElementById("spFill").style.width = pct + "%";
-  if (audioEl.duration) {
-    audioEl.currentTime = (pct / 100) * audioEl.duration;
-  }
+  if (audioEl.duration) audioEl.currentTime = (pct / 100) * audioEl.duration;
+  drawWave(pct);
 }
 
+// Keyboard controls: Space = play/pause, Left = prev, Right = next
+document.addEventListener('keydown', function(e) {
+  var tag = document.activeElement.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+  if (e.code === 'Space') { e.preventDefault(); if (curBeat) togglePlay(); }
+  if (e.code === 'ArrowLeft') { e.preventDefault(); prevBeat(); }
+  if (e.code === 'ArrowRight') { e.preventDefault(); nextBeat(); }
+});
+
+// Disable right click on player
+document.addEventListener('contextmenu', function(e) {
+  if (e.target.closest('#splayer') || e.target.closest('.bplay-ov')) e.preventDefault();
+});
+
 function updIcon() {
-  document.getElementById("sppIcon").innerHTML = isPlay
+  var btn = document.getElementById('spPlayBtn');
+  if (!btn) return;
+  btn.innerHTML = isPlay
     ? '<div class="pico-pause"><div class="pbar"></div><div class="pbar"></div></div>'
     : '<span class="ptri">&#9654;</span>';
 }
+
 
 function doLike(id) { liked[id] = !liked[id]; render(); }
 
