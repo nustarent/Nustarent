@@ -929,7 +929,7 @@ if (contactForm) {
 document.getElementById("spBuyBtn").onclick = function(){ doToast("Email us: " + EM); };
 
 var BEATS = [
-  {id:1, name:"ZENITH", bpm:140, key:"TBD", genre:"hiphop", price:40, tag:"NEW", c1:"#0d1520", c2:"#0a1830", audio:"https://soundcloud.com/nustar-entertainment/zenith-final"},
+  {id:1, name:"ZENITH", bpm:140, key:"TBD", genre:"hiphop", price:40, tag:"NEW", c1:"#0d1520", c2:"#0a1830", audio:"https://api.soundcloud.com/tracks/2303258327"},
   {id:2, name:"DARK MATTER", bpm:140, key:"F# MIN", genre:"trap", price:99, tag:"HOT", c1:"#1a1410", c2:"#2a1e0a"},
   {id:3, name:"COLD NIGHTS", bpm:72, key:"C MIN", genre:"rnb", price:79, tag:"", c1:"#0f1420", c2:"#0a1228"},
   {id:4, name:"CAT MODE", bpm:130, key:"C MAJ", genre:"meme", price:29, tag:"NEW", c1:"#1a1520", c2:"#0f1020"},
@@ -1324,44 +1324,39 @@ function render() {
 // SoundCloud Widget
 var scWidget = null;
 var scReady = false;
+// Preload SC widget on page load
 var scIframe = document.createElement('iframe');
 scIframe.id = 'sc-player';
-scIframe.style.display = 'none';
+scIframe.style.cssText = 'display:none;position:fixed;bottom:-999px;left:-999px;width:1px;height:1px;';
 scIframe.allow = 'autoplay';
+scIframe.src = 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/2303258327&auto_play=false&buying=false&download=false&sharing=false&show_artwork=false&show_comments=false&show_user=false&show_reposts=false';
 document.body.appendChild(scIframe);
 
-function loadSC(url, callback) {
-  scIframe.src = 'https://w.soundcloud.com/player/?url=' + encodeURIComponent(url) + '&auto_play=false&show_artwork=false&buying=false&download=false&sharing=false';
-  scIframe.onload = function() {
-    if (window.SC && window.SC.Widget) {
-      scWidget = window.SC.Widget(scIframe);
-      scWidget.bind(window.SC.Widget.Events.READY, function() {
-        scReady = true;
-        if (callback) callback();
-      });
-      scWidget.bind(window.SC.Widget.Events.PLAY_PROGRESS, function(e) {
-        if (e.loadedProgress > 0) {
-          var pct = (e.currentPosition / e.relativePosition / 1000) * 100;
-          if (!isNaN(pct)) {
-            prog = Math.min(pct, 100);
-            document.getElementById("spFill").style.width = prog + "%";
-            var secs = Math.floor(e.currentPosition / 1000);
-            var m = Math.floor(secs / 60);
-            var s = secs % 60;
-            document.getElementById("spTime").textContent = m + ":" + (s < 10 ? "0" : "") + s;
-          }
-        }
-      });
-      scWidget.bind(window.SC.Widget.Events.FINISH, function() {
-        isPlay = false; prog = 0; updIcon(); render();
-      });
-    }
-  };
-}
-
-// Load SC API
 var scScript = document.createElement('script');
 scScript.src = 'https://w.soundcloud.com/player/api.js';
+scScript.onload = function() {
+  scWidget = window.SC.Widget(scIframe);
+  scWidget.bind(window.SC.Widget.Events.READY, function() {
+    scReady = true;
+    scWidget.bind(window.SC.Widget.Events.PLAY_PROGRESS, function(e) {
+      if (e.duration > 0) {
+        prog = (e.currentPosition / e.duration) * 100;
+        var fill = document.getElementById("spFill");
+        var time = document.getElementById("spTime");
+        if (fill) fill.style.width = prog + "%";
+        if (time) {
+          var secs = Math.floor(e.currentPosition / 1000);
+          var m = Math.floor(secs / 60);
+          var s = secs % 60;
+          time.textContent = m + ":" + (s < 10 ? "0" : "") + s;
+        }
+      }
+    });
+    scWidget.bind(window.SC.Widget.Events.FINISH, function() {
+      isPlay = false; prog = 0; updIcon(); render();
+    });
+  });
+};
 document.head.appendChild(scScript);
 
 // Fallback audio for non-SC beats
@@ -1384,32 +1379,23 @@ function playB(id) {
   var b = null;
   for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === id) { b = BEATS[i]; break; } }
   if (!b) return;
-
-  // Stop whatever is playing
-  if (scWidget && scReady) scWidget.pause();
   audioEl.pause();
-
   curBeat = id; isPlay = true; prog = 0;
   document.getElementById("spName").textContent = b.name;
   document.getElementById("spMeta").textContent = b.bpm + " BPM  " + b.key;
   document.getElementById("splayer").classList.add("on");
-
-  if (b.audio && b.audio.indexOf('soundcloud.com') > -1) {
-    // SoundCloud beat
-    if (scWidget && scReady) {
-      scWidget.load(b.audio, {auto_play: true, buying: false, download: false, sharing: false});
+  if (b.audio && b.audio.indexOf('soundcloud') > -1) {
+    if (scReady && scWidget) {
+      scWidget.play();
     } else {
-      loadSC(b.audio, function() {
-        scWidget.play();
-      });
+      var waitPlay = setInterval(function() {
+        if (scReady && scWidget) { clearInterval(waitPlay); scWidget.play(); }
+      }, 100);
     }
   } else if (b.audio) {
-    // Direct audio file
     audioEl.src = b.audio;
     audioEl.play().catch(function() {});
-  } else {
-    startTk();
-  }
+  } else { startTk(); }
   render(); updIcon();
 }
 
@@ -1427,13 +1413,11 @@ function resumeIt() {
   isPlay = true;
   var b = null;
   for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === curBeat) { b = BEATS[i]; break; } }
-  if (b && b.audio && b.audio.indexOf('soundcloud.com') > -1) {
+  if (b && b.audio && b.audio.indexOf('soundcloud') > -1) {
     if (scWidget && scReady) scWidget.play();
   } else if (b && b.audio) {
     audioEl.play().catch(function() {});
-  } else {
-    startTk();
-  }
+  } else { startTk(); }
   render(); updIcon();
 }
 
@@ -1442,20 +1426,6 @@ function closePlayer() {
   audioEl.pause(); audioEl.src = "";
   curBeat = null; isPlay = false; clearInterval(tk); prog = 0;
   document.getElementById("splayer").classList.remove("on"); render();
-}
-
-function startTk() {
-  clearInterval(tk);
-  tk = setInterval(function() {
-    if (!isPlay) return;
-    prog = Math.min(prog + (100 / 150), 100);
-    var el = Math.round((prog / 100) * 150);
-    document.getElementById("spFill").style.width = prog + "%";
-    var m = Math.floor(el / 60);
-    var s = el % 60;
-    document.getElementById("spTime").textContent = m + ":" + (s < 10 ? "0" : "") + s;
-    if (prog >= 100) { clearInterval(tk); isPlay = false; updIcon(); render(); }
-  }, 1000);
 }
 
 function doSeek(e) {
