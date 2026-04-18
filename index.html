@@ -1679,6 +1679,34 @@ function doToast(msg) {
 
 render();
 
+// Preload all beat audio in background so play is instant
+var preloadedBlobs = {};
+function preloadBeats() {
+  BEATS.forEach(function(b) {
+    if (!b.audio) return;
+    fetchAndDecrypt(b.audio, function(src) {
+      preloadedBlobs[b.id] = src;
+    });
+  });
+}
+setTimeout(preloadBeats, 1500);
+
+// Use preloaded blob if available, otherwise fetch fresh
+function fetchBlob(url, cb) {
+  var beat = null;
+  for (var i = 0; i < BEATS.length; i++) {
+    if (BEATS[i].audio === url) { beat = BEATS[i]; break; }
+  }
+  if (beat && preloadedBlobs[beat.id]) {
+    cb(preloadedBlobs[beat.id]);
+  } else {
+    fetchAndDecrypt(url, function(src) {
+      if (beat) preloadedBlobs[beat.id] = src;
+      cb(src);
+    });
+  }
+}
+
 function toggleMenu() {
   var menu = document.getElementById("nlinks");
   var burger = document.getElementById("hamburger");
