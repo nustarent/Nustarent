@@ -1361,17 +1361,27 @@ document.head.appendChild(scScript);
 
 // Fallback audio for non-SC beats
 var audioEl = new Audio();
+audioEl.crossOrigin = "anonymous";
 audioEl.addEventListener('timeupdate', function() {
   if (audioEl.duration) {
     prog = (audioEl.currentTime / audioEl.duration) * 100;
-    document.getElementById("spFill").style.width = prog + "%";
-    var m = Math.floor(audioEl.currentTime / 60);
-    var s = Math.floor(audioEl.currentTime % 60);
-    document.getElementById("spTime").textContent = m + ":" + (s < 10 ? "0" : "") + s;
+    var fill = document.getElementById("spFill");
+    var time = document.getElementById("spTime");
+    if (fill) fill.style.width = prog + "%";
+    if (time) {
+      var m = Math.floor(audioEl.currentTime / 60);
+      var s = Math.floor(audioEl.currentTime % 60);
+      time.textContent = m + ":" + (s < 10 ? "0" : "") + s;
+    }
   }
 });
 audioEl.addEventListener('ended', function() {
   isPlay = false; prog = 0; updIcon(); render();
+});
+audioEl.addEventListener('error', function(e) {
+  console.log('Audio error:', e);
+  doToast('Audio failed to load — check connection');
+  isPlay = false; updIcon(); render();
 });
 
 function playB(id) {
@@ -1393,8 +1403,13 @@ function playB(id) {
       }, 100);
     }
   } else if (b.audio) {
+    audioEl.crossOrigin = null;
     audioEl.src = b.audio;
-    audioEl.play().catch(function() {});
+    audioEl.load();
+    audioEl.play().catch(function(err) { 
+      console.log('Play error:', err);
+      doToast('Tap play again to start audio');
+    });
   } else { startTk(); }
   render(); updIcon();
 }
