@@ -149,6 +149,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .bfav{width:30px;height:30px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:var(--low);transition:all .15s;}
 .bfav:hover{color:var(--txt);border-color:var(--bd2);}
 .bfav.on{color:#ff5555;border-color:rgba(255,85,85,.25);}
+.fav-card{display:flex;align-items:center;gap:12px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:10px 14px;cursor:pointer;transition:border-color .2s;}
+.fav-card:hover{border-color:var(--bd2);}
+.fav-art{width:38px;height:38px;border-radius:2px;flex-shrink:0;}
+.fav-info{flex:1;min-width:0;}
+.fav-name{font-family:'Anton',sans-serif;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fav-meta{font-family:'DM Mono',monospace;font-size:.5rem;color:var(--low);margin-top:3px;letter-spacing:.08em;}
+.fav-rm{background:none;border:none;color:var(--low);cursor:pointer;font-size:.7rem;padding:4px 6px;transition:color .15s;flex-shrink:0;}
+.fav-rm:hover{color:var(--txt);}
+#favGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;margin-top:16px;}
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:32px;}
 .pcard{background:var(--s2);border:1px solid var(--gold);border-radius:var(--r);padding:24px;position:relative;transition:transform .2s;}
 .pcard:hover{transform:translateY(-3px);}
@@ -221,10 +230,13 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 .sp-btn:hover{color:var(--txt);}
 .sp-play{width:34px;height:34px;border-radius:50%!important;background:#fff!important;color:#080808!important;font-size:.72rem;}
 .sp-play:hover{background:#e0e0e0!important;}
-.sp-wave-wrap{width:100%;display:flex;align-items:center;gap:8px;}
+.sp-wave-wrap{width:100%;display:flex;align-items:center;gap:10px;}
 .sp-time{font-family:'DM Mono',monospace;font-size:.5rem;color:var(--low);white-space:nowrap;flex-shrink:0;min-width:28px;}
-.sp-waveform{flex:1;height:44px;position:relative;cursor:pointer;overflow:hidden;}
-#spCanvas{position:absolute;inset:0;width:100%;height:100%;}
+.sp-waveform{flex:1;height:14px;position:relative;cursor:pointer;display:flex;align-items:center;}
+.sp-track{width:100%;height:3px;background:rgba(255,255,255,.12);border-radius:2px;position:relative;overflow:visible;}
+.sp-filled{height:100%;background:var(--gold);border-radius:2px;position:absolute;left:0;top:0;transition:width .1s linear;}
+.sp-thumb{width:10px;height:10px;background:#fff;border-radius:50%;position:absolute;top:50%;transform:translate(-50%,-50%);transition:left .1s linear;box-shadow:0 0 4px rgba(0,0,0,.4);}
+#spCanvas{display:none;}
 .sp-progress{position:absolute;top:0;left:0;height:100%;background:rgba(201,168,76,.15);pointer-events:none;transition:width .1s linear;}
 
 
@@ -373,6 +385,15 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 
 <div id="beats" style="border-top:1px solid var(--bd);">
   <div class="wrap">
+
+    <!-- FAVORITES SECTION -->
+    <div id="favSection" style="display:none;padding-top:40px;">
+      <div class="sec-eye">// Saved</div>
+      <h3 style="font-family:'Anton',sans-serif;font-size:1.4rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;">Your Favorites</h3>
+      <div id="favGrid"></div>
+      <div style="height:1px;background:var(--bd);margin:32px 0;"></div>
+    </div>
+
     <div class="sec">
       <div class="beats-head">
         <div>
@@ -842,6 +863,10 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
       <div class="sp-time" id="spTime">0:00</div>
       <div class="sp-waveform" id="spWaveform" onclick="doSeek(event)">
         <canvas id="spCanvas"></canvas>
+        <div class="sp-track">
+          <div class="sp-filled" id="spFilled"></div>
+          <div class="sp-thumb" id="spThumb"></div>
+        </div>
       </div>
       <div class="sp-time" id="spDur">0:00</div>
     </div>
@@ -962,7 +987,8 @@ var BEATS = [
 ];
 
 var LINKS = {1: "https://nustarent.gumroad.com/l/ltjtrh"};
-var liked = {};
+var liked = JSON.parse(localStorage.getItem('nustar_liked') || '{}');
+function saveLiked() { localStorage.setItem('nustar_liked', JSON.stringify(liked)); }
 var sales = {};
 // player state defined below
 var cf = "all";
@@ -1458,14 +1484,15 @@ document.addEventListener('touchstart', unlockAudio, { once: true });
 audioEl.addEventListener('timeupdate', function() {
   if (audioEl.duration) {
     prog = (audioEl.currentTime / audioEl.duration) * 100;
-    var fill = document.getElementById('spProgress');
+    var filled = document.getElementById('spFilled');
+    var thumb = document.getElementById('spThumb');
     var time = document.getElementById('spTime');
-    if (fill) fill.style.width = prog + '%';
+    if (filled) filled.style.width = prog + '%';
+    if (thumb) thumb.style.left = prog + '%';
     if (time) {
       var s = Math.floor(audioEl.currentTime);
       time.textContent = Math.floor(s/60) + ':' + (s%60<10?'0':'') + (s%60);
     }
-    drawWave(prog);
   }
 });
 
@@ -1583,8 +1610,11 @@ function doSeek(e) {
   var r = e.currentTarget.getBoundingClientRect();
   var pct = Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100));
   prog = pct;
+  var filled = document.getElementById('spFilled');
+  var thumb = document.getElementById('spThumb');
+  if (filled) filled.style.width = pct + '%';
+  if (thumb) thumb.style.left = pct + '%';
   if (audioEl.duration) audioEl.currentTime = (pct / 100) * audioEl.duration;
-  drawWave(pct);
 }
 
 // Keyboard controls: Space = play/pause, Left = rewind 10s, Right = skip 10s
@@ -1628,12 +1658,40 @@ function updIcon() {
 }
 
 
+function doLike(id) {
+  liked[id] = !liked[id];
+  saveLiked();
+  render();
+  renderFavs();
+}
+
 function likeCurrentBeat() {
   if (!curBeat) return;
   liked[curBeat] = !liked[curBeat];
+  saveLiked();
   var btn = document.getElementById('spHeart');
   if (btn) btn.innerHTML = liked[curBeat] ? '&#9829;' : '&#9825;';
   render();
+  renderFavs();
+}
+
+function renderFavs() {
+  var favSection = document.getElementById('favSection');
+  var favGrid = document.getElementById('favGrid');
+  if (!favSection || !favGrid) return;
+  var favBeats = BEATS.filter(function(b) { return liked[b.id]; });
+  if (favBeats.length === 0) { favSection.style.display = 'none'; return; }
+  favSection.style.display = 'block';
+  var h = '';
+  favBeats.forEach(function(b) {
+    h += '<div class="fav-card" onclick="playB(' + b.id + ')">';
+    h += '<div class="fav-art" style="background:linear-gradient(135deg,' + b.c1 + ',' + b.c2 + ');"></div>';
+    h += '<div class="fav-info"><div class="fav-name">' + b.name + '</div>';
+    h += '<div class="fav-meta">' + b.bpm + ' BPM · ' + b.genre.toUpperCase() + '</div></div>';
+    h += '<button class="fav-rm" onclick="event.stopPropagation();doLike(' + b.id + ')">&#10005;</button>';
+    h += '</div>';
+  });
+  favGrid.innerHTML = h;
 }
 
 function toggleAg(id) {
@@ -1674,8 +1732,7 @@ function doToast(msg) {
 }
 
 render();
-
-// Preload all beat audio in background so play is instant
+renderFavs();
 var preloadedBlobs = {};
 function preloadBeats() {
   BEATS.forEach(function(b) {
