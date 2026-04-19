@@ -116,10 +116,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .bcov-info{position:relative;z-index:1;text-align:center;}
 .bcov-bpm{font-family:'Anton',sans-serif;font-size:2.4rem;line-height:1;opacity:.11;}
 .bcov-key{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;opacity:.2;margin-top:3px;}
-.bplay-ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(8,8,8,.55);opacity:0;transition:opacity .2s;cursor:pointer;}
-.bcard:hover .bplay-ov,.bcard.act .bplay-ov{opacity:1;}
-.bpcircle{background:rgba(201,168,76,.15);border:1px solid var(--gold);border-radius:20px;padding:7px 16px;cursor:pointer;transition:all .2s;backdrop-filter:blur(8px);user-select:none;-webkit-user-select:none;}
-.bpcircle:hover{background:rgba(201,168,76,.3);}
+.bplay-ov{display:none;}
+
 .ptri{font-size:13px;color:#080808;line-height:1;margin-left:2px;}
 .pico-pause{display:flex;gap:3px;}
 .pbar{width:3px;height:13px;background:#080808;border-radius:2px;}
@@ -210,7 +208,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
 .ftxt{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.13em;color:var(--low);line-height:1.8;}
 .ftxt strong{color:var(--dim);}
-.splayer{position:fixed;bottom:0;left:0;right:0;height:64px;background:#0d0d0d;border-top:1px solid #1e1e1e;backdrop-filter:blur(20px);z-index:400;display:none;align-items:center;padding:0 16px;gap:16px;}
+.splayer{position:fixed;bottom:0;left:0;right:0;height:60px;background:#0d0d0d;border-top:1px solid #1e1e1e;backdrop-filter:blur(20px);z-index:400;display:none;align-items:center;padding:0 14px;gap:12px;}
 .splayer.on{display:flex;}
 .sp-left{display:flex;align-items:center;gap:10px;flex:0 0 200px;min-width:0;}
 .sp-art{width:44px;height:44px;border-radius:2px;background:var(--s2);flex-shrink:0;overflow:hidden;}
@@ -225,7 +223,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 .sp-play:hover{background:#e0e0e0!important;}
 .sp-wave-wrap{width:100%;display:flex;align-items:center;gap:8px;}
 .sp-time{font-family:'DM Mono',monospace;font-size:.5rem;color:var(--low);white-space:nowrap;flex-shrink:0;min-width:28px;}
-.sp-waveform{flex:1;height:38px;position:relative;cursor:pointer;overflow:hidden;}
+.sp-waveform{flex:1;height:44px;position:relative;cursor:pointer;overflow:hidden;}
 #spCanvas{position:absolute;inset:0;width:100%;height:100%;}
 .sp-progress{position:absolute;top:0;left:0;height:100%;background:rgba(201,168,76,.15);pointer-events:none;transition:width .1s linear;}
 
@@ -379,7 +377,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
       <div class="beats-head">
         <div>
           <div class="sec-eye">// CATALOG</div>
-          <h2 class="sec-h">Browse Beats</h2>
+          <h2 class="sec-h">Browse Beats <span style="font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.16em;color:var(--low);text-transform:uppercase;font-weight:400;vertical-align:middle;"> — click to play</span></h2>
         </div>
         <div class="ftabs">
           <button class="ft on" onclick="doFilter('all',this)">All</button>
@@ -1317,15 +1315,13 @@ function render() {
     var pc = (curBeat === b.id) ? " act" : "";
     var th = b.tag ? ('<div class="btag' + (b.tag === "EXCLUSIVE" ? " excl" : "") + '">' + b.tag + "</div>") : "";
     var fc = liked[b.id] ? " on" : "";
-    var ic = (curBeat === b.id && isPlay) ? '<span style="font-family:monospace;font-size:.52rem;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;">playing</span>' : '<span style="font-family:monospace;font-size:.52rem;letter-spacing:.12em;color:var(--gold);text-transform:uppercase;">listen</span>';
-    h += '<div class="bcard' + pc + '">';
+    h += '<div class="bcard' + pc + '" onclick="playB(' + b.id + ')" style="cursor:pointer;">';
     h += '<div class="bcov"><div class="bcov-art">';
     h += '<div class="bcov-bg" style="background:linear-gradient(150deg,' + b.c1 + ',' + b.c2 + ');"></div>';
     h += '<div class="bcov-grid"></div>';
     h += '<div class="bcov-info"><div class="bcov-bpm">' + b.bpm + '</div><div class="bcov-key">' + b.key + '</div></div>';
     h += '</div>' + th;
-    h += '<div class="bplay-ov" onclick="playB(' + b.id + ');event.stopPropagation();"><button class="bpcircle" onclick="event.stopPropagation();playB(' + b.id + ')">' + ic + '</button></div>';
-    h += '<div class="wv">' + bars + '</div></div>';
+    h += '<div class="wv" onclick="playB(' + b.id + ');event.stopPropagation();">' + bars + '</div></div>';
     h += '<div class="binfo"><div class="bname">' + b.name + '</div>';
     h += '<div class="bmeta"><div class="bm">BPM <b>' + b.bpm + '</b></div><div class="bm">KEY <b>' + b.key + '</b></div><div class="bm">TYPE <b>' + b.genre.toUpperCase() + '</b></div></div>';
     h += '<div class="bfoot">';
@@ -1368,13 +1364,13 @@ function drawWave(pct) {
   ctx.clearRect(0, 0, w, h);
   var n = waveData.length;
   var barW = w / n;
-  var gap = 1;
+  var gap = 1.5;
   var playedX = (pct / 100) * w;
   for (var i = 0; i < n; i++) {
     var x = i * barW;
     var barH = waveData[i] * h;
     var y = (h - barH) / 2;
-    ctx.fillStyle = x < playedX ? '#c9a84c' : 'rgba(255,255,255,0.2)';
+    ctx.fillStyle = x < playedX ? '#c9a84c' : 'rgba(255,255,255,0.18)';
     ctx.fillRect(x + gap / 2, y, Math.max(1, barW - gap), barH);
   }
 }
