@@ -1352,11 +1352,11 @@ function render() {
     h += '<div class="bmeta"><div class="bm">BPM <b>' + b.bpm + '</b></div><div class="bm">KEY <b>' + b.key + '</b></div><div class="bm">TYPE <b>' + b.genre.toUpperCase() + '</b></div></div>';
     h += '<div class="bfoot">';
     h += '<div class="btiers">';
-    h += '<button class="btier t-basic" onclick="buyTier(' + b.id + ',\'basic\')">$' + b.price + '<br>Basic</button>';
-    h += '<button class="btier t-prem" onclick="buyTier(' + b.id + ',\'premium\')">$' + (b.price <= 29 ? 49 : 99) + '<br>Premium</button>';
-    h += '<button class="btier t-excl" onclick="buyTier(' + b.id + ',\'exclusive\')">$499<br>Exclusive</button>';
+    h += '<button class="btier t-basic" onclick="event.stopPropagation();buyTier(' + b.id + ',\'basic\')">$' + b.price + '<br>Basic</button>';
+    h += '<button class="btier t-prem" onclick="event.stopPropagation();buyTier(' + b.id + ',\'premium\')">$' + (b.price <= 29 ? 49 : 99) + '<br>Premium</button>';
+    h += '<button class="btier t-excl" onclick="event.stopPropagation();buyTier(' + b.id + ',\'exclusive\')">$499<br>Exclusive</button>';
     h += '</div>';
-    h += '<div class="bacts" style="padding:0 15px 14px;"><button class="bfav' + fc + '" onclick="doLike(' + b.id + ')">&#9825;</button></div>';
+    h += '<div class="bacts" style="padding:0 15px 14px;"><button class="bfav' + fc + '" onclick="event.stopPropagation();doLike(' + b.id + ')">&#9825;</button></div>';
     h += '</div></div></div>';
   }
   document.getElementById("grid").innerHTML = h;
