@@ -1467,19 +1467,19 @@ function fetchAndDecrypt(url, cb) {
     });
 }
 
-// Unlock audio on first user interaction
+// Silent audio blob — used to claim gesture window immediately on click
+var SILENT_SRC = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
 var audioUnlocked = false;
-function unlockAudio() {
-  if (audioUnlocked) return;
-  audioEl.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
-  audioEl.play().then(function() {
-    audioEl.pause();
-    audioEl.src = '';
-    audioUnlocked = true;
-  }).catch(function() {});
+
+// Unlock AudioContext on first interaction (for Web Audio API compatibility)
+var _ac = null;
+function getAC() {
+  if (!_ac) _ac = new (window.AudioContext || window.webkitAudioContext)();
+  if (_ac.state === 'suspended') _ac.resume();
+  return _ac;
 }
-document.addEventListener('click', unlockAudio, { once: true });
-document.addEventListener('touchstart', unlockAudio, { once: true });
+document.addEventListener('click', function() { getAC(); audioUnlocked = true; }, { once: true });
+document.addEventListener('touchstart', function() { getAC(); audioUnlocked = true; }, { once: true });
 
 audioEl.addEventListener('timeupdate', function() {
   if (audioEl.duration) {
@@ -1519,22 +1519,27 @@ function playB(id) {
   for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === id) { b = BEATS[i]; break; } }
   if (!b) return;
 
-  // Same beat toggle
+  // Same beat: toggle play/pause
   if (curBeat === id) {
     if (isPlay) { pauseIt(); } else { resumeIt(); }
     return;
   }
 
+  // CRITICAL: claim the user gesture window synchronously RIGHT HERE.
+  // play() on silent audio must happen before any async work.
+  getAC();
   audioEl.pause();
+  audioEl.src = SILENT_SRC;
+  audioEl.play().catch(function(){});
+
   curBeat = id; isPlay = true; prog = 0;
   waveData = genWave(150);
 
-  // Update player UI
   var nameEl = document.getElementById('spName');
   var metaEl = document.getElementById('spMeta');
   var artEl = document.getElementById('spArt');
   if (nameEl) nameEl.textContent = b.name;
-  if (metaEl) metaEl.textContent = b.bpm + ' BPM  •  ' + b.key + '  •  ' + b.genre.toUpperCase();
+  if (metaEl) metaEl.textContent = b.bpm + ' BPM  —  ' + b.key + '  —  ' + b.genre.toUpperCase();
   if (artEl) artEl.style.background = 'linear-gradient(135deg,' + b.c1 + ',' + b.c2 + ')';
 
   document.getElementById('splayer').classList.add('on');
@@ -1543,27 +1548,28 @@ function playB(id) {
   render();
 
   if (b.audio) {
-    // Set src immediately so browser registers user gesture
-    audioEl.src = '';
-    audioEl.load();
     doToast('Loading ' + b.name + '...');
+    var playingId = id;
     fetchBlob(b.audio, function(src) {
+      if (curBeat !== playingId) return; // user switched during load
+      audioEl.pause();
       audioEl.src = src;
       audioEl.load();
-      var tryPlay = function() {
-        var p = audioEl.play();
-        if (p !== undefined) {
-          p.catch(function() {
-            // If blocked show tap to play
-            isPlay = false;
-            updIcon();
-            doToast('Tap ▶ in the player to start');
-          });
-        }
-      };
-      // Small delay to let load complete
-      setTimeout(tryPlay, 100);
+      audioEl.addEventListener('canplay', function onReady() {
+        audioEl.removeEventListener('canplay', onReady);
+        if (curBeat !== playingId) return;
+        audioEl.play().then(function() {
+          isPlay = true; updIcon(); render();
+        }).catch(function(err) {
+          console.log('Play blocked:', err);
+          isPlay = false; updIcon();
+          doToast('Tap ▶ to play');
+        });
+      });
     });
+  } else {
+    isPlay = false; updIcon();
+    doToast(b.name + ' — audio coming soon');
   }
 }
 
