@@ -87,6 +87,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .bcard:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 12px 40px rgba(201,168,76,.12);}
 .bcard.act{border-color:var(--gold);box-shadow:0 0 30px rgba(201,168,76,.15);}
 .bcard.soon{opacity:.6;}
+.lic-tier:hover{border-color:var(--bd2)!important;background:rgba(255,255,255,.02)!important;}
+.modal-overlay.on .modal,.licModalOverlay.on #licModalBox{transform:translateY(0) scale(1);}
+#licModalOverlay.on{opacity:1;pointer-events:all;}
+#licModalOverlay.on #licModalBox{transform:translateY(0) scale(.97);}
 
 /* SECTION TITLE ANIMATION */
 .sec-h-anim{overflow:hidden;}
@@ -445,7 +449,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
           </ul>
           <div class="pack-foot">
             <div><div class="pack-price">$100</div><div class="pack-price-sub">5 BEATS &#8212; SAVE $45</div></div>
-            <button class="bbuy" id="pack1btn">Buy Pack</button>
+            <button class="bbuy" id="pack1btn" style="opacity:.5;cursor:not-allowed;" disabled>Coming Soon</button>
           </div>
         </div>
         <div class="pcard reveal-right" style="transition-delay:.25s">
@@ -460,7 +464,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
           </ul>
           <div class="pack-foot">
             <div><div class="pack-price">$850</div><div class="pack-price-sub">10-12 BEATS &#8212; SAVE $340+</div></div>
-            <button class="bbuy" id="pack2btn">Buy Pack</button>
+            <button class="bbuy" id="pack2btn" style="opacity:.5;cursor:not-allowed;" disabled>Coming Soon</button>
           </div>
         </div>
       </div>
@@ -898,6 +902,53 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+
+<!-- LICENSE MODAL -->
+<div class="modal-overlay" id="licModalOverlay" onclick="handleLicOverlay(event)" style="position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:900;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s;">
+  <div style="background:var(--s1);border:1px solid var(--bd2);border-radius:var(--r);width:100%;max-width:520px;overflow:hidden;transform:translateY(20px) scale(.97);transition:transform .3s cubic-bezier(.16,1,.3,1);" id="licModalBox">
+    <div style="padding:20px 22px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
+      <div style="width:52px;height:52px;border-radius:var(--r);flex-shrink:0;" id="licModalArt"></div>
+      <div style="flex:1;">
+        <div style="font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;margin-bottom:3px;">// Select License</div>
+        <div style="font-family:'Anton',sans-serif;font-size:1.3rem;letter-spacing:.06em;text-transform:uppercase;line-height:1;margin-bottom:3px;" id="licModalName">BEAT</div>
+        <div style="font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.1em;color:var(--dim);" id="licModalMeta">BPM</div>
+      </div>
+      <button onclick="closeLicenseModal()" style="background:none;border:none;color:var(--low);font-size:1rem;cursor:pointer;padding:4px;transition:color .15s;">&#10005;</button>
+    </div>
+    <div style="padding:14px 22px;display:flex;flex-direction:column;gap:7px;" id="licTiers">
+      <div class="lic-tier" id="lt-basic" onclick="selectLicTier(this,'Basic','basic')" style="border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;">Basic</span><span style="font-family:'DM Mono',monospace;font-size:.44rem;letter-spacing:.14em;padding:2px 6px;border-radius:var(--r);border:1px solid var(--bd2);color:var(--dim);">Lease</span></div>
+          <span style="font-family:'Anton',sans-serif;font-size:1.15rem;color:var(--gold);" id="lt-basic-price">$29</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;" id="lt-basic-feats"></div>
+      </div>
+      <div class="lic-tier selected" id="lt-prem" onclick="selectLicTier(this,'Premium','premium')" style="border:1px solid var(--gold);background:rgba(201,168,76,.06);border-radius:var(--r);padding:13px 15px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold);"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;">Premium</span><span style="font-family:'DM Mono',monospace;font-size:.44rem;letter-spacing:.14em;padding:2px 6px;border-radius:var(--r);border:1px solid var(--gold);color:var(--gold);background:rgba(201,168,76,.08);">Most Popular</span></div>
+          <span style="font-family:'Anton',sans-serif;font-size:1.15rem;color:var(--gold);" id="lt-prem-price">$99</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;" id="lt-prem-feats"></div>
+      </div>
+      <div class="lic-tier" id="lt-excl" onclick="selectLicTier(this,'Exclusive','exclusive')" style="border:1px solid var(--bd);border-radius:var(--r);padding:13px 15px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:5px;">
+          <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;">Exclusive</span><span style="font-family:'DM Mono',monospace;font-size:.44rem;letter-spacing:.14em;padding:2px 6px;border-radius:var(--r);border:1px solid #aaa;color:#ccc;background:rgba(255,255,255,.04);">Own It</span></div>
+          <span style="font-family:'Anton',sans-serif;font-size:1.15rem;color:#e8e8e8;">$499</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;" id="lt-excl-feats"></div>
+      </div>
+    </div>
+    <div style="padding:14px 22px 18px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;gap:12px;">
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.14em;color:var(--low);text-transform:uppercase;margin-bottom:2px;" id="licSelLabel">Premium License</div>
+        <div style="font-family:'Anton',sans-serif;font-size:1.5rem;color:var(--gold);letter-spacing:.04em;line-height:1;" id="licSelPrice">$99</div>
+      </div>
+      <button onclick="doLicBuy()" style="font-family:'Anton',sans-serif;font-size:.84rem;letter-spacing:.14em;text-transform:uppercase;padding:12px 26px;background:var(--gold);color:#080808;border:none;border-radius:var(--r);cursor:pointer;transition:background .15s;">Buy Now &#8599;</button>
+    </div>
+  </div>
+</div>
+
 <!-- EXCLUSIVE CONTRACT MODAL -->
 <div id="exclModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9900;overflow-y:auto;padding:40px 16px;">
   <div style="max-width:580px;margin:0 auto;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:32px;">
@@ -1021,8 +1072,8 @@ document.getElementById("footer-email").textContent = EM;
 var faqEmail = document.getElementById("faq-email");
 if (faqEmail) { faqEmail.textContent = EM; }
 document.getElementById("contact-sub").textContent = "Beat purchases, custom requests, features — " + EM;
-document.getElementById("pack1btn").onclick = function(){ doToast("Email us: " + EM); };
-document.getElementById("pack2btn").onclick = function(){ doToast("Email us: " + EM); };
+
+
 document.getElementById("lic1btn").onclick = function(){ filterByLicense("basic","$29","Basic"); };
 document.getElementById("lic2btn").onclick = function(){ filterByLicense("premium","$99","Premium"); };
 document.getElementById("lic3btn").onclick = function(){ filterByLicense("exclusive","$499","Exclusive"); };
@@ -1446,17 +1497,14 @@ function render() {
     h += '<div class="wv" onclick="playB(' + b.id + ');event.stopPropagation();">' + bars + '</div></div>';
     h += '<div class="binfo"><div class="bname">' + b.name + '</div>';
     h += '<div class="bmeta"><div class="bm">BPM <b>' + b.bpm + '</b></div><div class="bm">KEY <b>' + b.key + '</b></div><div class="bm">TYPE <b>' + b.genre.toUpperCase() + '</b></div></div>';
-    h += '<div class="bfoot">';
-    h += '<div class="btiers">';
-    var basicPrice = currentLicense === 'basic' ? '<b style="color:var(--gold2);">$'+b.price+'</b>' : '$'+b.price;
-    var premPrice = currentLicense === 'premium' ? '<b style="color:var(--gold2);">$'+(b.price<=29?49:99)+'</b>' : '$'+(b.price<=29?49:99);
-    var exclPrice = currentLicense === 'exclusive' ? '<b style="color:var(--gold2);">$499</b>' : '$499';
-    h += '<button class="btier t-basic" onclick="event.stopPropagation();buyTier(' + b.id + ',\'basic\')">'+basicPrice+'<br>Basic</button>';
-    h += '<button class="btier t-prem" onclick="event.stopPropagation();buyTier(' + b.id + ',\'premium\')">'+premPrice+'<br>Premium</button>';
-    h += '<button class="btier t-excl" onclick="event.stopPropagation();buyTier(' + b.id + ',\'exclusive\')">'+exclPrice+'<br>Exclusive</button>';
-    h += '</div>';
-    h += '<div class="bacts" style="padding:0 15px 14px;"><button class="bfav' + fc + '" onclick="event.stopPropagation();doLike(' + b.id + ')">&#9825;</button></div>';
-    h += '</div></div></div>';
+    var fromPrice = currentLicense === 'basic' ? b.price : (currentLicense === 'premium' ? (b.price<=29?49:99) : (currentLicense === 'exclusive' ? 499 : b.price));
+    var priceSub = currentLicense ? (currentLicense.charAt(0).toUpperCase()+currentLicense.slice(1)+' License') : '3 tiers from $'+b.price;
+    h += '<div class="bfoot" style="padding:10px 15px 14px;display:flex;align-items:center;justify-content:space-between;">';
+    h += '<div><div class="bprice">$'+fromPrice+'</div><div class="bprice-sub">'+priceSub+'</div></div>';
+    h += '<div style="display:flex;gap:6px;align-items:center;">';
+    h += '<button class="bfav' + fc + '" onclick="event.stopPropagation();doLike(' + b.id + ')">&#9825;</button>';
+    if (b.audio) h += '<button class="bbuy" onclick="event.stopPropagation();openLicenseModal(' + b.id + ')">License It</button>';
+    h += '</div></div></div></div>';
   }
   document.getElementById("grid").innerHTML = h;
 }
@@ -1616,16 +1664,19 @@ function playB(id) {
   for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === id) { b = BEATS[i]; break; } }
   if (!b) return;
 
+  // No audio — just toast, touch nothing
+  if (!b.audio) {
+    doToast(b.name + ' — dropping soon. Follow @wacko.prophet');
+    return;
+  }
+
+  // Same beat toggle
   if (curBeat === id) {
     if (isPlay) { pauseIt(); } else { resumeIt(); }
     return;
   }
 
-  // Save current state in case new beat has no audio
-  var prevBeatId = curBeat;
-  var prevIsPlay = isPlay;
-
-  // Claim gesture window synchronously before any async work
+  // Claim gesture window synchronously RIGHT NOW before any async
   getAC();
   audioEl.pause();
   audioEl.src = SILENT_SRC;
@@ -1645,14 +1696,6 @@ function playB(id) {
   drawWave(0);
   updIcon();
   render();
-
-  if (!b.audio) {
-    // No audio yet — don't switch away from current beat, just toast
-    curBeat = prevBeatId;
-    isPlay = prevIsPlay;
-    doToast(b.name + ' — dropping soon. Follow @wacko.prophet');
-    return;
-  }
 
   doToast('Loading ' + b.name + '...');
   var playingId = id;
@@ -1838,6 +1881,131 @@ function doToast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(function() { el.classList.remove("on"); }, 3500);
 }
+
+// License modal
+var licModalBeat = null;
+var licSelTier = 'Premium';
+var licSelTierKey = 'premium';
+
+var LIC_FEATS = {
+  basic: ['MP3 tagged','50K streams','Non-profit / mixtape','1 music video'],
+  premium: ['MP3 + WAV untagged','500K streams','Commercial releases','1 music video','Radio broadcast'],
+  exclusive: ['All formats','Unlimited streams','Full commercial rights','Unlimited videos','Radio broadcast','Beat off the market']
+};
+
+function makeFeatHTML(feats) {
+  return feats.map(function(f){
+    return '<span style="font-family:DM Mono,monospace;font-size:.48rem;letter-spacing:.08em;color:var(--dim);display:flex;align-items:center;gap:3px;"><span style="color:var(--gold);font-size:.46rem;">--</span>'+f+'</span>';
+  }).join('');
+}
+
+function openLicenseModal(id) {
+  var b = null;
+  for (var i = 0; i < BEATS.length; i++) { if (BEATS[i].id === id) { b = BEATS[i]; break; } }
+  if (!b) return;
+  licModalBeat = b;
+
+  document.getElementById('licModalName').textContent = b.name;
+  document.getElementById('licModalMeta').textContent = b.bpm + ' BPM  •  ' + b.key + '  •  ' + b.genre.toUpperCase() + '  •  Prod. Wacko Prophet';
+  document.getElementById('licModalArt').style.background = 'linear-gradient(135deg,' + b.c1 + ',' + b.c2 + ')';
+  document.getElementById('lt-basic-price').textContent = '$' + b.price;
+  document.getElementById('lt-prem-price').textContent = '$' + (b.price <= 29 ? 49 : 99);
+  document.getElementById('lt-basic-feats').innerHTML = makeFeatHTML(LIC_FEATS.basic);
+  document.getElementById('lt-prem-feats').innerHTML = makeFeatHTML(LIC_FEATS.premium);
+  document.getElementById('lt-excl-feats').innerHTML = makeFeatHTML(LIC_FEATS.exclusive);
+
+  // Pre-select based on active filter
+  if (currentLicense) {
+    var map = {basic:'lt-basic', premium:'lt-prem', exclusive:'lt-excl'};
+    var labels = {basic:'Basic', premium:'Premium', exclusive:'Exclusive'};
+    var prices = {basic:'$'+b.price, premium:'$'+(b.price<=29?49:99), exclusive:'$499'};
+    document.querySelectorAll('.lic-tier').forEach(function(t){ resetTierStyle(t); });
+    setTierSelected(document.getElementById(map[currentLicense]));
+    licSelTier = labels[currentLicense];
+    licSelTierKey = currentLicense;
+    document.getElementById('licSelLabel').textContent = licSelTier + ' License';
+    document.getElementById('licSelPrice').textContent = prices[currentLicense];
+  } else {
+    // Default to Premium
+    document.querySelectorAll('.lic-tier').forEach(function(t){ resetTierStyle(t); });
+    setTierSelected(document.getElementById('lt-prem'));
+    licSelTier = 'Premium'; licSelTierKey = 'premium';
+    document.getElementById('licSelLabel').textContent = 'Premium License';
+    document.getElementById('licSelPrice').textContent = '$' + (b.price <= 29 ? 49 : 99);
+  }
+
+  var overlay = document.getElementById('licModalOverlay');
+  overlay.style.opacity = '0';
+  overlay.style.pointerEvents = 'all';
+  overlay.style.display = 'flex';
+  setTimeout(function(){ overlay.style.opacity = '1'; overlay.style.transition = 'opacity .25s'; }, 10);
+  document.getElementById('licModalBox').style.transform = 'translateY(0) scale(1)';
+  document.getElementById('licModalBox').style.transition = 'transform .3s cubic-bezier(.16,1,.3,1)';
+  document.body.style.overflow = 'hidden';
+}
+
+function resetTierStyle(el) {
+  el.style.borderColor = 'var(--bd)';
+  el.style.background = 'transparent';
+  // Remove gold bar
+  var bar = el.querySelector('.lic-gold-bar');
+  if (bar) bar.remove();
+}
+
+function setTierSelected(el) {
+  el.style.borderColor = 'var(--gold)';
+  el.style.background = 'rgba(201,168,76,.06)';
+  if (!el.querySelector('.lic-gold-bar')) {
+    var bar = document.createElement('div');
+    bar.className = 'lic-gold-bar';
+    bar.style.cssText = 'position:absolute;top:0;left:0;width:3px;height:100%;background:var(--gold);';
+    el.appendChild(bar);
+  }
+}
+
+function selectLicTier(el, name, key) {
+  document.querySelectorAll('.lic-tier').forEach(function(t){ resetTierStyle(t); });
+  setTierSelected(el);
+  licSelTier = name;
+  licSelTierKey = key;
+  var b = licModalBeat;
+  var prices = {basic: b.price, premium: b.price<=29?49:99, exclusive: 499};
+  document.getElementById('licSelLabel').textContent = name + ' License';
+  document.getElementById('licSelPrice').textContent = '$' + prices[key];
+}
+
+function closeLicenseModal() {
+  var overlay = document.getElementById('licModalOverlay');
+  overlay.style.opacity = '0';
+  overlay.style.pointerEvents = 'none';
+  setTimeout(function(){ overlay.style.display = 'none'; }, 260);
+  document.body.style.overflow = '';
+}
+
+function handleLicOverlay(e) {
+  if (e.target === document.getElementById('licModalOverlay')) closeLicenseModal();
+}
+
+function doLicBuy() {
+  if (!licModalBeat) return;
+  closeLicenseModal();
+  // Exclusive = open exclusive contract modal
+  if (licSelTierKey === 'exclusive') {
+    openExclModal(licModalBeat);
+    return;
+  }
+  // Basic/Premium = go to Gumroad
+  trackEvent('beat_click_' + licSelTierKey, licModalBeat.name);
+  var sales_local = getSales();
+  sales_local[licModalBeat.id] = (sales_local[licModalBeat.id] || 0) + 1;
+  saveSales();
+  if (LINKS[licModalBeat.id]) {
+    window.open(LINKS[licModalBeat.id], '_blank');
+  } else {
+    doToast('Email us: ' + EM + ' for ' + licModalBeat.name + ' — ' + licSelTier);
+  }
+}
+
 
 // License filter state
 var currentLicense = null;
