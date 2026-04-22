@@ -1993,17 +1993,19 @@ function doLicBuy() {
     openExclModal(licModalBeat);
     return;
   }
-  trackEvent('beat_click_' + licSelTierKey, licModalBeat.name);
-  var sales_local = getSales();
-  sales_local[licModalBeat.id] = (sales_local[licModalBeat.id] || 0) + 1;
-  saveSales();
-  closeLicenseModal();
+  // Open URL FIRST before any async/timeout code so mobile browsers allow it
   var url = LINKS[licModalBeat.id] || null;
   if (url) {
     window.open(url, '_blank');
   } else {
     doToast('Email us: ' + EM + ' for ' + licModalBeat.name + ' — ' + licSelTier);
   }
+  // Track and close after
+  trackEvent('beat_click_' + licSelTierKey, licModalBeat.name);
+  var sales_local = getSales();
+  sales_local[licModalBeat.id] = (sales_local[licModalBeat.id] || 0) + 1;
+  saveSales();
+  closeLicenseModal();
 }
 
 
