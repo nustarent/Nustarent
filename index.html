@@ -86,6 +86,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .bcard{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;}
 .bcard:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 12px 40px rgba(201,168,76,.12);}
 .bcard.act{border-color:var(--gold);box-shadow:0 0 30px rgba(201,168,76,.15);}
+.bcard.soon{opacity:.6;}
 
 /* SECTION TITLE ANIMATION */
 .sec-h-anim{overflow:hidden;}
@@ -411,6 +412,14 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
           <button class="ft" onclick="doFilter('meme',this)">Meme</button>
         </div>
       </div>
+      </div>
+
+      <!-- Active license filter banner -->
+      <div class="filter-banner" id="filterBanner" style="display:none;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:var(--r);padding:10px 16px;margin-bottom:14px;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;color:var(--gold);align-items:center;justify-content:space-between;">
+        <span id="filterBannerText">Showing Basic beats</span>
+        <button onclick="clearLicenseFilter()" style="background:none;border:none;color:var(--low);cursor:pointer;font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.1em;transition:color .15s;">&#10005; Show all</button>
+      </div>
+
       <div class="meme-bio" id="meme-bio">&#128514; You like ass? Then this the beat for you. Insta reel worthy, TikTok worthy shi. Pure vibes.</div>
       <div class="bgrid" id="grid"></div>
     </div>
@@ -442,9 +451,9 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
         <div class="pcard reveal-right" style="transition-delay:.25s">
           <div class="pack-tag">&#10022; Pro Pack</div>
           <div class="pack-name">Premium Pack</div>
-          <div class="pack-desc">10-12 beats with full WAV files and stems. Every genre covered. Built for artists moving serious.</div>
+          <div class="pack-desc">10-12 beats with full WAV files and . Every genre covered. Built for artists moving serious.</div>
           <ul class="pack-inc">
-            <li>10-12 beats (WAV untagged + stems)</li>
+            <li>10-12 beats (WAV untagged)</li>
             <li>Premium lease on each beat</li>
             <li>Up to 500K streams per beat</li>
             <li>Radio + music video allowed</li>
@@ -477,7 +486,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
             <li>Non-profit / mixtape</li>
             <li>Music video ok</li>
             <li class="off">Untagged WAV</li>
-            <li class="off">Stem files</li>
+            <li class="off"></li>
             <li class="off">Exclusive rights</li>
           </ul>
           <button class="btn btn-line" style="width:100%;justify-content:center;" id="lic1btn">Select Basic</button>
@@ -493,7 +502,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
             <li>Profit releases</li>
             <li>Music video ok</li>
             <li>Radio broadcast</li>
-            <li>Stems included</li>
+            
             <li class="off">Exclusive rights</li>
           </ul>
           <button class="btn btn-gold" style="width:100%;justify-content:center;" id="lic2btn">Select Premium</button>
@@ -504,7 +513,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
           <div class="lprice"><sup>$</sup>499<span style="font-size:.85rem;color:var(--low)">+</span></div>
           <div class="ldiv"></div>
           <ul class="lfeats">
-            <li>All formats + stems</li>
+            <li>All formats</li>
             <li>Unlimited streams</li>
             <li>Full commercial rights</li>
             <li>Music video ok</li>
@@ -523,11 +532,11 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
         </div>
         <div class="ag-item">
           <button class="ag-btn" onclick="toggleAg('ag2')">Premium Lease Agreement <span class="ag-icon" id="ag2-icon">+</span></button>
-          <div class="ag-body" id="ag2">By purchasing this lease you agree to the following:<br><br>-- MP3 + WAV untagged + stem files<br>-- Up to 500,000 streams across all platforms<br>-- Commercial profit releases allowed<br>-- 1 music video permitted<br>-- Radio broadcasting allowed<br>-- Beat remains for sale to other artists<br>-- Producer credit required: Wacko Prophet<br>-- License is non-transferable<br>-- NUSTAR retains full ownership of the beat<br>-- All sales final, no refunds<br>-- Violation may result in DMCA takedown and legal action</div>
+          <div class="ag-body" id="ag2">By purchasing this lease you agree to the following:<br><br>-- MP3 + WAV untagged<br>-- Up to 500,000 streams across all platforms<br>-- Commercial profit releases allowed<br>-- 1 music video permitted<br>-- Radio broadcasting allowed<br>-- Beat remains for sale to other artists<br>-- Producer credit required: Wacko Prophet<br>-- License is non-transferable<br>-- NUSTAR retains full ownership of the beat<br>-- All sales final, no refunds<br>-- Violation may result in DMCA takedown and legal action</div>
         </div>
         <div class="ag-item">
           <button class="ag-btn" onclick="toggleAg('ag3')">Exclusive Agreement <span class="ag-icon" id="ag3-icon">+</span></button>
-          <div class="ag-body" id="ag3">By purchasing this exclusive you agree to the following:<br><br>-- All file formats + full stem kit<br>-- Unlimited streams and commercial use<br>-- Full commercial rights including sync licensing<br>-- Unlimited music videos<br>-- Radio broadcasting allowed<br>-- Beat permanently removed from store after purchase<br>-- Producer credit required: Wacko Prophet<br>-- All rights transfer to licensee upon full payment<br>-- NUSTAR waives all future claims to the beat<br>-- License is non-transferable<br>-- Agreement is final and non-refundable</div>
+          <div class="ag-body" id="ag3">By purchasing this exclusive you agree to the following:<br><br>-- All file formats<br>-- Unlimited streams and commercial use<br>-- Full commercial rights including sync licensing<br>-- Unlimited music videos<br>-- Radio broadcasting allowed<br>-- Beat permanently removed from store after purchase<br>-- Producer credit required: Wacko Prophet<br>-- All rights transfer to licensee upon full payment<br>-- NUSTAR waives all future claims to the beat<br>-- License is non-transferable<br>-- Agreement is final and non-refundable</div>
         </div>
       </div>
     </div>
@@ -816,7 +825,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 
         <div class="faq-item reveal">
           <button class="faq-btn" onclick="toggleFaq('f3')">What is the difference between Basic and Premium? <span class="faq-icon" id="f3-icon">+</span></button>
-          <div class="faq-body" id="f3">Basic gives you a tagged MP3 for non-commercial use up to 50K streams. Premium gives you an untagged WAV file plus stems, allows commercial profit releases, radio broadcasting, and covers up to 500K streams. If you are putting out a serious release go Premium — the untagged audio alone makes it worth it.</div>
+          <div class="faq-body" id="f3">Basic gives you a tagged MP3 for non-commercial use up to 50K streams. Premium gives you an untagged WAV file plus , allows commercial profit releases, radio broadcasting, and covers up to 500K streams. If you are putting out a serious release go Premium — the untagged audio alone makes it worth it.</div>
         </div>
 
         <div class="faq-item reveal">
@@ -832,6 +841,11 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
         <div class="faq-item reveal">
           <button class="faq-btn" onclick="toggleFaq('f6')">Do you offer refunds? <span class="faq-icon" id="f6-icon">+</span></button>
           <div class="faq-body" id="f6">All sales are final. Because beats are digital files that are delivered instantly we do not offer refunds once the download has been accessed. If you have a technical issue with your file reach out and we will sort it out.</div>
+        </div>
+
+        <div class="faq-item reveal">
+          <button class="faq-btn" onclick="toggleFaq('f8')">Are the beats on the site the final versions? <span class="faq-icon" id="f8-icon">+</span></button>
+          <div class="faq-body" id="f8">The previews on the site are tagged demo versions — producer tags are placed throughout so the beat cannot be used without a license. When you purchase you receive the clean untagged file depending on your license tier. Basic gets a tagged MP3, Premium gets an untagged WAV plus MP3, Exclusive gets everything clean with full rights.</div>
         </div>
 
         <div class="faq-item reveal">
@@ -897,7 +911,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 
     <div style="background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:20px;">
       <div style="font-family:'DM Mono',monospace;font-size:.58rem;color:var(--dim);line-height:1.8;">
-        <span style="color:var(--gold);">$499</span> — Full ownership. Beat off the market. Unlimited streams, all files + stems, full commercial rights.
+        <span style="color:var(--gold);">$499</span> — Full ownership. Beat off the market. Unlimited streams, all files + , full commercial rights.
       </div>
     </div>
 
@@ -1009,9 +1023,9 @@ if (faqEmail) { faqEmail.textContent = EM; }
 document.getElementById("contact-sub").textContent = "Beat purchases, custom requests, features — " + EM;
 document.getElementById("pack1btn").onclick = function(){ doToast("Email us: " + EM); };
 document.getElementById("pack2btn").onclick = function(){ doToast("Email us: " + EM); };
-document.getElementById("lic1btn").onclick = function(){ doToast("Email us: " + EM); };
-document.getElementById("lic2btn").onclick = function(){ doToast("Email us: " + EM); };
-document.getElementById("lic3btn").onclick = function(){ doToast("Email us: " + EM); };
+document.getElementById("lic1btn").onclick = function(){ filterByLicense("basic","$29","Basic"); };
+document.getElementById("lic2btn").onclick = function(){ filterByLicense("premium","$99","Premium"); };
+document.getElementById("lic3btn").onclick = function(){ filterByLicense("exclusive","$499","Exclusive"); };
 document.getElementById("sendBtn").onclick = function(){ doToast("Message sent. We will be in touch."); };
 
 var contactForm = document.getElementById("contactForm");
@@ -1048,7 +1062,7 @@ if (contactForm) {
 }
 
 var BEATS = [
-  {id:1, name:"ZENITH", bpm:140, key:"TBD", genre:"hiphop", price:40, tag:"NEW", c1:"#0d1520", c2:"#0a1830", audio:"https://res.cloudinary.com/dsnfvixyf/raw/upload/v1776478428/ZENITH_FINALencrypted.mp3_b0jcno.enc"},
+  {id:1, name:"CASINO", bpm:120, key:"TBD", genre:"trap", price:29, tag:"NEW", c1:"#0d1520", c2:"#150a08", audio:"https://res.cloudinary.com/dsnfvixyf/raw/upload/v1776823501/casino_with_tags.mp3_arnfm1.enc"},
   {id:2, name:"DARK MATTER", bpm:140, key:"F# MIN", genre:"trap", price:99, tag:"HOT", c1:"#1a1410", c2:"#2a1e0a"},
   {id:3, name:"COLD NIGHTS", bpm:72, key:"C MIN", genre:"rnb", price:79, tag:"", c1:"#0f1420", c2:"#0a1228"},
   {id:4, name:"CAT MODE", bpm:130, key:"C MAJ", genre:"meme", price:29, tag:"NEW", c1:"#1a1520", c2:"#0f1020"},
@@ -1253,7 +1267,7 @@ function generateExclContract() {
     'Unlimited music video use.',
     'Radio broadcasting rights, unlimited.',
     'Beat permanently removed from the NUSTAR store after the date of this agreement.',
-    'All audio files delivered: MP3 (tagged and untagged), WAV (untagged), and full stem/trackout kit.'
+    'All audio files delivered: MP3 (tagged and untagged), WAV (untagged).'
   ];
   rights.forEach(function(r, i) {
     checkPage();
@@ -1412,23 +1426,34 @@ function render() {
       var dur = (0.3 + (j % 6) * 0.06).toFixed(2);
       bars += '<div class="wb" style="height:' + ht + 'px;--d:' + dur + 's;"></div>';
     }
-    var pc = (curBeat === b.id) ? " act" : "";
+    var pc = (curBeat === b.id) ? " act" : (!b.audio ? " soon" : "");
     var th = b.tag ? ('<div class="btag' + (b.tag === "EXCLUSIVE" ? " excl" : "") + '">' + b.tag + "</div>") : "";
-    var fc = liked[b.id] ? " on" : "";
+    var soonBlock = !b.audio ? [
+      '<div style="position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;',
+      'background:linear-gradient(to bottom,rgba(8,8,8,.3) 0%,rgba(8,8,8,.7) 100%);backdrop-filter:blur(3px);">',
+      '<div style="width:28px;height:1px;background:#444;"></div>',
+      '<span style="font-family:DM Mono,monospace;font-size:.5rem;letter-spacing:.28em;color:#666;text-transform:uppercase;">Coming Soon</span>',
+      '<div style="width:28px;height:1px;background:#444;"></div>',
+      '</div>'
+    ].join('') : '';
+        var fc = liked[b.id] ? " on" : "";
     h += '<div class="bcard' + pc + '" onclick="playB(' + b.id + ')" style="cursor:pointer;">';
     h += '<div class="bcov"><div class="bcov-art">';
     h += '<div class="bcov-bg" style="background:linear-gradient(150deg,' + b.c1 + ',' + b.c2 + ');"></div>';
     h += '<div class="bcov-grid"></div>';
     h += '<div class="bcov-info"><div class="bcov-bpm">' + b.bpm + '</div><div class="bcov-key">' + b.key + '</div></div>';
-    h += '</div>' + th;
+    h += soonBlock + '</div>' + th;
     h += '<div class="wv" onclick="playB(' + b.id + ');event.stopPropagation();">' + bars + '</div></div>';
     h += '<div class="binfo"><div class="bname">' + b.name + '</div>';
     h += '<div class="bmeta"><div class="bm">BPM <b>' + b.bpm + '</b></div><div class="bm">KEY <b>' + b.key + '</b></div><div class="bm">TYPE <b>' + b.genre.toUpperCase() + '</b></div></div>';
     h += '<div class="bfoot">';
     h += '<div class="btiers">';
-    h += '<button class="btier t-basic" onclick="event.stopPropagation();buyTier(' + b.id + ',\'basic\')">$' + b.price + '<br>Basic</button>';
-    h += '<button class="btier t-prem" onclick="event.stopPropagation();buyTier(' + b.id + ',\'premium\')">$' + (b.price <= 29 ? 49 : 99) + '<br>Premium</button>';
-    h += '<button class="btier t-excl" onclick="event.stopPropagation();buyTier(' + b.id + ',\'exclusive\')">$499<br>Exclusive</button>';
+    var basicPrice = currentLicense === 'basic' ? '<b style="color:var(--gold2);">$'+b.price+'</b>' : '$'+b.price;
+    var premPrice = currentLicense === 'premium' ? '<b style="color:var(--gold2);">$'+(b.price<=29?49:99)+'</b>' : '$'+(b.price<=29?49:99);
+    var exclPrice = currentLicense === 'exclusive' ? '<b style="color:var(--gold2);">$499</b>' : '$499';
+    h += '<button class="btier t-basic" onclick="event.stopPropagation();buyTier(' + b.id + ',\'basic\')">'+basicPrice+'<br>Basic</button>';
+    h += '<button class="btier t-prem" onclick="event.stopPropagation();buyTier(' + b.id + ',\'premium\')">'+premPrice+'<br>Premium</button>';
+    h += '<button class="btier t-excl" onclick="event.stopPropagation();buyTier(' + b.id + ',\'exclusive\')">'+exclPrice+'<br>Exclusive</button>';
     h += '</div>';
     h += '<div class="bacts" style="padding:0 15px 14px;"><button class="bfav' + fc + '" onclick="event.stopPropagation();doLike(' + b.id + ')">&#9825;</button></div>';
     h += '</div></div></div>';
@@ -1596,6 +1621,10 @@ function playB(id) {
     return;
   }
 
+  // Save current state in case new beat has no audio
+  var prevBeatId = curBeat;
+  var prevIsPlay = isPlay;
+
   // Claim gesture window synchronously before any async work
   getAC();
   audioEl.pause();
@@ -1617,30 +1646,33 @@ function playB(id) {
   updIcon();
   render();
 
-  if (b.audio) {
-    doToast('Loading ' + b.name + '...');
-    var playingId = id;
-    fetchBlob(b.audio, function(src) {
+  if (!b.audio) {
+    // No audio yet — don't switch away from current beat, just toast
+    curBeat = prevBeatId;
+    isPlay = prevIsPlay;
+    doToast(b.name + ' — dropping soon. Follow @wacko.prophet');
+    return;
+  }
+
+  doToast('Loading ' + b.name + '...');
+  var playingId = id;
+  fetchBlob(b.audio, function(src) {
+    if (curBeat !== playingId) return;
+    audioEl.pause();
+    audioEl.src = src;
+    audioEl.load();
+    audioEl.addEventListener('canplay', function onReady() {
+      audioEl.removeEventListener('canplay', onReady);
       if (curBeat !== playingId) return;
-      audioEl.pause();
-      audioEl.src = src;
-      audioEl.load();
-      audioEl.addEventListener('canplay', function onReady() {
-        audioEl.removeEventListener('canplay', onReady);
-        if (curBeat !== playingId) return;
-        audioEl.play().then(function() {
-          isPlay = true; updIcon(); render();
-        }).catch(function(err) {
-          console.log('Play blocked:', err);
-          isPlay = false; updIcon();
-          doToast('Tap ▶ to play');
-        });
+      audioEl.play().then(function() {
+        isPlay = true; updIcon(); render();
+      }).catch(function(err) {
+        console.log('Play blocked:', err);
+        isPlay = false; updIcon();
+        doToast('Tap ▶ to play');
       });
     });
-  } else {
-    isPlay = false; updIcon();
-    doToast(b.name + ' — dropping soon. Follow @wacko.prophet');
-  }
+  });
 }
 
 function togglePlay() { if (isPlay) { pauseIt(); } else { resumeIt(); } }
@@ -1805,6 +1837,28 @@ function doToast(msg) {
   el.classList.add("on");
   clearTimeout(toastTimer);
   toastTimer = setTimeout(function() { el.classList.remove("on"); }, 3500);
+}
+
+// License filter state
+var currentLicense = null;
+var currentLicensePrice = null;
+
+function filterByLicense(tier, price, label) {
+  currentLicense = tier;
+  currentLicensePrice = price;
+  var banner = document.getElementById('filterBanner');
+  document.getElementById('filterBannerText').textContent = 'Showing ' + label + ' beats — ' + price + ' each';
+  banner.classList.add('on');
+  document.getElementById('beats').scrollIntoView({behavior:'smooth'});
+  render();
+  doToast('Browsing ' + label + ' — ' + price + ' per beat');
+}
+
+function clearLicenseFilter() {
+  currentLicense = null;
+  currentLicensePrice = null;
+  document.getElementById('filterBanner').classList.remove('on');
+  render();
 }
 
 render();
