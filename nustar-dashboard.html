@@ -1988,19 +1988,19 @@ function handleLicOverlay(e) {
 
 function doLicBuy() {
   if (!licModalBeat) return;
-  closeLicenseModal();
-  // Exclusive = open exclusive contract modal
   if (licSelTierKey === 'exclusive') {
+    closeLicenseModal();
     openExclModal(licModalBeat);
     return;
   }
-  // Basic/Premium = go to Gumroad
   trackEvent('beat_click_' + licSelTierKey, licModalBeat.name);
   var sales_local = getSales();
   sales_local[licModalBeat.id] = (sales_local[licModalBeat.id] || 0) + 1;
   saveSales();
-  if (LINKS[licModalBeat.id]) {
-    window.open(LINKS[licModalBeat.id], '_blank');
+  closeLicenseModal();
+  var url = LINKS[licModalBeat.id] || null;
+  if (url) {
+    window.open(url, '_blank');
   } else {
     doToast('Email us: ' + EM + ' for ' + licModalBeat.name + ' — ' + licSelTier);
   }
