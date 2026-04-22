@@ -1993,10 +1993,19 @@ function doLicBuy() {
     openExclModal(licModalBeat);
     return;
   }
-  // Open URL FIRST before any async/timeout code so mobile browsers allow it
   var url = LINKS[licModalBeat.id] || null;
   if (url) {
-    window.open(url, '_blank');
+    // Try window.open first (desktop), fall back to anchor click (mobile Safari)
+    var win = window.open(url, '_blank');
+    if (!win || win.closed || typeof win.closed === 'undefined') {
+      var a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
   } else {
     doToast('Email us: ' + EM + ' for ' + licModalBeat.name + ' — ' + licSelTier);
   }
