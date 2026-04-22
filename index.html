@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -63,15 +64,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .reveal-scale.visible{opacity:1;transform:scale(1);}
 
 /* PHOTO ANIMATIONS */
-.photo-wrap{position:relative;overflow:hidden;border-radius:var(--r);border:1px solid var(--bd);}
+.photo-wrap{position:relative;overflow:hidden;border-radius:var(–r);border:1px solid var(–bd);}
 .photo-wrap img{width:100%;aspect-ratio:.85;object-fit:cover;display:block;transition:transform .8s cubic-bezier(.16,1,.3,1),filter .8s ease;filter:grayscale(30%) brightness(.85);}
 .photo-wrap:hover img{transform:scale(1.06);filter:grayscale(0%) brightness(1);}
-.photo-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.75) 0%,transparent 55%);pointer-events:none;}
-.photo-wrap::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.08),transparent);pointer-events:none;z-index:1;opacity:0;transition:opacity .4s;}
+.photo-wrap::after{content:’’;position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.75) 0%,transparent 55%);pointer-events:none;}
+.photo-wrap::before{content:’’;position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.08),transparent);pointer-events:none;z-index:1;opacity:0;transition:opacity .4s;}
 .photo-wrap:hover::before{opacity:1;}
 
 /* GOLD LINE DRAW */
-.gold-line{height:1px;background:var(--gold);width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
+.gold-line{height:1px;background:var(–gold);width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
 .gold-line.visible{width:100%;}
 
 /* GLOW PULSE */
@@ -83,11 +84,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 @keyframes rippleOut{to{transform:scale(4);opacity:0;}}
 
 /* BEAT CARD HOVER */
-.bcard{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;}
-.bcard:hover{border-color:var(--gold);transform:translateY(-6px);box-shadow:0 12px 40px rgba(201,168,76,.12);}
-.bcard.act{border-color:var(--gold);box-shadow:0 0 30px rgba(201,168,76,.15);}
+.bcard{background:var(–s2);border:1px solid var(–bd);border-radius:var(–r);overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;}
+.bcard:hover{border-color:var(–gold);transform:translateY(-6px);box-shadow:0 12px 40px rgba(201,168,76,.12);}
+.bcard.act{border-color:var(–gold);box-shadow:0 0 30px rgba(201,168,76,.15);}
 .bcard.soon{opacity:.6;}
-.lic-tier:hover{border-color:var(--bd2)!important;background:rgba(255,255,255,.02)!important;}
+.lic-tier:hover{border-color:var(–bd2)!important;background:rgba(255,255,255,.02)!important;}
 .modal-overlay.on .modal,.licModalOverlay.on #licModalBox{transform:translateY(0) scale(1);}
 #licModalOverlay.on{opacity:1;pointer-events:all;}
 #licModalOverlay.on #licModalBox{transform:translateY(0) scale(.97);}
@@ -96,211 +97,209 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;height:60px;display:flex;ali
 .sec-h-anim{overflow:hidden;}
 .sec-h-anim span{display:inline-block;transform:translateY(100%);opacity:0;transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .7s;}
 .sec-h-anim.visible span{transform:translateY(0);opacity:1;}
-.ticker-wrap{overflow:hidden;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);background:var(--s1);padding:11px 0;}
+.ticker-wrap{overflow:hidden;border-top:1px solid var(–bd);border-bottom:1px solid var(–bd);background:var(–s1);padding:11px 0;}
 .ticker{display:flex;animation:tick 24s linear infinite;white-space:nowrap;}
-.ti{font-family:'Anton',sans-serif;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--low);padding:0 22px;flex-shrink:0;}
-.ti.g{color:var(--gold);}
+.ti{font-family:‘Anton’,sans-serif;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(–low);padding:0 22px;flex-shrink:0;}
+.ti.g{color:var(–gold);}
 @keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 .wrap{max-width:1100px;margin:0 auto;padding:0 36px;}
 .sec{padding:80px 0;}
-.sec-eye{font-family:'DM Mono',monospace;font-size:.55rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin-bottom:12px;}
-.sec-h{font-family:'Anton',sans-serif;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:.04em;text-transform:uppercase;line-height:1;margin-bottom:10px;}
-.sec-sub{font-size:.88rem;color:var(--dim);font-weight:300;max-width:440px;}
+.sec-eye{font-family:‘DM Mono’,monospace;font-size:.55rem;letter-spacing:.3em;color:var(–gold);text-transform:uppercase;margin-bottom:12px;}
+.sec-h{font-family:‘Anton’,sans-serif;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:.04em;text-transform:uppercase;line-height:1;margin-bottom:10px;}
+.sec-sub{font-size:.88rem;color:var(–dim);font-weight:300;max-width:440px;}
 .beats-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:14px;}
 .ftabs{display:flex;gap:4px;flex-wrap:wrap;}
-.ft{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;padding:7px 12px;background:transparent;border:1px solid var(--bd);border-radius:var(--r);color:var(--low);cursor:pointer;transition:all .2s;}
-.ft:hover{color:var(--txt);border-color:var(--bd2);}
-.ft.on{border-color:var(--gold);color:var(--gold);}
-.meme-bio{display:none;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:14px 18px;margin-bottom:18px;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--dim);letter-spacing:.07em;line-height:1.7;}
+.ft{font-family:‘DM Mono’,monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;padding:7px 12px;background:transparent;border:1px solid var(–bd);border-radius:var(–r);color:var(–low);cursor:pointer;transition:all .2s;}
+.ft:hover{color:var(–txt);border-color:var(–bd2);}
+.ft.on{border-color:var(–gold);color:var(–gold);}
+.meme-bio{display:none;background:var(–s2);border:1px solid var(–bd);border-radius:var(–r);padding:14px 18px;margin-bottom:18px;font-family:‘DM Mono’,monospace;font-size:.7rem;color:var(–dim);letter-spacing:.07em;line-height:1.7;}
 .bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
-.bcard{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;transition:border-color .2s,transform .2s;}
-.bcard:hover{border-color:var(--bd2);transform:translateY(-3px);}
-.bcard.act{border-color:var(--gold);}
+.bcard{background:var(–s2);border:1px solid var(–bd);border-radius:var(–r);overflow:hidden;transition:border-color .2s,transform .2s;}
+.bcard:hover{border-color:var(–bd2);transform:translateY(-3px);}
+.bcard.act{border-color:var(–gold);}
 .bcov{height:155px;position:relative;overflow:hidden;}
 .bcov-art{width:100%;height:100%;position:relative;display:flex;align-items:center;justify-content:center;}
 .bcov-bg{position:absolute;inset:0;}
 .bcov-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:28px 28px;}
 .bcov-info{position:relative;z-index:1;text-align:center;}
-.bcov-bpm{font-family:'Anton',sans-serif;font-size:2.4rem;line-height:1;opacity:.11;}
-.bcov-key{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;opacity:.2;margin-top:3px;}
+.bcov-bpm{font-family:‘Anton’,sans-serif;font-size:2.4rem;line-height:1;opacity:.11;}
+.bcov-key{font-family:‘DM Mono’,monospace;font-size:.52rem;letter-spacing:.2em;opacity:.2;margin-top:3px;}
 .bplay-ov{display:none;}
 
 .ptri{font-size:13px;color:#080808;line-height:1;margin-left:2px;}
 .pico-pause{display:flex;gap:3px;}
 .pbar{width:3px;height:13px;background:#080808;border-radius:2px;}
-.btag{position:absolute;top:9px;right:9px;background:rgba(8,8,8,.85);border:1px solid var(--bd);border-radius:var(--r);padding:3px 8px;font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.13em;color:var(--gold);}
-.btag.excl{background:rgba(201,168,76,.12);border-color:var(--gold);}
+.btag{position:absolute;top:9px;right:9px;background:rgba(8,8,8,.85);border:1px solid var(–bd);border-radius:var(–r);padding:3px 8px;font-family:‘DM Mono’,monospace;font-size:.52rem;letter-spacing:.13em;color:var(–gold);}
+.btag.excl{background:rgba(201,168,76,.12);border-color:var(–gold);}
 .wv{position:absolute;bottom:8px;left:12px;right:12px;height:18px;display:flex;align-items:flex-end;gap:2px;}
 .wb{flex:1;background:rgba(255,255,255,.09);border-radius:1px;}
-.bcard.act .wb{animation:wa var(--d) ease-in-out infinite alternate;background:rgba(201,168,76,.4);}
+.bcard.act .wb{animation:wa var(–d) ease-in-out infinite alternate;background:rgba(201,168,76,.4);}
 @keyframes wa{from{transform:scaleY(.2);}to{transform:scaleY(1);}}
 .binfo{padding:13px 15px;}
-.bname{font-family:'Anton',sans-serif;font-size:1.05rem;letter-spacing:.07em;text-transform:uppercase;line-height:1;margin-bottom:5px;}
+.bname{font-family:‘Anton’,sans-serif;font-size:1.05rem;letter-spacing:.07em;text-transform:uppercase;line-height:1;margin-bottom:5px;}
 .bmeta{display:flex;gap:12px;margin-bottom:11px;}
-.bm{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.12em;color:var(--dim);}
-.bm b{color:var(--txt);font-weight:400;}
-.bfoot{border-top:1px solid var(--bd);}
+.bm{font-family:‘DM Mono’,monospace;font-size:.54rem;letter-spacing:.12em;color:var(–dim);}
+.bm b{color:var(–txt);font-weight:400;}
+.bfoot{border-top:1px solid var(–bd);}
 .btiers{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;padding:10px 15px 14px;}
-.btier{font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.08em;text-transform:uppercase;padding:8px 4px;border:1px solid var(--bd);border-radius:var(--r);background:transparent;color:var(--dim);cursor:pointer;transition:all .15s;text-align:center;line-height:1.5;}
-.btier:hover{color:var(--txt);border-color:var(--bd2);}
+.btier{font-family:‘DM Mono’,monospace;font-size:.52rem;letter-spacing:.08em;text-transform:uppercase;padding:8px 4px;border:1px solid var(–bd);border-radius:var(–r);background:transparent;color:var(–dim);cursor:pointer;transition:all .15s;text-align:center;line-height:1.5;}
+.btier:hover{color:var(–txt);border-color:var(–bd2);}
 .btier.t-basic:hover{border-color:#4a9eff;color:#4a9eff;}
-.btier.t-prem{border-color:rgba(201,168,76,.35);color:var(--gold);}
-.btier.t-prem:hover{background:rgba(201,168,76,.08);border-color:var(--gold);}
-.btier.t-excl{background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.4);color:var(--gold2);}
+.btier.t-prem{border-color:rgba(201,168,76,.35);color:var(–gold);}
+.btier.t-prem:hover{background:rgba(201,168,76,.08);border-color:var(–gold);}
+.btier.t-excl{background:rgba(201,168,76,.06);border-color:rgba(201,168,76,.4);color:var(–gold2);}
 .btier.t-excl:hover{background:rgba(201,168,76,.14);}
-.bprice{font-family:'Anton',sans-serif;font-size:1.3rem;color:var(--gold);letter-spacing:.04em;line-height:1;}
-.bprice-sub{font-family:'DM Mono',monospace;font-size:.48rem;color:var(--low);letter-spacing:.14em;margin-top:1px;}
+.bprice{font-family:‘Anton’,sans-serif;font-size:1.3rem;color:var(–gold);letter-spacing:.04em;line-height:1;}
+.bprice-sub{font-family:‘DM Mono’,monospace;font-size:.48rem;color:var(–low);letter-spacing:.14em;margin-top:1px;}
 .bacts{display:flex;gap:6px;}
-.bbuy{font-family:'Anton',sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 13px;background:var(--gold);color:#080808;border:none;border-radius:var(--r);cursor:pointer;transition:all .15s;}
-.bbuy:hover{background:var(--gold2);}
-.bfav{width:30px;height:30px;background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:var(--low);transition:all .15s;}
-.bfav:hover{color:var(--txt);border-color:var(--bd2);}
+.bbuy{font-family:‘Anton’,sans-serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;padding:8px 13px;background:var(–gold);color:#080808;border:none;border-radius:var(–r);cursor:pointer;transition:all .15s;}
+.bbuy:hover{background:var(–gold2);}
+.bfav{width:30px;height:30px;background:var(–s1);border:1px solid var(–bd);border-radius:var(–r);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:var(–low);transition:all .15s;}
+.bfav:hover{color:var(–txt);border-color:var(–bd2);}
 .bfav.on{color:#ff5555;border-color:rgba(255,85,85,.25);}
-.fav-card{display:flex;align-items:center;gap:12px;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:10px 14px;cursor:pointer;transition:border-color .2s;}
-.fav-card:hover{border-color:var(--bd2);}
+.fav-card{display:flex;align-items:center;gap:12px;background:var(–s2);border:1px solid var(–bd);border-radius:var(–r);padding:10px 14px;cursor:pointer;transition:border-color .2s;}
+.fav-card:hover{border-color:var(–bd2);}
 .fav-art{width:38px;height:38px;border-radius:2px;flex-shrink:0;}
 .fav-info{flex:1;min-width:0;}
-.fav-name{font-family:'Anton',sans-serif;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.fav-meta{font-family:'DM Mono',monospace;font-size:.5rem;color:var(--low);margin-top:3px;letter-spacing:.08em;}
-.fav-rm{background:none;border:none;color:var(--low);cursor:pointer;font-size:.7rem;padding:4px 6px;transition:color .15s;flex-shrink:0;}
-.fav-rm:hover{color:var(--txt);}
+.fav-name{font-family:‘Anton’,sans-serif;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fav-meta{font-family:‘DM Mono’,monospace;font-size:.5rem;color:var(–low);margin-top:3px;letter-spacing:.08em;}
+.fav-rm{background:none;border:none;color:var(–low);cursor:pointer;font-size:.7rem;padding:4px 6px;transition:color .15s;flex-shrink:0;}
+.fav-rm:hover{color:var(–txt);}
 #favGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;margin-top:16px;}
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:32px;}
-.pcard{background:var(--s2);border:1px solid var(--gold);border-radius:var(--r);padding:24px;position:relative;transition:transform .2s;}
+.pcard{background:var(–s2);border:1px solid var(–gold);border-radius:var(–r);padding:24px;position:relative;transition:transform .2s;}
 .pcard:hover{transform:translateY(-3px);}
-.pcard::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(--r) var(--r) 0 0;background:linear-gradient(90deg,var(--gold),var(--gold2));}
-.pack-tag{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
-.pack-name{font-family:'Anton',sans-serif;font-size:1.6rem;letter-spacing:.06em;text-transform:uppercase;line-height:1;margin-bottom:4px;}
-.pack-desc{font-size:.8rem;color:var(--dim);font-weight:300;margin-bottom:16px;line-height:1.6;}
+.pcard::after{content:’’;position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(–r) var(–r) 0 0;background:linear-gradient(90deg,var(–gold),var(–gold2));}
+.pack-tag{font-family:‘DM Mono’,monospace;font-size:.54rem;letter-spacing:.22em;color:var(–gold);text-transform:uppercase;margin-bottom:8px;}
+.pack-name{font-family:‘Anton’,sans-serif;font-size:1.6rem;letter-spacing:.06em;text-transform:uppercase;line-height:1;margin-bottom:4px;}
+.pack-desc{font-size:.8rem;color:var(–dim);font-weight:300;margin-bottom:16px;line-height:1.6;}
 .pack-inc{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:20px;}
-.pack-inc li{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.07em;color:var(--dim);display:flex;align-items:center;gap:8px;}
-.pack-inc li::before{content:'--';color:var(--gold);flex-shrink:0;}
-.pack-foot{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(--bd);}
-.pack-price{font-family:'Anton',sans-serif;font-size:2rem;color:var(--gold);letter-spacing:.04em;line-height:1;}
-.pack-price-sub{font-family:'DM Mono',monospace;font-size:.48rem;color:var(--low);letter-spacing:.14em;margin-top:1px;}
+.pack-inc li{font-family:‘DM Mono’,monospace;font-size:.6rem;letter-spacing:.07em;color:var(–dim);display:flex;align-items:center;gap:8px;}
+.pack-inc li::before{content:’–’;color:var(–gold);flex-shrink:0;}
+.pack-foot{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid var(–bd);}
+.pack-price{font-family:‘Anton’,sans-serif;font-size:2rem;color:var(–gold);letter-spacing:.04em;line-height:1;}
+.pack-price-sub{font-family:‘DM Mono’,monospace;font-size:.48rem;color:var(–low);letter-spacing:.14em;margin-top:1px;}
 .lgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px;}
-.lcard{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:26px 22px;position:relative;transition:transform .2s;}
+.lcard{background:var(–s2);border:1px solid var(–bd);border-radius:var(–r);padding:26px 22px;position:relative;transition:transform .2s;}
 .lcard:hover{transform:translateY(-3px);}
-.lcard::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(--r) var(--r) 0 0;}
-.lcard.basic::after{background:var(--bd2);}
-.lcard.prem{border-color:var(--gold);background:linear-gradient(160deg,rgba(201,168,76,.05),var(--s2));}
-.lcard.prem::after{background:linear-gradient(90deg,var(--gold),var(--gold2));}
-.lcard.excl::after{background:linear-gradient(90deg,#eee,var(--gold));}
-.lbadge{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.22em;color:var(--low);text-transform:uppercase;margin-bottom:8px;}
-.lbadge.g{color:var(--gold);}
-.lname{font-family:'Anton',sans-serif;font-size:1.7rem;letter-spacing:.06em;text-transform:uppercase;line-height:1;margin-bottom:2px;}
-.lprice{font-family:'Anton',sans-serif;font-size:2rem;color:var(--gold);letter-spacing:.04em;line-height:1;margin-bottom:18px;}
+.lcard::after{content:’’;position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(–r) var(–r) 0 0;}
+.lcard.basic::after{background:var(–bd2);}
+.lcard.prem{border-color:var(–gold);background:linear-gradient(160deg,rgba(201,168,76,.05),var(–s2));}
+.lcard.prem::after{background:linear-gradient(90deg,var(–gold),var(–gold2));}
+.lcard.excl::after{background:linear-gradient(90deg,#eee,var(–gold));}
+.lbadge{font-family:‘DM Mono’,monospace;font-size:.54rem;letter-spacing:.22em;color:var(–low);text-transform:uppercase;margin-bottom:8px;}
+.lbadge.g{color:var(–gold);}
+.lname{font-family:‘Anton’,sans-serif;font-size:1.7rem;letter-spacing:.06em;text-transform:uppercase;line-height:1;margin-bottom:2px;}
+.lprice{font-family:‘Anton’,sans-serif;font-size:2rem;color:var(–gold);letter-spacing:.04em;line-height:1;margin-bottom:18px;}
 .lprice sup{font-size:.95rem;vertical-align:top;margin-top:3px;}
-.ldiv{height:1px;background:var(--bd);margin-bottom:16px;}
+.ldiv{height:1px;background:var(–bd);margin-bottom:16px;}
 .lfeats{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
-.lfeats li{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.07em;color:var(--dim);display:flex;align-items:center;gap:8px;}
-.lfeats li::before{content:'--';color:var(--gold);flex-shrink:0;}
+.lfeats li{font-family:‘DM Mono’,monospace;font-size:.6rem;letter-spacing:.07em;color:var(–dim);display:flex;align-items:center;gap:8px;}
+.lfeats li::before{content:’–’;color:var(–gold);flex-shrink:0;}
 .lfeats li.off{opacity:.28;text-decoration:line-through;}
-.lfeats li.off::before{color:var(--low);}
+.lfeats li.off::before{color:var(–low);}
 .ag-wrap{margin-top:44px;}
-.ag-item{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:8px;}
-.ag-btn{width:100%;background:none;border:none;color:var(--txt);font-family:'Anton',sans-serif;font-size:.88rem;letter-spacing:.1em;text-transform:uppercase;padding:15px 18px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
-.ag-icon{color:var(--gold);font-size:1.1rem;font-family:'DM Mono',monospace;}
-.ag-body{display:none;padding:0 18px 18px;font-family:'DM Mono',monospace;font-size:.62rem;color:var(--dim);line-height:2;letter-spacing:.06em;}
+.ag-item{background:var(–s2);border:1px solid var(–bd);border-radius:var(–r);overflow:hidden;margin-bottom:8px;}
+.ag-btn{width:100%;background:none;border:none;color:var(–txt);font-family:‘Anton’,sans-serif;font-size:.88rem;letter-spacing:.1em;text-transform:uppercase;padding:15px 18px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+.ag-icon{color:var(–gold);font-size:1.1rem;font-family:‘DM Mono’,monospace;}
+.ag-body{display:none;padding:0 18px 18px;font-family:‘DM Mono’,monospace;font-size:.62rem;color:var(–dim);line-height:2;letter-spacing:.06em;}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
-.about-left p{font-size:.88rem;color:var(--dim);font-weight:300;line-height:1.85;margin-bottom:12px;}
-.about-left p strong{color:var(--txt);font-weight:500;}
+.about-left p{font-size:.88rem;color:var(–dim);font-weight:300;line-height:1.85;margin-bottom:12px;}
+.about-left p strong{color:var(–txt);font-weight:500;}
 .slinks{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px;}
-.sl{font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);text-decoration:none;padding:8px 13px;border:1px solid var(--bd);border-radius:var(--r);transition:all .2s;}
-.sl:hover{color:var(--txt);border-color:var(--bd2);}
+.sl{font-family:‘DM Mono’,monospace;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(–dim);text-decoration:none;padding:8px 13px;border:1px solid var(–bd);border-radius:var(–r);transition:all .2s;}
+.sl:hover{color:var(–txt);border-color:var(–bd2);}
 .about-right{display:flex;flex-direction:column;gap:10px;}
-.acard{background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:18px 20px;}
-.acard-n{font-family:'Anton',sans-serif;font-size:1.8rem;letter-spacing:.04em;color:var(--gold);line-height:1;}
-.acard-l{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-top:3px;}
+.acard{background:var(–s2);border:1px solid var(–bd);border-radius:var(–r);padding:18px 20px;}
+.acard-n{font-family:‘Anton’,sans-serif;font-size:1.8rem;letter-spacing:.04em;color:var(–gold);line-height:1;}
+.acard-l{font-family:‘DM Mono’,monospace;font-size:.54rem;letter-spacing:.2em;color:var(–low);text-transform:uppercase;margin-top:3px;}
 .contact-inner{max-width:500px;margin:0 auto;text-align:center;}
 .cform{margin-top:36px;display:flex;flex-direction:column;gap:10px;text-align:left;}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.fg label{display:block;font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-bottom:4px;}
-.fg input,.fg select,.fg textarea{width:100%;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);color:var(--txt);font-family:'DM Mono',monospace;font-size:.74rem;padding:10px 12px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none;}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--gold);}
-.fg input::placeholder,.fg textarea::placeholder{color:var(--low);}
-.fg select option{background:var(--s2);}
+.fg label{display:block;font-family:‘DM Mono’,monospace;font-size:.54rem;letter-spacing:.2em;color:var(–low);text-transform:uppercase;margin-bottom:4px;}
+.fg input,.fg select,.fg textarea{width:100%;background:var(–s2);border:1px solid var(–bd);border-radius:var(–r);color:var(–txt);font-family:‘DM Mono’,monospace;font-size:.74rem;padding:10px 12px;outline:none;transition:border-color .2s;-webkit-appearance:none;appearance:none;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(–gold);}
+.fg input::placeholder,.fg textarea::placeholder{color:var(–low);}
+.fg select option{background:var(–s2);}
 .fg textarea{resize:vertical;min-height:88px;}
-footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
-.ftxt{font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.13em;color:var(--low);line-height:1.8;}
-.ftxt strong{color:var(--dim);}
+footer{border-top:1px solid var(–bd);padding:28px 36px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.ftxt{font-family:‘DM Mono’,monospace;font-size:.54rem;letter-spacing:.13em;color:var(–low);line-height:1.8;}
+.ftxt strong{color:var(–dim);}
 .splayer{position:fixed;bottom:0;left:0;right:0;height:60px;background:#0d0d0d;border-top:1px solid #1e1e1e;backdrop-filter:blur(20px);z-index:400;display:none;align-items:center;padding:0 14px;gap:12px;}
 .splayer.on{display:flex;}
 .sp-left{display:flex;align-items:center;gap:10px;flex:0 0 200px;min-width:0;}
-.sp-art{width:44px;height:44px;border-radius:2px;background:var(--s2);flex-shrink:0;overflow:hidden;}
+.sp-art{width:44px;height:44px;border-radius:2px;background:var(–s2);flex-shrink:0;overflow:hidden;}
 .sp-info{min-width:0;}
-.sp-name{font-family:'Anton',sans-serif;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.sp-meta{font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.12em;color:var(--dim);margin-top:3px;}
+.sp-name{font-family:‘Anton’,sans-serif;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.sp-meta{font-family:‘DM Mono’,monospace;font-size:.5rem;letter-spacing:.12em;color:var(–dim);margin-top:3px;}
 .sp-center{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
 .sp-controls{display:flex;align-items:center;gap:18px;}
-.sp-btn{background:none;border:none;cursor:pointer;color:var(--low);transition:color .15s;padding:4px;font-size:.7rem;display:flex;align-items:center;justify-content:center;}
-.sp-btn:hover{color:var(--txt);}
+.sp-btn{background:none;border:none;cursor:pointer;color:var(–low);transition:color .15s;padding:4px;font-size:.7rem;display:flex;align-items:center;justify-content:center;}
+.sp-btn:hover{color:var(–txt);}
 .sp-play{width:34px;height:34px;border-radius:50%!important;background:#fff!important;color:#080808!important;font-size:.72rem;}
 .sp-play:hover{background:#e0e0e0!important;}
 .sp-wave-wrap{width:100%;display:flex;align-items:center;gap:10px;}
-.sp-time{font-family:'DM Mono',monospace;font-size:.5rem;color:var(--low);white-space:nowrap;flex-shrink:0;min-width:28px;}
+.sp-time{font-family:‘DM Mono’,monospace;font-size:.5rem;color:var(–low);white-space:nowrap;flex-shrink:0;min-width:28px;}
 .sp-waveform{flex:1;height:14px;position:relative;cursor:pointer;display:flex;align-items:center;}
 .sp-track{width:100%;height:3px;background:rgba(255,255,255,.12);border-radius:2px;position:relative;overflow:visible;}
-.sp-filled{height:100%;background:var(--gold);border-radius:2px;position:absolute;left:0;top:0;transition:width .1s linear;}
+.sp-filled{height:100%;background:var(–gold);border-radius:2px;position:absolute;left:0;top:0;transition:width .1s linear;}
 .sp-thumb{width:10px;height:10px;background:#fff;border-radius:50%;position:absolute;top:50%;transform:translate(-50%,-50%);transition:left .1s linear;box-shadow:0 0 4px rgba(0,0,0,.4);}
 #spCanvas{display:none;}
 .sp-progress{position:absolute;top:0;left:0;height:100%;background:rgba(201,168,76,.15);pointer-events:none;transition:width .1s linear;}
 
-
-
-.sp-close{background:none;border:none;color:var(--low);cursor:pointer;font-size:.85rem;padding:6px;transition:color .15s;}
-.sp-close:hover{color:var(--txt);}
-.toast{position:fixed;bottom:74px;right:16px;background:var(--s2);border:1px solid var(--gold);color:var(--gold);padding:10px 15px;border-radius:var(--r);font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.08em;z-index:9998;transform:translateY(12px);opacity:0;transition:all .28s;pointer-events:none;max-width:260px;}
+.sp-close{background:none;border:none;color:var(–low);cursor:pointer;font-size:.85rem;padding:6px;transition:color .15s;}
+.sp-close:hover{color:var(–txt);}
+.toast{position:fixed;bottom:74px;right:16px;background:var(–s2);border:1px solid var(–gold);color:var(–gold);padding:10px 15px;border-radius:var(–r);font-family:‘DM Mono’,monospace;font-size:.62rem;letter-spacing:.08em;z-index:9998;transform:translateY(12px);opacity:0;transition:all .28s;pointer-events:none;max-width:260px;}
 .toast.on{transform:translateY(0);opacity:1;}
 @media(max-width:768px){
-  nav{padding:0 16px;height:56px;}
-  .nlinks{display:none;}
-  .nlinks.open{display:flex;flex-direction:column;position:fixed;top:56px;left:0;right:0;background:rgba(8,8,8,.98);backdrop-filter:blur(20px);padding:20px 24px;gap:16px;border-bottom:1px solid var(--bd);z-index:499;}
-  .nlinks.open a{font-size:.75rem;padding:8px 0;border-bottom:1px solid var(--bd);}
-  .nlinks.open a:last-child{border-bottom:none;}
-  .hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;}
-  .hamburger span{display:block;width:22px;height:2px;background:var(--txt);border-radius:2px;transition:all .3s;}
-  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-  .hamburger.open span:nth-child(2){opacity:0;}
-  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-  .wrap{padding:0 18px;}
-  .sec{padding:60px 0;}
-  .hero{padding:80px 18px 50px;}
-  .hero-title{font-size:clamp(3rem,15vw,5rem);}
-  .lgrid{grid-template-columns:1fr;}
-  .pgrid{grid-template-columns:1fr;}
-  .about-grid{grid-template-columns:1fr;gap:32px;}
-  .frow{grid-template-columns:1fr;}
-  footer{padding:22px 18px;flex-direction:column;align-items:flex-start;}
-  .splayer{padding:0 10px;gap:8px;height:auto;min-height:60px;flex-wrap:wrap;padding:6px 10px;}
-  .splayer.on{display:flex;}
-  .sp-left{flex:0 0 auto;}
-  .sp-center{flex:1;min-width:0;}
-  .sp-wave-wrap{display:flex;}
-  .sp-waveform{height:28px;}
-  .bgrid{grid-template-columns:1fr;}
-  .beats-head{flex-direction:column;align-items:flex-start;}
-  .ftabs{gap:6px;}
-  .ft{font-size:.58rem;padding:8px 12px;}
-  .ag-wrap{margin-top:32px;}
-  .photo-wrap img{aspect-ratio:.85;object-fit:cover;}
-  .countdown-boxes{flex-direction:row;flex-wrap:wrap;gap:10px;}
-  .countdown-box{min-width:70px;padding:14px 16px;}
-  .contact-inner{max-width:100%;}
+nav{padding:0 16px;height:56px;}
+.nlinks{display:none;}
+.nlinks.open{display:flex;flex-direction:column;position:fixed;top:56px;left:0;right:0;background:rgba(8,8,8,.98);backdrop-filter:blur(20px);padding:20px 24px;gap:16px;border-bottom:1px solid var(–bd);z-index:499;}
+.nlinks.open a{font-size:.75rem;padding:8px 0;border-bottom:1px solid var(–bd);}
+.nlinks.open a:last-child{border-bottom:none;}
+.hamburger{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none;}
+.hamburger span{display:block;width:22px;height:2px;background:var(–txt);border-radius:2px;transition:all .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.wrap{padding:0 18px;}
+.sec{padding:60px 0;}
+.hero{padding:80px 18px 50px;}
+.hero-title{font-size:clamp(3rem,15vw,5rem);}
+.lgrid{grid-template-columns:1fr;}
+.pgrid{grid-template-columns:1fr;}
+.about-grid{grid-template-columns:1fr;gap:32px;}
+.frow{grid-template-columns:1fr;}
+footer{padding:22px 18px;flex-direction:column;align-items:flex-start;}
+.splayer{padding:0 10px;gap:8px;height:auto;min-height:60px;flex-wrap:wrap;padding:6px 10px;}
+.splayer.on{display:flex;}
+.sp-left{flex:0 0 auto;}
+.sp-center{flex:1;min-width:0;}
+.sp-wave-wrap{display:flex;}
+.sp-waveform{height:28px;}
+.bgrid{grid-template-columns:1fr;}
+.beats-head{flex-direction:column;align-items:flex-start;}
+.ftabs{gap:6px;}
+.ft{font-size:.58rem;padding:8px 12px;}
+.ag-wrap{margin-top:32px;}
+.photo-wrap img{aspect-ratio:.85;object-fit:cover;}
+.countdown-boxes{flex-direction:row;flex-wrap:wrap;gap:10px;}
+.countdown-box{min-width:70px;padding:14px 16px;}
+.contact-inner{max-width:100%;}
 }
 @media(min-width:769px){
-  .hamburger{display:none;}
-  .nlinks{display:flex;}
+.hamburger{display:none;}
+.nlinks{display:flex;}
 }
 @media(min-width:1200px){
-  .hero-title{font-size:9rem;}
-  .bgrid{grid-template-columns:repeat(3,1fr);}
+.hero-title{font-size:9rem;}
+.bgrid{grid-template-columns:repeat(3,1fr);}
 }
 @media(max-width:480px){
-  .hero-title{font-size:clamp(2.8rem,14vw,4rem);}
-  .sec-h{font-size:2rem;}
-  .lgrid{grid-template-columns:1fr;}
-  .pgrid{grid-template-columns:1fr;}
+.hero-title{font-size:clamp(2.8rem,14vw,4rem);}
+.sec-h{font-size:2rem;}
+.lgrid{grid-template-columns:1fr;}
+.pgrid{grid-template-columns:1fr;}
 
 }
 @keyframes lbIn{from{opacity:0;transform:scale(.92);}to{opacity:1;transform:scale(1);}}
@@ -394,39 +393,42 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 <div id="beats" style="border-top:1px solid var(--bd);">
   <div class="wrap">
 
-    <!-- FAVORITES SECTION -->
-    <div id="favSection" style="display:none;padding-top:40px;">
-      <div class="sec-eye">// Saved</div>
-      <h3 style="font-family:'Anton',sans-serif;font-size:1.4rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;">Your Favorites</h3>
-      <div id="favGrid"></div>
-      <div style="height:1px;background:var(--bd);margin:32px 0;"></div>
+```
+<!-- FAVORITES SECTION -->
+<div id="favSection" style="display:none;padding-top:40px;">
+  <div class="sec-eye">// Saved</div>
+  <h3 style="font-family:'Anton',sans-serif;font-size:1.4rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;">Your Favorites</h3>
+  <div id="favGrid"></div>
+  <div style="height:1px;background:var(--bd);margin:32px 0;"></div>
+</div>
+
+<div class="sec">
+  <div class="beats-head">
+    <div>
+      <div class="sec-eye">// CATALOG</div>
+      <h2 class="sec-h">Browse Beats <span style="font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.16em;color:var(--low);text-transform:uppercase;font-weight:400;vertical-align:middle;"> — click to play</span></h2>
     </div>
-
-    <div class="sec">
-      <div class="beats-head">
-        <div>
-          <div class="sec-eye">// CATALOG</div>
-          <h2 class="sec-h">Browse Beats <span style="font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.16em;color:var(--low);text-transform:uppercase;font-weight:400;vertical-align:middle;"> — click to play</span></h2>
-        </div>
-        <div class="ftabs">
-          <button class="ft on" onclick="doFilter('all',this)">All</button>
-          <button class="ft" onclick="doFilter('trap',this)">Trap</button>
-          <button class="ft" onclick="doFilter('rnb',this)">R&amp;B</button>
-          <button class="ft" onclick="doFilter('hiphop',this)">Hip Hop</button>
-          <button class="ft" onclick="doFilter('meme',this)">Meme</button>
-        </div>
-      </div>
-      </div>
-
-      <!-- Active license filter banner -->
-      <div class="filter-banner" id="filterBanner" style="display:none;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:var(--r);padding:10px 16px;margin-bottom:14px;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;color:var(--gold);align-items:center;justify-content:space-between;">
-        <span id="filterBannerText">Showing Basic beats</span>
-        <button onclick="clearLicenseFilter()" style="background:none;border:none;color:var(--low);cursor:pointer;font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.1em;transition:color .15s;">&#10005; Show all</button>
-      </div>
-
-      <div class="meme-bio" id="meme-bio">&#128514; You like ass? Then this the beat for you. Insta reel worthy, TikTok worthy shi. Pure vibes.</div>
-      <div class="bgrid" id="grid"></div>
+    <div class="ftabs">
+      <button class="ft on" onclick="doFilter('all',this)">All</button>
+      <button class="ft" onclick="doFilter('trap',this)">Trap</button>
+      <button class="ft" onclick="doFilter('rnb',this)">R&amp;B</button>
+      <button class="ft" onclick="doFilter('hiphop',this)">Hip Hop</button>
+      <button class="ft" onclick="doFilter('meme',this)">Meme</button>
     </div>
+  </div>
+  </div>
+
+  <!-- Active license filter banner -->
+  <div class="filter-banner" id="filterBanner" style="display:none;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:var(--r);padding:10px 16px;margin-bottom:14px;font-family:'DM Mono',monospace;font-size:.58rem;letter-spacing:.12em;color:var(--gold);align-items:center;justify-content:space-between;">
+    <span id="filterBannerText">Showing Basic beats</span>
+    <button onclick="clearLicenseFilter()" style="background:none;border:none;color:var(--low);cursor:pointer;font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.1em;transition:color .15s;">&#10005; Show all</button>
+  </div>
+
+  <div class="meme-bio" id="meme-bio">&#128514; You like ass? Then this the beat for you. Insta reel worthy, TikTok worthy shi. Pure vibes.</div>
+  <div class="bgrid" id="grid"></div>
+</div>
+```
+
   </div>
 </div>
 
@@ -506,44 +508,47 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
             <li>Profit releases</li>
             <li>Music video ok</li>
             <li>Radio broadcast</li>
-            
-            <li class="off">Exclusive rights</li>
-          </ul>
-          <button class="btn btn-gold" style="width:100%;justify-content:center;" id="lic2btn">Select Premium</button>
-        </div>
-        <div class="lcard excl reveal-right">
-          <div class="lbadge g">Exclusive</div>
-          <div class="lname">Excl.</div>
-          <div class="lprice"><sup>$</sup>499<span style="font-size:.85rem;color:var(--low)">+</span></div>
-          <div class="ldiv"></div>
-          <ul class="lfeats">
-            <li>All formats</li>
-            <li>Unlimited streams</li>
-            <li>Full commercial rights</li>
-            <li>Music video ok</li>
-            <li>Radio broadcast</li>
-            <li>Beat off the market</li>
-            <li>You own it outright</li>
-          </ul>
-          <button class="btn btn-line" style="width:100%;justify-content:center;border-color:var(--gold);color:var(--gold);" id="lic3btn">Inquire</button>
-        </div>
-      </div>
-      <div class="ag-wrap">
-        <div class="sec-eye" style="margin-bottom:14px;">// LICENSE AGREEMENTS</div>
-        <div class="ag-item">
-          <button class="ag-btn" onclick="toggleAg('ag1')">Basic Lease Agreement <span class="ag-icon" id="ag1-icon">+</span></button>
-          <div class="ag-body" id="ag1">By purchasing this lease you agree to the following:<br><br>-- 1 MP3 file (producer tagged)<br>-- Up to 50,000 streams across all platforms<br>-- Non-profit and mixtape use only<br>-- 1 music video permitted<br>-- No commercial profit from release<br>-- Beat remains for sale to other artists<br>-- Producer credit required: Wacko Prophet<br>-- License is non-transferable<br>-- NUSTAR retains full ownership of the beat<br>-- All sales final, no refunds<br>-- Violation may result in DMCA takedown and legal action</div>
-        </div>
-        <div class="ag-item">
-          <button class="ag-btn" onclick="toggleAg('ag2')">Premium Lease Agreement <span class="ag-icon" id="ag2-icon">+</span></button>
-          <div class="ag-body" id="ag2">By purchasing this lease you agree to the following:<br><br>-- MP3 + WAV untagged<br>-- Up to 500,000 streams across all platforms<br>-- Commercial profit releases allowed<br>-- 1 music video permitted<br>-- Radio broadcasting allowed<br>-- Beat remains for sale to other artists<br>-- Producer credit required: Wacko Prophet<br>-- License is non-transferable<br>-- NUSTAR retains full ownership of the beat<br>-- All sales final, no refunds<br>-- Violation may result in DMCA takedown and legal action</div>
-        </div>
-        <div class="ag-item">
-          <button class="ag-btn" onclick="toggleAg('ag3')">Exclusive Agreement <span class="ag-icon" id="ag3-icon">+</span></button>
-          <div class="ag-body" id="ag3">By purchasing this exclusive you agree to the following:<br><br>-- All file formats<br>-- Unlimited streams and commercial use<br>-- Full commercial rights including sync licensing<br>-- Unlimited music videos<br>-- Radio broadcasting allowed<br>-- Beat permanently removed from store after purchase<br>-- Producer credit required: Wacko Prophet<br>-- All rights transfer to licensee upon full payment<br>-- NUSTAR waives all future claims to the beat<br>-- License is non-transferable<br>-- Agreement is final and non-refundable</div>
-        </div>
-      </div>
+
+```
+        <li class="off">Exclusive rights</li>
+      </ul>
+      <button class="btn btn-gold" style="width:100%;justify-content:center;" id="lic2btn">Select Premium</button>
     </div>
+    <div class="lcard excl reveal-right">
+      <div class="lbadge g">Exclusive</div>
+      <div class="lname">Excl.</div>
+      <div class="lprice"><sup>$</sup>499<span style="font-size:.85rem;color:var(--low)">+</span></div>
+      <div class="ldiv"></div>
+      <ul class="lfeats">
+        <li>All formats</li>
+        <li>Unlimited streams</li>
+        <li>Full commercial rights</li>
+        <li>Music video ok</li>
+        <li>Radio broadcast</li>
+        <li>Beat off the market</li>
+        <li>You own it outright</li>
+      </ul>
+      <button class="btn btn-line" style="width:100%;justify-content:center;border-color:var(--gold);color:var(--gold);" id="lic3btn">Inquire</button>
+    </div>
+  </div>
+  <div class="ag-wrap">
+    <div class="sec-eye" style="margin-bottom:14px;">// LICENSE AGREEMENTS</div>
+    <div class="ag-item">
+      <button class="ag-btn" onclick="toggleAg('ag1')">Basic Lease Agreement <span class="ag-icon" id="ag1-icon">+</span></button>
+      <div class="ag-body" id="ag1">By purchasing this lease you agree to the following:<br><br>-- 1 MP3 file (producer tagged)<br>-- Up to 50,000 streams across all platforms<br>-- Non-profit and mixtape use only<br>-- 1 music video permitted<br>-- No commercial profit from release<br>-- Beat remains for sale to other artists<br>-- Producer credit required: Wacko Prophet<br>-- License is non-transferable<br>-- NUSTAR retains full ownership of the beat<br>-- All sales final, no refunds<br>-- Violation may result in DMCA takedown and legal action</div>
+    </div>
+    <div class="ag-item">
+      <button class="ag-btn" onclick="toggleAg('ag2')">Premium Lease Agreement <span class="ag-icon" id="ag2-icon">+</span></button>
+      <div class="ag-body" id="ag2">By purchasing this lease you agree to the following:<br><br>-- MP3 + WAV untagged<br>-- Up to 500,000 streams across all platforms<br>-- Commercial profit releases allowed<br>-- 1 music video permitted<br>-- Radio broadcasting allowed<br>-- Beat remains for sale to other artists<br>-- Producer credit required: Wacko Prophet<br>-- License is non-transferable<br>-- NUSTAR retains full ownership of the beat<br>-- All sales final, no refunds<br>-- Violation may result in DMCA takedown and legal action</div>
+    </div>
+    <div class="ag-item">
+      <button class="ag-btn" onclick="toggleAg('ag3')">Exclusive Agreement <span class="ag-icon" id="ag3-icon">+</span></button>
+      <div class="ag-body" id="ag3">By purchasing this exclusive you agree to the following:<br><br>-- All file formats<br>-- Unlimited streams and commercial use<br>-- Full commercial rights including sync licensing<br>-- Unlimited music videos<br>-- Radio broadcasting allowed<br>-- Beat permanently removed from store after purchase<br>-- Producer credit required: Wacko Prophet<br>-- All rights transfer to licensee upon full payment<br>-- NUSTAR waives all future claims to the beat<br>-- License is non-transferable<br>-- Agreement is final and non-refundable</div>
+    </div>
+  </div>
+</div>
+```
+
   </div>
 </div>
 
@@ -553,225 +558,236 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
       <div class="sec-eye">// WHO WE ARE</div>
       <h2 class="sec-h" style="margin-bottom:40px;">About</h2>
 
-      <!-- PHOTOS -->
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">
-        <div class="photo-wrap reveal-left" style="transition-delay:.1s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/photoshoot1.png?raw=true','Nate and Wyolkens — Dumblit Studio, August 16th, 2025')"><img src="https://github.com/nustarent/Nustarent/blob/main/photoshoot1.png?raw=true" alt="NUSTAR"></div>
-        <div class="photo-wrap reveal-scale" style="transition-delay:.25s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/photoshoot2.jpg?raw=true','Nate and Wyolkens — Dumblit Studio, August 16th, 2025')"><img src="https://github.com/nustarent/Nustarent/blob/main/photoshoot2.jpg?raw=true" alt="NUSTAR"></div>
-        <div class="photo-wrap reveal-right" style="transition-delay:.4s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/photoshoot3.jpg?raw=true','Nate and Wyolkens — Dumblit Studio, August 16th, 2025')"><img src="https://github.com/nustarent/Nustarent/blob/main/photoshoot3.jpg?raw=true" alt="NUSTAR"></div>
-      </div>
-      <div class="reveal" style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.18em;color:var(--low);text-align:center;margin-top:12px;margin-bottom:48px;">Photos by Rayden &#10022; The Goat</div>
+```
+  <!-- PHOTOS -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;">
+    <div class="photo-wrap reveal-left" style="transition-delay:.1s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/photoshoot1.png?raw=true','Nate and Wyolkens — Dumblit Studio, August 16th, 2025')"><img src="https://github.com/nustarent/Nustarent/blob/main/photoshoot1.png?raw=true" alt="NUSTAR"></div>
+    <div class="photo-wrap reveal-scale" style="transition-delay:.25s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/photoshoot2.jpg?raw=true','Nate and Wyolkens — Dumblit Studio, August 16th, 2025')"><img src="https://github.com/nustarent/Nustarent/blob/main/photoshoot2.jpg?raw=true" alt="NUSTAR"></div>
+    <div class="photo-wrap reveal-right" style="transition-delay:.4s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/photoshoot3.jpg?raw=true','Nate and Wyolkens — Dumblit Studio, August 16th, 2025')"><img src="https://github.com/nustarent/Nustarent/blob/main/photoshoot3.jpg?raw=true" alt="NUSTAR"></div>
+  </div>
+  <div class="reveal" style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.18em;color:var(--low);text-align:center;margin-top:12px;margin-bottom:48px;">Photos by Rayden &#10022; The Goat</div>
 
-      <!-- BIO -->
-      <div style="max-width:780px;margin:0 auto;">
-        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">Nobody planned for NUSTAR to be a thing. It just kind of happened the way real things do.</p>
-        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">Freshman year, 2019. A group of five kids found out their school had a music studio just sitting there after hours and figured why not. They called themselves <strong style="color:var(--txt);">Dentes Country</strong>. Honestly it was more fun than anything serious — they were being lazy, goofing around, and it never really went anywhere. But it planted something.</p>
-        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">That same year Nate and <a href="https://www.instagram.com/wyolkens_?igsh=ZWR2dnluemtjYjRw&utm_source=qr" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">Wyolkens</a> linked up. Two people who just clicked on music, simple as that. From the jump they both knew they wanted to cook together at some point.</p>
-        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">Dentes Country fell apart but Nate kept going. Tried it again with a group called <strong style="color:var(--txt);">Troubled Youth</strong> — same story. Then <strong style="color:var(--txt);">Origins</strong> came together with a different crew but same energy. Then COVID happened and killed the momentum before it could even breathe.</p>
-        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">Fast forward to 2023. <a href="https://www.instagram.com/wyolkens_?igsh=ZWR2dnluemtjYjRw&utm_source=qr" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">Wyolkens</a> was on a college campus, stumbled on a music studio, and immediately thought of Nate. Not for any strategic reason — just because that's his boy and Nate loves music more than anybody he knows. Nate had moved away sophomore year but they stayed in touch the whole time. The call got made, Nate was in, and they locked in.</p>
-        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">No engineer. No real plan. They booked sessions anyway thinking they'd figure it out on the fly. They didn't figure it out. Nobody came through to help. Nothing got recorded. But even after all that neither of them walked away from the idea.</p>
-        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">2024 Nate put out a solo instrumental project under <a href="https://linktr.ee/wackoprophet" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;"><strong>WACKO PROPHET</strong></a> called <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);"><strong>THE PARTY ENDED AN HOUR AGO</strong></a>. Just beats, no features, no lyrics. That college studio thing never worked out but this did, and it kicked something off for real.</p>
-        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">2025. Six years from that first after school session. Nate still had the same vision he always had. <a href="https://www.instagram.com/wyolkens_?igsh=ZWR2dnluemtjYjRw&utm_source=qr" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">Wyolkens</a> said enough doing it alone, let's actually lock in. They found a spot called <strong style="color:var(--txt);">Dumblit</strong> through a random search, booked real sessions, and got to work.</p>
-        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">Getting the album together wasn't smooth. They needed female vocalists and both of them were reaching out to everyone they knew. Three women came through. One of them confirmed she was in and then just ghosted Nate out of nowhere. You honestly can't write that. But the ones who actually showed up delivered, and the album got finished.</p>
-        <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">First single <a href="https://open.spotify.com/album/05g9yXwAZk5HlVym6oKEKn" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);"><strong>New Egypt</strong></a> dropped October 3rd, 2025. The full album <a href="https://open.spotify.com/album/094GEjFluHQZB1Lk5jZR8N" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);"><strong>LAFAYETTE</strong></a> came October 24th, 2025.</p>
-        <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:36px;"><strong style="color:var(--gold);">UNISEX</strong> is next, dropping July 2026. That's the one where everything they built finally gets to speak for itself. And they're just getting started.</p>
+  <!-- BIO -->
+  <div style="max-width:780px;margin:0 auto;">
+    <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">Nobody planned for NUSTAR to be a thing. It just kind of happened the way real things do.</p>
+    <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">Freshman year, 2019. A group of five kids found out their school had a music studio just sitting there after hours and figured why not. They called themselves <strong style="color:var(--txt);">Dentes Country</strong>. Honestly it was more fun than anything serious — they were being lazy, goofing around, and it never really went anywhere. But it planted something.</p>
+    <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">That same year Nate and <a href="https://www.instagram.com/wyolkens_?igsh=ZWR2dnluemtjYjRw&utm_source=qr" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">Wyolkens</a> linked up. Two people who just clicked on music, simple as that. From the jump they both knew they wanted to cook together at some point.</p>
+    <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">Dentes Country fell apart but Nate kept going. Tried it again with a group called <strong style="color:var(--txt);">Troubled Youth</strong> — same story. Then <strong style="color:var(--txt);">Origins</strong> came together with a different crew but same energy. Then COVID happened and killed the momentum before it could even breathe.</p>
+    <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">Fast forward to 2023. <a href="https://www.instagram.com/wyolkens_?igsh=ZWR2dnluemtjYjRw&utm_source=qr" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">Wyolkens</a> was on a college campus, stumbled on a music studio, and immediately thought of Nate. Not for any strategic reason — just because that's his boy and Nate loves music more than anybody he knows. Nate had moved away sophomore year but they stayed in touch the whole time. The call got made, Nate was in, and they locked in.</p>
+    <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">No engineer. No real plan. They booked sessions anyway thinking they'd figure it out on the fly. They didn't figure it out. Nobody came through to help. Nothing got recorded. But even after all that neither of them walked away from the idea.</p>
+    <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">2024 Nate put out a solo instrumental project under <a href="https://linktr.ee/wackoprophet" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;"><strong>WACKO PROPHET</strong></a> called <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);"><strong>THE PARTY ENDED AN HOUR AGO</strong></a>. Just beats, no features, no lyrics. That college studio thing never worked out but this did, and it kicked something off for real.</p>
+    <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">2025. Six years from that first after school session. Nate still had the same vision he always had. <a href="https://www.instagram.com/wyolkens_?igsh=ZWR2dnluemtjYjRw&utm_source=qr" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">Wyolkens</a> said enough doing it alone, let's actually lock in. They found a spot called <strong style="color:var(--txt);">Dumblit</strong> through a random search, booked real sessions, and got to work.</p>
+    <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">Getting the album together wasn't smooth. They needed female vocalists and both of them were reaching out to everyone they knew. Three women came through. One of them confirmed she was in and then just ghosted Nate out of nowhere. You honestly can't write that. But the ones who actually showed up delivered, and the album got finished.</p>
+    <p class="reveal" style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:18px;">First single <a href="https://open.spotify.com/album/05g9yXwAZk5HlVym6oKEKn" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);"><strong>New Egypt</strong></a> dropped October 3rd, 2025. The full album <a href="https://open.spotify.com/album/094GEjFluHQZB1Lk5jZR8N" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);"><strong>LAFAYETTE</strong></a> came October 24th, 2025.</p>
+    <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;margin-bottom:36px;"><strong style="color:var(--gold);">UNISEX</strong> is next, dropping July 2026. That's the one where everything they built finally gets to speak for itself. And they're just getting started.</p>
 
-        <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;color:var(--low);padding-top:24px;border-top:1px solid var(--bd);">Special thank you to <strong style="color:var(--dim);">Rayden</strong> &#10022; The camera man. The goat.</div>
-      </div>
+    <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.18em;color:var(--low);padding-top:24px;border-top:1px solid var(--bd);">Special thank you to <strong style="color:var(--dim);">Rayden</strong> &#10022; The camera man. The goat.</div>
+  </div>
 
-      <!-- SOCIAL LINKS -->
-      <div class="slinks" style="margin-top:40px;justify-content:center;">
-        <a href="https://www.instagram.com/wacko.prophet" target="_blank" class="sl">Instagram</a>
-        <a href="https://linktr.ee/wackoprophet" target="_blank" class="sl">Linktree</a>
-        <a href="https://www.tiktok.com/@wacko.prophet" target="_blank" class="sl">TikTok</a>
-        <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" class="sl">Spotify</a>
-        <a href="https://music.apple.com/us/artist/wacko-prophet/1764215440" target="_blank" class="sl">Apple Music</a>
-      </div>
+  <!-- SOCIAL LINKS -->
+  <div class="slinks" style="margin-top:40px;justify-content:center;">
+    <a href="https://www.instagram.com/wacko.prophet" target="_blank" class="sl">Instagram</a>
+    <a href="https://linktr.ee/wackoprophet" target="_blank" class="sl">Linktree</a>
+    <a href="https://www.tiktok.com/@wacko.prophet" target="_blank" class="sl">TikTok</a>
+    <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" class="sl">Spotify</a>
+    <a href="https://music.apple.com/us/artist/wacko-prophet/1764215440" target="_blank" class="sl">Apple Music</a>
+  </div>
 
-    </div>
+</div>
+```
+
   </div>
 </div>
 
 <!-- WACKO PROPHET SECTION -->
+
 <div id="artist" style="border-top:1px solid var(--bd);background:var(--s1);">
   <div class="wrap">
     <div class="sec">
       <div class="sec-eye reveal">// THE ARTIST</div>
       <h2 class="sec-h reveal" style="margin-bottom:40px;">Wacko Prophet</h2>
 
-      <!-- ARTIST PHOTOS -->
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:48px;">
-        <div class="photo-wrap reveal-left" style="transition-delay:.1s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/DSC02756.jpg?raw=true','Wacko Prophet')"><img src="https://github.com/nustarent/Nustarent/blob/main/DSC02756.jpg?raw=true" alt="Wacko Prophet"></div>
-        <div class="photo-wrap reveal-scale" style="transition-delay:.25s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/DSC03810.jpg?raw=true','Wacko Prophet')"><img src="https://github.com/nustarent/Nustarent/blob/main/DSC03810.jpg?raw=true" alt="Wacko Prophet"></div>
-        <div class="photo-wrap reveal-right" style="transition-delay:.4s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/5F91C727-2AA9-418C-8EBB-61324A3D5B3E.jpg?raw=true','Wacko Prophet')"><img src="https://github.com/nustarent/Nustarent/blob/main/5F91C727-2AA9-418C-8EBB-61324A3D5B3E.jpg?raw=true" alt="Wacko Prophet"></div>
+```
+  <!-- ARTIST PHOTOS -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:48px;">
+    <div class="photo-wrap reveal-left" style="transition-delay:.1s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/DSC02756.jpg?raw=true','Wacko Prophet')"><img src="https://github.com/nustarent/Nustarent/blob/main/DSC02756.jpg?raw=true" alt="Wacko Prophet"></div>
+    <div class="photo-wrap reveal-scale" style="transition-delay:.25s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/DSC03810.jpg?raw=true','Wacko Prophet')"><img src="https://github.com/nustarent/Nustarent/blob/main/DSC03810.jpg?raw=true" alt="Wacko Prophet"></div>
+    <div class="photo-wrap reveal-right" style="transition-delay:.4s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/5F91C727-2AA9-418C-8EBB-61324A3D5B3E.jpg?raw=true','Wacko Prophet')"><img src="https://github.com/nustarent/Nustarent/blob/main/5F91C727-2AA9-418C-8EBB-61324A3D5B3E.jpg?raw=true" alt="Wacko Prophet"></div>
+  </div>
+
+  <!-- ARTIST BIO + DISCOGRAPHY -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;max-width:1000px;margin:0 auto;">
+    <div>
+      <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;margin-bottom:24px;">// In His Own Words</div>
+
+      <div class="reveal" style="margin-bottom:24px;">
+        <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">How would you describe your sound?</div>
+        <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">Progressive. I'm always looking for a new sound, a new way to explore and flush out concepts in a satisfying way. That's what keeps me going — especially when it comes to producing. I love this shit.</p>
       </div>
 
-      <!-- ARTIST BIO + DISCOGRAPHY -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;max-width:1000px;margin:0 auto;">
-        <div>
-          <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;margin-bottom:24px;">// In His Own Words</div>
-
-          <div class="reveal" style="margin-bottom:24px;">
-            <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">How would you describe your sound?</div>
-            <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">Progressive. I'm always looking for a new sound, a new way to explore and flush out concepts in a satisfying way. That's what keeps me going — especially when it comes to producing. I love this shit.</p>
-          </div>
-
-          <div class="reveal" style="margin-bottom:24px;">
-            <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">Who influenced you?</div>
-            <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">Kendrick Lamar, Tyler the Creator, Childish Gambino. <strong style="color:var(--txt);">KAYTRANADA</strong> is my favorite and most recent influence — shout out to him. And of course the greats: <strong style="color:var(--txt);">Neptunes, Nas, Wu-Tang</strong>, and <strong style="color:var(--txt);">2Pac</strong> — he's the reason I started music in the first place.</p>
-          </div>
-
-          <div class="reveal" style="margin-bottom:24px;">
-            <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">What do you want people to feel?</div>
-            <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">Vulnerable and free. Goosebumps when you hear those glittery chords, the punchy bass, the swift drums. I want people to feel authenticity — but also reality.</p>
-          </div>
-
-          <div class="reveal" style="margin-bottom:24px;">
-            <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">What separates you from other artists?</div>
-            <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">I don't just strive for originality — I advocate for preserving the past and learning from it. I truly feel like a hip hop historian. Over 50 years of influence guides me into the future.</p>
-          </div>
-
-          <div class="reveal" style="margin-bottom:24px;">
-            <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">What would people not expect about you?</div>
-            <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">That I'm multimedia. Music isn't my only passion — I love to direct and write. I can't wait to show that side of me. It's honestly the most passionate thing I hold.</p>
-          </div>
-
-          <div class="reveal" style="margin-bottom:28px;">
-            <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">Where are you from?</div>
-            <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">Jersey born and raised. I always moved around, especially through middle and high school. Those experiences shaped who I am — as much as it affected me, I learned to appreciate it. Plus Jersey needs more representation. On God.</p>
-          </div>
-
-          <div class="slinks" style="margin-top:28px;">
-            <a href="https://www.instagram.com/wacko.prophet" target="_blank" class="sl">Instagram</a>
-            <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" class="sl">Spotify</a>
-            <a href="https://music.apple.com/us/artist/wacko-prophet/1764215440" target="_blank" class="sl">Apple Music</a>
-            <a href="https://linktr.ee/wackoprophet" target="_blank" class="sl">Linktree</a>
-          </div>
-        </div>
-
-        <!-- DISCOGRAPHY -->
-        <div class="reveal">
-          <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.24em;color:var(--low);text-transform:uppercase;margin-bottom:16px;">// Discography</div>
-          <div style="border-top:1px solid var(--bd);">
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--bd);">
-              <div>
-                <div style="font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.06em;color:var(--txt);">LAFAYETTE</div>
-                <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);margin-top:3px;">Album</div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--dim);">Oct 24, 2025</div>
-                <a href="https://open.spotify.com/album/094GEjFluHQZB1Lk5jZR8N" target="_blank" style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--gold);text-decoration:none;">Stream ↗</a>
-              </div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--bd);">
-              <div>
-                <div style="font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.06em;color:var(--txt);">NEW EGYPT</div>
-                <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);margin-top:3px;">Single</div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--dim);">Oct 3, 2025</div>
-                <a href="https://open.spotify.com/album/05g9yXwAZk5HlVym6oKEKn" target="_blank" style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--gold);text-decoration:none;">Stream ↗</a>
-              </div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--bd);">
-              <div>
-                <div style="font-family:'Anton',sans-serif;font-size:.85rem;letter-spacing:.04em;color:var(--txt);">THE PARTY ENDED AN HOUR AGO</div>
-                <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);margin-top:3px;">Instrumental Album</div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--dim);">2024</div>
-                <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--gold);text-decoration:none;">Stream ↗</a>
-              </div>
-            </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;">
-              <div>
-                <div style="font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.06em;color:var(--gold);">UNISEX</div>
-                <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);margin-top:3px;">Album</div>
-              </div>
-              <div style="text-align:right;">
-                <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--gold);">July 2026</div>
-                <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);">Coming Soon</div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="reveal" style="margin-bottom:24px;">
+        <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">Who influenced you?</div>
+        <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">Kendrick Lamar, Tyler the Creator, Childish Gambino. <strong style="color:var(--txt);">KAYTRANADA</strong> is my favorite and most recent influence — shout out to him. And of course the greats: <strong style="color:var(--txt);">Neptunes, Nas, Wu-Tang</strong>, and <strong style="color:var(--txt);">2Pac</strong> — he's the reason I started music in the first place.</p>
       </div>
 
+      <div class="reveal" style="margin-bottom:24px;">
+        <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">What do you want people to feel?</div>
+        <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">Vulnerable and free. Goosebumps when you hear those glittery chords, the punchy bass, the swift drums. I want people to feel authenticity — but also reality.</p>
+      </div>
+
+      <div class="reveal" style="margin-bottom:24px;">
+        <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">What separates you from other artists?</div>
+        <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">I don't just strive for originality — I advocate for preserving the past and learning from it. I truly feel like a hip hop historian. Over 50 years of influence guides me into the future.</p>
+      </div>
+
+      <div class="reveal" style="margin-bottom:24px;">
+        <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">What would people not expect about you?</div>
+        <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">That I'm multimedia. Music isn't my only passion — I love to direct and write. I can't wait to show that side of me. It's honestly the most passionate thing I hold.</p>
+      </div>
+
+      <div class="reveal" style="margin-bottom:28px;">
+        <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">Where are you from?</div>
+        <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">Jersey born and raised. I always moved around, especially through middle and high school. Those experiences shaped who I am — as much as it affected me, I learned to appreciate it. Plus Jersey needs more representation. On God.</p>
+      </div>
+
+      <div class="slinks" style="margin-top:28px;">
+        <a href="https://www.instagram.com/wacko.prophet" target="_blank" class="sl">Instagram</a>
+        <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" class="sl">Spotify</a>
+        <a href="https://music.apple.com/us/artist/wacko-prophet/1764215440" target="_blank" class="sl">Apple Music</a>
+        <a href="https://linktr.ee/wackoprophet" target="_blank" class="sl">Linktree</a>
+      </div>
     </div>
+
+    <!-- DISCOGRAPHY -->
+    <div class="reveal">
+      <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.24em;color:var(--low);text-transform:uppercase;margin-bottom:16px;">// Discography</div>
+      <div style="border-top:1px solid var(--bd);">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--bd);">
+          <div>
+            <div style="font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.06em;color:var(--txt);">LAFAYETTE</div>
+            <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);margin-top:3px;">Album</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--dim);">Oct 24, 2025</div>
+            <a href="https://open.spotify.com/album/094GEjFluHQZB1Lk5jZR8N" target="_blank" style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--gold);text-decoration:none;">Stream ↗</a>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--bd);">
+          <div>
+            <div style="font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.06em;color:var(--txt);">NEW EGYPT</div>
+            <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);margin-top:3px;">Single</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--dim);">Oct 3, 2025</div>
+            <a href="https://open.spotify.com/album/05g9yXwAZk5HlVym6oKEKn" target="_blank" style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--gold);text-decoration:none;">Stream ↗</a>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--bd);">
+          <div>
+            <div style="font-family:'Anton',sans-serif;font-size:.85rem;letter-spacing:.04em;color:var(--txt);">THE PARTY ENDED AN HOUR AGO</div>
+            <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);margin-top:3px;">Instrumental Album</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--dim);">2024</div>
+            <a href="https://open.spotify.com/artist/5xKFVG4c4PkbcUeCBjdx7X" target="_blank" style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--gold);text-decoration:none;">Stream ↗</a>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 0;">
+          <div>
+            <div style="font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.06em;color:var(--gold);">UNISEX</div>
+            <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);margin-top:3px;">Album</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--gold);">July 2026</div>
+            <div style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);">Coming Soon</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+```
+
   </div>
 </div>
 
-
 <!-- MANAGER SECTION -->
+
 <div id="manager" style="border-top:1px solid var(--bd);">
   <div class="wrap">
     <div class="sec">
       <div class="sec-eye reveal">// THE MANAGER</div>
       <h2 class="sec-h reveal" style="margin-bottom:40px;">Wyolkens</h2>
 
-      <!-- MANAGER PHOTOS -->
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:48px;">
-        <div class="photo-wrap reveal-left" style="transition-delay:.1s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/IMG_4619.jpeg?raw=true','Wyolkens — NUSTAR Entertainment')"><img src="https://github.com/nustarent/Nustarent/blob/main/IMG_4619.jpeg?raw=true" alt="Wyolkens"></div>
-        <div class="photo-wrap reveal-scale" style="transition-delay:.25s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/DSC02168.jpeg?raw=true','Wyolkens — NUSTAR Entertainment')"><img src="https://github.com/nustarent/Nustarent/blob/main/DSC02168.jpeg?raw=true" alt="Wyolkens"></div>
-        <div class="photo-wrap reveal-right" style="transition-delay:.4s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/DSC02221.jpeg?raw=true','Wyolkens — NUSTAR Entertainment')"><img src="https://github.com/nustarent/Nustarent/blob/main/DSC02221.jpeg?raw=true" alt="Wyolkens"></div>
+```
+  <!-- MANAGER PHOTOS -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:48px;">
+    <div class="photo-wrap reveal-left" style="transition-delay:.1s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/IMG_4619.jpeg?raw=true','Wyolkens — NUSTAR Entertainment')"><img src="https://github.com/nustarent/Nustarent/blob/main/IMG_4619.jpeg?raw=true" alt="Wyolkens"></div>
+    <div class="photo-wrap reveal-scale" style="transition-delay:.25s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/DSC02168.jpeg?raw=true','Wyolkens — NUSTAR Entertainment')"><img src="https://github.com/nustarent/Nustarent/blob/main/DSC02168.jpeg?raw=true" alt="Wyolkens"></div>
+    <div class="photo-wrap reveal-right" style="transition-delay:.4s;cursor:pointer;" onclick="openLightbox('https://github.com/nustarent/Nustarent/blob/main/DSC02221.jpeg?raw=true','Wyolkens — NUSTAR Entertainment')"><img src="https://github.com/nustarent/Nustarent/blob/main/DSC02221.jpeg?raw=true" alt="Wyolkens"></div>
+  </div>
+
+  <!-- BIO + ROLES -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;max-width:1000px;margin:0 auto;">
+    <div>
+      <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;margin-bottom:24px;">// The Man Behind It</div>
+
+      <div class="reveal" style="margin-bottom:24px;">
+        <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">Who is Wyolkens?</div>
+        <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">21, Ocean Township NJ. He's not in this for a title or to say he manages an artist. Nate is genuinely his boy and when you see someone that talented going for it you either show up or you don't. <a href="https://www.instagram.com/wyolkens_?igsh=ZWR2dnluemtjYjRw&utm_source=qr" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">Wyolkens</a> showed up.</p>
       </div>
 
-      <!-- BIO + ROLES -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;max-width:1000px;margin:0 auto;">
-        <div>
-          <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.24em;color:var(--gold);text-transform:uppercase;margin-bottom:24px;">// The Man Behind It</div>
-
-          <div class="reveal" style="margin-bottom:24px;">
-            <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">Who is Wyolkens?</div>
-            <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">21, Ocean Township NJ. He's not in this for a title or to say he manages an artist. Nate is genuinely his boy and when you see someone that talented going for it you either show up or you don't. <a href="https://www.instagram.com/wyolkens_?igsh=ZWR2dnluemtjYjRw&utm_source=qr" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:500;">Wyolkens</a> showed up.</p>
-          </div>
-
-          <div class="reveal" style="margin-bottom:24px;">
-            <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">How it started</div>
-            <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">They met in high school and he just thought Nate was cool, that's literally it. Years later he found a studio on a college campus and the first person that came to mind was Nate. No grand strategy behind it, just knew Nate loved music more than anyone and deserved a real shot at it. That call changed everything.</p>
-          </div>
-
-          <div class="reveal" style="margin-bottom:24px;">
-            <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">What he does</div>
-            <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">He checks in on the progress, keeps the business side moving, and makes sure there's actually a plan behind the music. Hardest part of the job? Sometimes you don't agree with how things go and you gotta let the artist do it their way anyway. That's just how it is. Learning to sit with that is what being a real manager actually looks like.</p>
-          </div>
-
-          <div class="reveal" style="margin-bottom:28px;">
-            <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">Outside of NUSTAR</div>
-            <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">Big anime guy — One Piece, Dragon Ball Z, Trigun, grew up on all of it. He also makes his own music under <a href="https://open.spotify.com/artist/2cLFuKPXgqu7Vy8GiI1bcJ" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);font-weight:500;">W.Y.O</a>, nothing too serious, just for the love of it. End goal is bigger than any of that though. When NUSTAR makes it the whole point is to take care of family, look out for the people who were there from the jump, and just keep making music that actually means something. The Grammy is coming. That's not a hope, that's a plan.</p>
-          </div>
-
-          <div class="slinks" style="margin-top:28px;">
-            <a href="https://www.instagram.com/wyolkens_?igsh=ZWR2dnluemtjYjRw&utm_source=qr" target="_blank" class="sl">Instagram</a>
-            <a href="https://open.spotify.com/artist/2cLFuKPXgqu7Vy8GiI1bcJ" target="_blank" class="sl">W.Y.O Spotify</a>
-            <a href="https://music.apple.com/us/artist/w-y-o/1881404325" target="_blank" class="sl">W.Y.O Apple Music</a>
-          </div>
-        </div>
-
-        <!-- ROLES CARD -->
-        <div class="reveal">
-          <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.24em;color:var(--low);text-transform:uppercase;margin-bottom:16px;">// Roles</div>
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:20px 22px;">
-              <div style="font-family:'Anton',sans-serif;font-size:1.4rem;letter-spacing:.06em;color:var(--gold);line-height:1;">Manager</div>
-              <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.16em;color:var(--low);text-transform:uppercase;margin-top:5px;">Operations, strategy, rollout</div>
-            </div>
-            <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:20px 22px;">
-              <div style="font-family:'Anton',sans-serif;font-size:1.4rem;letter-spacing:.06em;color:var(--gold);line-height:1;">Co-Owner</div>
-              <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.16em;color:var(--low);text-transform:uppercase;margin-top:5px;">NUSTAR Entertainment, Est. 2025</div>
-            </div>
-            <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:20px 22px;">
-              <div style="font-family:'Anton',sans-serif;font-size:1.4rem;letter-spacing:.06em;color:var(--txt);line-height:1;">Friend</div>
-              <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.16em;color:var(--low);text-transform:uppercase;margin-top:5px;">Since day one &#10022; New Jersey</div>
-            </div>
-          </div>
-        </div>
+      <div class="reveal" style="margin-bottom:24px;">
+        <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">How it started</div>
+        <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">They met in high school and he just thought Nate was cool, that's literally it. Years later he found a studio on a college campus and the first person that came to mind was Nate. No grand strategy behind it, just knew Nate loved music more than anyone and deserved a real shot at it. That call changed everything.</p>
       </div>
 
+      <div class="reveal" style="margin-bottom:24px;">
+        <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">What he does</div>
+        <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">He checks in on the progress, keeps the business side moving, and makes sure there's actually a plan behind the music. Hardest part of the job? Sometimes you don't agree with how things go and you gotta let the artist do it their way anyway. That's just how it is. Learning to sit with that is what being a real manager actually looks like.</p>
+      </div>
+
+      <div class="reveal" style="margin-bottom:28px;">
+        <div style="font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.12em;color:var(--low);text-transform:uppercase;margin-bottom:6px;">Outside of NUSTAR</div>
+        <p style="font-size:.95rem;color:var(--dim);font-weight:300;line-height:1.9;">Big anime guy — One Piece, Dragon Ball Z, Trigun, grew up on all of it. He also makes his own music under <a href="https://open.spotify.com/artist/2cLFuKPXgqu7Vy8GiI1bcJ" target="_blank" style="color:var(--txt);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);font-weight:500;">W.Y.O</a>, nothing too serious, just for the love of it. End goal is bigger than any of that though. When NUSTAR makes it the whole point is to take care of family, look out for the people who were there from the jump, and just keep making music that actually means something. The Grammy is coming. That's not a hope, that's a plan.</p>
+      </div>
+
+      <div class="slinks" style="margin-top:28px;">
+        <a href="https://www.instagram.com/wyolkens_?igsh=ZWR2dnluemtjYjRw&utm_source=qr" target="_blank" class="sl">Instagram</a>
+        <a href="https://open.spotify.com/artist/2cLFuKPXgqu7Vy8GiI1bcJ" target="_blank" class="sl">W.Y.O Spotify</a>
+        <a href="https://music.apple.com/us/artist/w-y-o/1881404325" target="_blank" class="sl">W.Y.O Apple Music</a>
+      </div>
     </div>
+
+    <!-- ROLES CARD -->
+    <div class="reveal">
+      <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.24em;color:var(--low);text-transform:uppercase;margin-bottom:16px;">// Roles</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:20px 22px;">
+          <div style="font-family:'Anton',sans-serif;font-size:1.4rem;letter-spacing:.06em;color:var(--gold);line-height:1;">Manager</div>
+          <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.16em;color:var(--low);text-transform:uppercase;margin-top:5px;">Operations, strategy, rollout</div>
+        </div>
+        <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:20px 22px;">
+          <div style="font-family:'Anton',sans-serif;font-size:1.4rem;letter-spacing:.06em;color:var(--gold);line-height:1;">Co-Owner</div>
+          <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.16em;color:var(--low);text-transform:uppercase;margin-top:5px;">NUSTAR Entertainment, Est. 2025</div>
+        </div>
+        <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:20px 22px;">
+          <div style="font-family:'Anton',sans-serif;font-size:1.4rem;letter-spacing:.06em;color:var(--txt);line-height:1;">Friend</div>
+          <div style="font-family:'DM Mono',monospace;font-size:.56rem;letter-spacing:.16em;color:var(--low);text-transform:uppercase;margin-top:5px;">Since day one &#10022; New Jersey</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+```
+
   </div>
 </div>
 
 <!-- UNISEX BANNER -->
+
 <div style="border-top:1px solid var(--bd);background:var(--s1);">
   <div class="wrap">
     <div style="padding:80px 0;text-align:center;">
@@ -779,37 +795,41 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
       <h2 class="reveal" style="font-family:'Anton',sans-serif;font-size:clamp(3rem,10vw,7rem);letter-spacing:.06em;text-transform:uppercase;line-height:.9;margin-bottom:8px;">UNISEX</h2>
       <p style="font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.3em;color:var(--dim);text-transform:uppercase;margin-bottom:40px;">The New Album by Wacko Prophet &mdash; July 2026</p>
 
-      <!-- COUNTDOWN -->
-      <div class="reveal" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;">
-        <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:20px 28px;min-width:90px;">
-          <div style="font-family:'Anton',sans-serif;font-size:2.5rem;color:var(--gold);letter-spacing:.04em;line-height:1;" id="cd-days">00</div>
-          <div style="font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-top:4px;">Days</div>
-        </div>
-        <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:20px 28px;min-width:90px;">
-          <div style="font-family:'Anton',sans-serif;font-size:2.5rem;color:var(--gold);letter-spacing:.04em;line-height:1;" id="cd-hrs">00</div>
-          <div style="font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-top:4px;">Hours</div>
-        </div>
-        <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:20px 28px;min-width:90px;">
-          <div style="font-family:'Anton',sans-serif;font-size:2.5rem;color:var(--gold);letter-spacing:.04em;line-height:1;" id="cd-min">00</div>
-          <div style="font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-top:4px;">Mins</div>
-        </div>
-        <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:20px 28px;min-width:90px;">
-          <div style="font-family:'Anton',sans-serif;font-size:2.5rem;color:var(--gold);letter-spacing:.04em;line-height:1;" id="cd-sec">00</div>
-          <div style="font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-top:4px;">Secs</div>
-        </div>
-      </div>
-
-      <!-- INSTAGRAM EMBED -->
-      <div style="max-width:400px;margin:0 auto;">
-        <div class="sec-eye" style="margin-bottom:16px;">// TRACKLIST PREVIEW</div>
-        <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DWsklTaj4fb/" data-instgrm-version="14" style="background:#161616;border:1px solid var(--bd);border-radius:var(--r);margin:0;max-width:400px;width:100%;"></blockquote>
-        <script async src="//www.instagram.com/embed.js"></script>
-      </div>
+```
+  <!-- COUNTDOWN -->
+  <div class="reveal" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:48px;">
+    <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:20px 28px;min-width:90px;">
+      <div style="font-family:'Anton',sans-serif;font-size:2.5rem;color:var(--gold);letter-spacing:.04em;line-height:1;" id="cd-days">00</div>
+      <div style="font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-top:4px;">Days</div>
     </div>
+    <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:20px 28px;min-width:90px;">
+      <div style="font-family:'Anton',sans-serif;font-size:2.5rem;color:var(--gold);letter-spacing:.04em;line-height:1;" id="cd-hrs">00</div>
+      <div style="font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-top:4px;">Hours</div>
+    </div>
+    <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:20px 28px;min-width:90px;">
+      <div style="font-family:'Anton',sans-serif;font-size:2.5rem;color:var(--gold);letter-spacing:.04em;line-height:1;" id="cd-min">00</div>
+      <div style="font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-top:4px;">Mins</div>
+    </div>
+    <div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:20px 28px;min-width:90px;">
+      <div style="font-family:'Anton',sans-serif;font-size:2.5rem;color:var(--gold);letter-spacing:.04em;line-height:1;" id="cd-sec">00</div>
+      <div style="font-family:'DM Mono',monospace;font-size:.54rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-top:4px;">Secs</div>
+    </div>
+  </div>
+
+  <!-- INSTAGRAM EMBED -->
+  <div style="max-width:400px;margin:0 auto;">
+    <div class="sec-eye" style="margin-bottom:16px;">// TRACKLIST PREVIEW</div>
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DWsklTaj4fb/" data-instgrm-version="14" style="background:#161616;border:1px solid var(--bd);border-radius:var(--r);margin:0;max-width:400px;width:100%;"></blockquote>
+    <script async src="//www.instagram.com/embed.js"></script>
+  </div>
+</div>
+```
+
   </div>
 </div>
 
 <!-- FAQ -->
+
 <div id="faq" style="border-top:1px solid var(--bd);">
   <div class="wrap">
     <div class="sec">
@@ -817,48 +837,51 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
       <h2 class="sec-h reveal" style="margin-bottom:36px;">Common Questions</h2>
       <div style="max-width:720px;">
 
-        <div class="faq-item reveal">
-          <button class="faq-btn" onclick="toggleFaq('f1')">How do I receive my beat after purchase? <span class="faq-icon" id="f1-icon">+</span></button>
-          <div class="faq-body" id="f1">After you complete your purchase through Gumroad you will receive an automatic download link straight to your email. The file downloads immediately — no waiting, no manual delivery. If you do not see it check your spam folder or email us at <span id="faq-email"></span></div>
-        </div>
-
-        <div class="faq-item reveal">
-          <button class="faq-btn" onclick="toggleFaq('f2')">Can I use the beat on YouTube or streaming platforms? <span class="faq-icon" id="f2-icon">+</span></button>
-          <div class="faq-body" id="f2">Yes. Basic lease covers non-profit and mixtape use up to 50,000 streams. Premium lease covers commercial releases up to 500,000 streams across all platforms including Spotify, Apple Music, YouTube, and more. Exclusive gives you unlimited rights across everything. Just make sure to credit Wacko Prophet in your release.</div>
-        </div>
-
-        <div class="faq-item reveal">
-          <button class="faq-btn" onclick="toggleFaq('f3')">What is the difference between Basic and Premium? <span class="faq-icon" id="f3-icon">+</span></button>
-          <div class="faq-body" id="f3">Basic gives you a tagged MP3 for non-commercial use up to 50K streams. Premium gives you an untagged WAV file plus , allows commercial profit releases, radio broadcasting, and covers up to 500K streams. If you are putting out a serious release go Premium — the untagged audio alone makes it worth it.</div>
-        </div>
-
-        <div class="faq-item reveal">
-          <button class="faq-btn" onclick="toggleFaq('f4')">Can someone else buy the same beat I bought? <span class="faq-icon" id="f4-icon">+</span></button>
-          <div class="faq-body" id="f4">On Basic and Premium leases yes — the beat stays in the store and others can lease it too. That is standard in the industry. If you want to be the only one who can use it you need the Exclusive license, which permanently removes the beat from the store and transfers all rights to you.</div>
-        </div>
-
-        <div class="faq-item reveal">
-          <button class="faq-btn" onclick="toggleFaq('f5')">Can I request a custom beat? <span class="faq-icon" id="f5-icon">+</span></button>
-          <div class="faq-body" id="f5">Yes. Hit us through the contact form or email us directly and tell us what you are looking for — the vibe, BPM, reference tracks, whatever you have. We will get back to you within 24 hours to discuss.</div>
-        </div>
-
-        <div class="faq-item reveal">
-          <button class="faq-btn" onclick="toggleFaq('f6')">Do you offer refunds? <span class="faq-icon" id="f6-icon">+</span></button>
-          <div class="faq-body" id="f6">All sales are final. Because beats are digital files that are delivered instantly we do not offer refunds once the download has been accessed. If you have a technical issue with your file reach out and we will sort it out.</div>
-        </div>
-
-        <div class="faq-item reveal">
-          <button class="faq-btn" onclick="toggleFaq('f8')">Are the beats on the site the final versions? <span class="faq-icon" id="f8-icon">+</span></button>
-          <div class="faq-body" id="f8">The previews on the site are tagged demo versions — producer tags are placed throughout so the beat cannot be used without a license. When you purchase you receive the clean untagged file depending on your license tier. Basic gets a tagged MP3, Premium gets an untagged WAV plus MP3, Exclusive gets everything clean with full rights.</div>
-        </div>
-
-        <div class="faq-item reveal">
-          <button class="faq-btn" onclick="toggleFaq('f7')">What does the producer tag sound like and can I remove it? <span class="faq-icon" id="f7-icon">+</span></button>
-          <div class="faq-body" id="f7">The Basic lease comes with a producer tag that plays at the start of the beat — it says Wacko Prophet. If you want the clean untagged version you need the Premium or Exclusive license. The tag is there to protect ownership on leased files.</div>
-        </div>
-
-      </div>
+```
+    <div class="faq-item reveal">
+      <button class="faq-btn" onclick="toggleFaq('f1')">How do I receive my beat after purchase? <span class="faq-icon" id="f1-icon">+</span></button>
+      <div class="faq-body" id="f1">After you complete your purchase through Gumroad you will receive an automatic download link straight to your email. The file downloads immediately — no waiting, no manual delivery. If you do not see it check your spam folder or email us at <span id="faq-email"></span></div>
     </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-btn" onclick="toggleFaq('f2')">Can I use the beat on YouTube or streaming platforms? <span class="faq-icon" id="f2-icon">+</span></button>
+      <div class="faq-body" id="f2">Yes. Basic lease covers non-profit and mixtape use up to 50,000 streams. Premium lease covers commercial releases up to 500,000 streams across all platforms including Spotify, Apple Music, YouTube, and more. Exclusive gives you unlimited rights across everything. Just make sure to credit Wacko Prophet in your release.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-btn" onclick="toggleFaq('f3')">What is the difference between Basic and Premium? <span class="faq-icon" id="f3-icon">+</span></button>
+      <div class="faq-body" id="f3">Basic gives you a tagged MP3 for non-commercial use up to 50K streams. Premium gives you an untagged WAV file plus , allows commercial profit releases, radio broadcasting, and covers up to 500K streams. If you are putting out a serious release go Premium — the untagged audio alone makes it worth it.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-btn" onclick="toggleFaq('f4')">Can someone else buy the same beat I bought? <span class="faq-icon" id="f4-icon">+</span></button>
+      <div class="faq-body" id="f4">On Basic and Premium leases yes — the beat stays in the store and others can lease it too. That is standard in the industry. If you want to be the only one who can use it you need the Exclusive license, which permanently removes the beat from the store and transfers all rights to you.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-btn" onclick="toggleFaq('f5')">Can I request a custom beat? <span class="faq-icon" id="f5-icon">+</span></button>
+      <div class="faq-body" id="f5">Yes. Hit us through the contact form or email us directly and tell us what you are looking for — the vibe, BPM, reference tracks, whatever you have. We will get back to you within 24 hours to discuss.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-btn" onclick="toggleFaq('f6')">Do you offer refunds? <span class="faq-icon" id="f6-icon">+</span></button>
+      <div class="faq-body" id="f6">All sales are final. Because beats are digital files that are delivered instantly we do not offer refunds once the download has been accessed. If you have a technical issue with your file reach out and we will sort it out.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-btn" onclick="toggleFaq('f8')">Are the beats on the site the final versions? <span class="faq-icon" id="f8-icon">+</span></button>
+      <div class="faq-body" id="f8">The previews on the site are tagged demo versions — producer tags are placed throughout so the beat cannot be used without a license. When you purchase you receive the clean untagged file depending on your license tier. Basic gets a tagged MP3, Premium gets an untagged WAV plus MP3, Exclusive gets everything clean with full rights.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-btn" onclick="toggleFaq('f7')">What does the producer tag sound like and can I remove it? <span class="faq-icon" id="f7-icon">+</span></button>
+      <div class="faq-body" id="f7">The Basic lease comes with a producer tag that plays at the start of the beat — it says Wacko Prophet. If you want the clean untagged version you need the Premium or Exclusive license. The tag is there to protect ownership on leased files.</div>
+    </div>
+
+  </div>
+</div>
+```
+
   </div>
 </div>
 
@@ -902,8 +925,8 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-
 <!-- LICENSE MODAL -->
+
 <div class="modal-overlay" id="licModalOverlay" onclick="handleLicOverlay(event)" style="position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:900;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s;">
   <div style="background:var(--s1);border:1px solid var(--bd2);border-radius:var(--r);width:100%;max-width:520px;overflow:hidden;transform:translateY(20px) scale(.97);transition:transform .3s cubic-bezier(.16,1,.3,1);" id="licModalBox">
     <div style="padding:20px 22px 16px;border-bottom:1px solid var(--bd);display:flex;align-items:flex-start;justify-content:space-between;gap:16px;">
@@ -950,6 +973,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 </div>
 
 <!-- EXCLUSIVE CONTRACT MODAL -->
+
 <div id="exclModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9900;overflow-y:auto;padding:40px 16px;">
   <div style="max-width:580px;margin:0 auto;background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:32px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
@@ -960,30 +984,33 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
       <button onclick="closeExclModal()" style="background:none;border:none;color:var(--low);font-size:1.2rem;cursor:pointer;">&#10005;</button>
     </div>
 
-    <div style="background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:20px;">
-      <div style="font-family:'DM Mono',monospace;font-size:.58rem;color:var(--dim);line-height:1.8;">
-        <span style="color:var(--gold);">$499</span> — Full ownership. Beat off the market. Unlimited streams, all files + , full commercial rights.
-      </div>
-    </div>
+```
+<div style="background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;margin-bottom:20px;">
+  <div style="font-family:'DM Mono',monospace;font-size:.58rem;color:var(--dim);line-height:1.8;">
+    <span style="color:var(--gold);">$499</span> — Full ownership. Beat off the market. Unlimited streams, all files + , full commercial rights.
+  </div>
+</div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
-      <div class="fg"><label style="display:block;font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-bottom:4px;">Your Legal Name</label><input type="text" id="ex-artist" placeholder="Full legal name" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);color:var(--txt);font-family:'DM Mono',monospace;font-size:.72rem;padding:10px 12px;outline:none;"></div>
-      <div class="fg"><label style="display:block;font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-bottom:4px;">Your Email</label><input type="email" id="ex-email" placeholder="your@email.com" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);color:var(--txt);font-family:'DM Mono',monospace;font-size:.72rem;padding:10px 12px;outline:none;"></div>
-    </div>
-    <div style="margin-bottom:20px;">
-      <label style="display:block;font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-bottom:4px;">Artist / Stage Name</label>
-      <input type="text" id="ex-stage" placeholder="Your artist name or page" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);color:var(--txt);font-family:'DM Mono',monospace;font-size:.72rem;padding:10px 12px;outline:none;">
-    </div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+  <div class="fg"><label style="display:block;font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-bottom:4px;">Your Legal Name</label><input type="text" id="ex-artist" placeholder="Full legal name" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);color:var(--txt);font-family:'DM Mono',monospace;font-size:.72rem;padding:10px 12px;outline:none;"></div>
+  <div class="fg"><label style="display:block;font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-bottom:4px;">Your Email</label><input type="email" id="ex-email" placeholder="your@email.com" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);color:var(--txt);font-family:'DM Mono',monospace;font-size:.72rem;padding:10px 12px;outline:none;"></div>
+</div>
+<div style="margin-bottom:20px;">
+  <label style="display:block;font-family:'DM Mono',monospace;font-size:.52rem;letter-spacing:.2em;color:var(--low);text-transform:uppercase;margin-bottom:4px;">Artist / Stage Name</label>
+  <input type="text" id="ex-stage" placeholder="Your artist name or page" style="width:100%;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r);color:var(--txt);font-family:'DM Mono',monospace;font-size:.72rem;padding:10px 12px;outline:none;">
+</div>
 
-    <button onclick="generateExclContract()" style="width:100%;font-family:'Anton',sans-serif;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;padding:14px;background:var(--gold);color:#080808;border:none;border-radius:var(--r);cursor:pointer;">Generate Contract & Download PDF</button>
+<button onclick="generateExclContract()" style="width:100%;font-family:'Anton',sans-serif;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;padding:14px;background:var(--gold);color:#080808;border:none;border-radius:var(--r);cursor:pointer;">Generate Contract & Download PDF</button>
 
-    <!-- Shown after contract is generated -->
-    <div id="postContract" style="display:none;margin-top:16px;">
-      <div style="height:1px;background:var(--bd);margin-bottom:16px;"></div>
-      <p style="font-family:'DM Mono',monospace;font-size:.58rem;color:var(--dim);text-align:center;margin-bottom:12px;line-height:1.8;">Contract downloaded. Print it, sign it, and email the signed copy to <span id="modal-email2"></span><br>Then complete your purchase below.</p>
-      <a id="gumroadBtn" href="#" target="_blank" style="display:block;width:100%;font-family:'Anton',sans-serif;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;padding:14px;background:transparent;color:var(--gold);border:2px solid var(--gold);border-radius:var(--r);cursor:pointer;text-decoration:none;text-align:center;box-sizing:border-box;">Complete Purchase on Gumroad ↗</a>
-    </div>
-    <p style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);text-align:center;margin-top:12px;line-height:1.7;">Contract will download as a PDF. Email the signed copy to <span id="modal-email"></span></p>
+<!-- Shown after contract is generated -->
+<div id="postContract" style="display:none;margin-top:16px;">
+  <div style="height:1px;background:var(--bd);margin-bottom:16px;"></div>
+  <p style="font-family:'DM Mono',monospace;font-size:.58rem;color:var(--dim);text-align:center;margin-bottom:12px;line-height:1.8;">Contract downloaded. Print it, sign it, and email the signed copy to <span id="modal-email2"></span><br>Then complete your purchase below.</p>
+  <a id="gumroadBtn" href="#" target="_blank" style="display:block;width:100%;font-family:'Anton',sans-serif;font-size:.9rem;letter-spacing:.14em;text-transform:uppercase;padding:14px;background:transparent;color:var(--gold);border:2px solid var(--gold);border-radius:var(--r);cursor:pointer;text-decoration:none;text-align:center;box-sizing:border-box;">Complete Purchase on Gumroad ↗</a>
+</div>
+<p style="font-family:'DM Mono',monospace;font-size:.54rem;color:var(--low);text-align:center;margin-top:12px;line-height:1.7;">Contract will download as a PDF. Email the signed copy to <span id="modal-email"></span></p>
+```
+
   </div>
 </div>
 
@@ -1021,6 +1048,7 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
 </div>
 
 <!-- LIGHTBOX -->
+
 <div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:9990;align-items:center;justify-content:center;flex-direction:column;padding:24px;" onclick="closeLightbox()">
   <button onclick="closeLightbox()" style="position:fixed;top:20px;right:24px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1.2rem;width:40px;height:40px;border-radius:50%;cursor:pointer;z-index:9991;display:flex;align-items:center;justify-content:center;transition:background .2s;" onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">&#10005;</button>
   <img id="lb-img" src="" style="max-width:90vw;max-height:80vh;object-fit:contain;border-radius:2px;animation:lbIn .3s cubic-bezier(.16,1,.3,1);" onclick="event.stopPropagation()">
@@ -1988,19 +2016,19 @@ function handleLicOverlay(e) {
 
 function doLicBuy() {
   if (!licModalBeat) return;
-  closeLicenseModal();
-  // Exclusive = open exclusive contract modal
   if (licSelTierKey === 'exclusive') {
+    closeLicenseModal();
     openExclModal(licModalBeat);
     return;
   }
-  // Basic/Premium = go to Gumroad
   trackEvent('beat_click_' + licSelTierKey, licModalBeat.name);
   var sales_local = getSales();
   sales_local[licModalBeat.id] = (sales_local[licModalBeat.id] || 0) + 1;
   saveSales();
-  if (LINKS[licModalBeat.id]) {
-    window.open(LINKS[licModalBeat.id], '_blank');
+  closeLicenseModal();
+  var url = LINKS[licModalBeat.id] || null;
+  if (url) {
+    location.href = url;
   } else {
     doToast('Email us: ' + EM + ' for ' + licModalBeat.name + ' — ' + licSelTier);
   }
@@ -2179,5 +2207,6 @@ var obs2 = new IntersectionObserver(function(entries) {
 }, {threshold: 0.1, rootMargin: "0px 0px -40px 0px"});
 document.querySelectorAll(".reveal, .reveal-left, .reveal-right, .reveal-scale, .gold-line").forEach(function(el) { obs2.observe(el); });
 </script>
+
 </body>
 </html>
