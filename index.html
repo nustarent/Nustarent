@@ -1509,11 +1509,90 @@ function render() {
   document.getElementById("grid").innerHTML = h;
 }
 
-// SoundCloud Widget
 // ── BEATSTARS-STYLE PLAYER ────────────────────────────────
 var curBeat = null, isPlay = false, prog = 0, blobUrl = null;
-var audioEl = new Audio();
 var waveData = null;
+
+// WebAudio API — plays entirely in memory, nothing visible in inspect/network
+var _ac = null;
+var _sourceNode = null;
+var _gainNode = null;
+var _startTime = 0;
+var _pauseOffset = 0;
+var _audioBuf = null;
+var _progInterval = null;
+
+function getAC() {
+  if (!_ac) {
+    _ac = new (window.AudioContext || window.webkitAudioContext)();
+    _gainNode = _ac.createGain();
+    _gainNode.connect(_ac.destination);
+  }
+  if (_ac.state === 'suspended') _ac.resume();
+  return _ac;
+}
+
+// Fake audio element interface so existing code doesn't break
+var audioEl = {
+  pause: function() { _stopSource(); },
+  play: function() { return Promise.resolve(); },
+  src: '',
+  currentTime: 0,
+  duration: 0,
+  volume: 1,
+  _listeners: {},
+  addEventListener: function(ev, fn) {
+    if (!this._listeners[ev]) this._listeners[ev] = [];
+    this._listeners[ev].push(fn);
+  },
+  removeEventListener: function(ev, fn) {
+    if (!this._listeners[ev]) return;
+    this._listeners[ev] = this._listeners[ev].filter(function(f){ return f !== fn; });
+  },
+  _emit: function(ev) {
+    var self = this;
+    if (!self._listeners[ev]) return;
+    self._listeners[ev].forEach(function(fn){ fn(); });
+  },
+  load: function() {}
+};
+
+function _stopSource() {
+  if (_sourceNode) {
+    try { _sourceNode.stop(); } catch(e) {}
+    _sourceNode.disconnect();
+    _sourceNode = null;
+  }
+  if (_progInterval) { clearInterval(_progInterval); _progInterval = null; }
+}
+
+function _playBuffer(buf, offset) {
+  _stopSource();
+  var ac = getAC();
+  _audioBuf = buf;
+  audioEl.duration = buf.duration;
+  _sourceNode = ac.createBufferSource();
+  _sourceNode.buffer = buf;
+  _sourceNode.connect(_gainNode);
+  _pauseOffset = offset || 0;
+  _startTime = ac.currentTime - _pauseOffset;
+  _sourceNode.start(0, _pauseOffset);
+  _sourceNode.onended = function() {
+    if (!isPlay) return;
+    isPlay = false;
+    _pauseOffset = 0;
+    audioEl._emit('ended');
+  };
+  // Progress ticker
+  _progInterval = setInterval(function() {
+    if (!_ac || !isPlay) return;
+    var ct = _ac.currentTime - _startTime;
+    audioEl.currentTime = ct;
+    if (_audioBuf) audioEl.duration = _audioBuf.duration;
+    audioEl._emit('timeupdate');
+  }, 250);
+  audioEl._emit('canplay');
+}
 
 // Generate dense waveform like BeatStars
 function genWave(n) {
@@ -1614,18 +1693,11 @@ function fetchAndDecrypt(url, cb) {
     });
 }
 
-// Silent src to claim browser gesture window on click
-var SILENT_SRC = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
-var audioUnlocked = false;
-var _ac = null;
-function getAC() {
-  if (!_ac) _ac = new (window.AudioContext || window.webkitAudioContext)();
-  if (_ac.state === 'suspended') _ac.resume();
-  return _ac;
-}
-document.addEventListener('click', function() { getAC(); audioUnlocked = true; }, { once: true });
-document.addEventListener('touchstart', function() { getAC(); audioUnlocked = true; }, { once: true });
+// Unlock AudioContext on first user interaction
+document.addEventListener('click', function() { getAC(); }, { once: true });
+document.addEventListener('touchstart', function() { getAC(); }, { once: true });
 
+// Timeupdate — driven by WebAudio interval ticker in _playBuffer
 audioEl.addEventListener('timeupdate', function() {
   if (audioEl.duration) {
     prog = (audioEl.currentTime / audioEl.duration) * 100;
@@ -1641,7 +1713,8 @@ audioEl.addEventListener('timeupdate', function() {
   }
 });
 
-audioEl.addEventListener('loadedmetadata', function() {
+// Duration display via canplay (fired after decode)
+audioEl.addEventListener('canplay', function() {
   var dur = document.getElementById('spDur');
   if (dur && audioEl.duration) {
     var s = Math.floor(audioEl.duration);
@@ -1676,11 +1749,9 @@ function playB(id) {
     return;
   }
 
-  // Claim gesture window synchronously RIGHT NOW before any async
+  // Claim gesture window synchronously — unlock AudioContext
   getAC();
-  audioEl.pause();
-  audioEl.src = SILENT_SRC;
-  audioEl.play().catch(function(){});
+  _stopSource();
 
   curBeat = id; isPlay = true; prog = 0;
   waveData = genWave(150);
@@ -1701,20 +1772,21 @@ function playB(id) {
   var playingId = id;
   fetchBlob(b.audio, function(src) {
     if (curBeat !== playingId) return;
-    audioEl.pause();
-    audioEl.src = src;
-    audioEl.load();
-    audioEl.addEventListener('canplay', function onReady() {
-      audioEl.removeEventListener('canplay', onReady);
-      if (curBeat !== playingId) return;
-      audioEl.play().then(function() {
-        isPlay = true; updIcon(); render();
-      }).catch(function(err) {
-        console.log('Play blocked:', err);
+    // Fetch the blob URL as ArrayBuffer and decode via WebAudio
+    fetch(src)
+      .then(function(r){ return r.arrayBuffer(); })
+      .then(function(buf){ return getAC().decodeAudioData(buf); })
+      .then(function(decoded){
+        if (curBeat !== playingId) return;
+        isPlay = true;
+        _playBuffer(decoded, 0);
+        updIcon(); render();
+      })
+      .catch(function(err){
+        console.log('WebAudio decode error:', err);
+        doToast('Audio error — try again');
         isPlay = false; updIcon();
-        doToast('Tap ▶ to play');
       });
-    });
   });
 }
 
@@ -1722,19 +1794,22 @@ function togglePlay() { if (isPlay) { pauseIt(); } else { resumeIt(); } }
 
 function pauseIt() {
   isPlay = false;
-  audioEl.pause();
+  if (_ac) _pauseOffset = _ac.currentTime - _startTime;
+  _stopSource();
   updIcon(); render();
 }
 
 function resumeIt() {
-  if (!curBeat) return;
+  if (!curBeat || !_audioBuf) return;
   isPlay = true;
-  audioEl.play().catch(function() {});
+  _playBuffer(_audioBuf, _pauseOffset);
   updIcon(); render();
 }
 
 function closePlayer() {
-  audioEl.pause();
+  _stopSource();
+  _audioBuf = null;
+  _pauseOffset = 0;
   if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
   curBeat = null; isPlay = false; prog = 0;
   document.getElementById('splayer').classList.remove('on');
@@ -1765,7 +1840,11 @@ function doSeek(e) {
   var thumb = document.getElementById('spThumb');
   if (filled) filled.style.width = pct + '%';
   if (thumb) thumb.style.left = pct + '%';
-  if (audioEl.duration) audioEl.currentTime = (pct / 100) * audioEl.duration;
+  if (_audioBuf) {
+    var seekTo = (pct / 100) * _audioBuf.duration;
+    _pauseOffset = seekTo;
+    if (isPlay) _playBuffer(_audioBuf, seekTo);
+  }
 }
 
 // Keyboard controls: Space = play/pause, Left = rewind 10s, Right = skip 10s
