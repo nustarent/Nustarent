@@ -116,7 +116,7 @@ body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;font-
     <div class="divider"></div>
     <div class="cf">
       <div class="cf-row">
-        <div class="fg"><label>Beat Title</label><input type="text" id="cf-beat" placeholder="e.g. ZENITH"></div>
+        <div class="fg"><label>Beat Title</label><input type="text" id="cf-beat" placeholder="e.g. CASINO"></div>
         <div class="fg"><label>License Type</label>
           <select id="cf-license">
             <option>Exclusive</option>
@@ -165,16 +165,16 @@ body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;font-
 
 <script>
 var BEATS=[
-  {id:1,name:"ZENITH",bpm:140,key:"TBD",genre:"Hip Hop",price:40,tag:"NEW"},
-  {id:2,name:"DARK MATTER",bpm:140,key:"F# MIN",genre:"Trap",price:99,tag:"HOT"},
-  {id:3,name:"COLD NIGHTS",bpm:72,key:"C MIN",genre:"R&B",price:79,tag:""},
-  {id:4,name:"CAT MODE",bpm:130,key:"C MAJ",genre:"Meme",price:29,tag:"NEW"},
-  {id:5,name:"GHOST WALK",bpm:138,key:"D MIN",genre:"Trap",price:79,tag:""},
-  {id:6,name:"TENDER",bpm:68,key:"Ab MAJ",genre:"R&B",price:99,tag:"EXCLUSIVE"},
-  {id:7,name:"REEL READY",bpm:128,key:"G MAJ",genre:"Meme",price:29,tag:"HOT"},
-  {id:8,name:"MIDNIGHT RUN",bpm:135,key:"E MIN",genre:"Trap",price:79,tag:"NEW"},
-  {id:9,name:"LAVISH",bpm:75,key:"F MAJ",genre:"R&B",price:79,tag:""},
-  {id:10,name:"VIRAL SZN",bpm:132,key:"A MAJ",genre:"Meme",price:29,tag:""}
+  {id:1,name:"CASINO",bpm:120,key:"TBD",genre:"Trap",price:29,tag:"NEW"},
+  {id:2,name:"TRUGOY",bpm:142,key:"TBD",genre:"Trap",price:29,tag:"NEW"},
+  {id:3,comingSoon:true},
+  {id:4,comingSoon:true},
+  {id:5,comingSoon:true},
+  {id:6,comingSoon:true},
+  {id:7,comingSoon:true},
+  {id:8,comingSoon:true},
+  {id:9,comingSoon:true},
+  {id:10,comingSoon:true}
 ];
 
 function getSales(){return JSON.parse(localStorage.getItem('nustar_sales')||'{}');}
@@ -246,9 +246,10 @@ function showPanel(id,btn){
 
 function renderAnalytics(){
   var s=getSales();
-  var totalSales=Object.values(s).reduce(function(acc,v){return acc+v;},0);
+  var realBeats=BEATS.filter(function(b){return !b.comingSoon;});
+  var totalSales=realBeats.reduce(function(acc,b){return acc+(s[b.id]||0);},0);
   var totalRev=0;
-  BEATS.forEach(function(b){totalRev+=(s[b.id]||0)*b.price;});
+  realBeats.forEach(function(b){totalRev+=(s[b.id]||0)*b.price;});
 
   fetch(SB_URL+"/rest/v1/analytics?select=*",{
     headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json"}
@@ -256,17 +257,30 @@ function renderAnalytics(){
     if(!Array.isArray(events)) events=[];
     var pageViews=events.filter(function(e){return e.event==="page_view";}).length;
     var beatClicks=events.filter(function(e){return e.event&&e.event.indexOf("beat_click")===0;}).length;
-    var maxS=Math.max.apply(null,BEATS.map(function(b){return s[b.id]||0;}).concat([1]));
+    var maxClk=Math.max.apply(null,realBeats.map(function(b){
+      return events.filter(function(e){return e.beat===b.name;}).length;
+    }).concat([1]));
     var h="";
-    BEATS.forEach(function(b){
+
+    // Real beats
+    realBeats.forEach(function(b){
       var sold=s[b.id]||0;
       var clk=events.filter(function(e){return e.beat===b.name;}).length;
-      var rev=sold*b.price,pct=Math.round((sold/maxS)*100);
+      var rev=sold*b.price;
+      var pct=Math.round((clk/maxClk)*100);
       var tg=b.tag?"<span class=\"tag "+(b.tag==="HOT"?"tag-hot":"tag-new")+"\">"+b.tag+"</span>":"";
       h+="<tr><td><b>"+b.name+"</b> "+tg+"</td><td>"+b.genre+"</td><td>$"+b.price+"</td>";
-      h+="<td>"+clk+"</td><td><b>"+sold+"</b></td><td style=\"color:var(--gold);\"><b>$"+rev+"</b></td>";
+      h+="<td><b>"+clk+"</b></td><td><b>"+sold+"</b></td><td style=\"color:var(--gold);\"><b>$"+rev+"</b></td>";
       h+="<td><div class=\"bar-wrap\"><div class=\"bar-fill\" style=\"width:"+pct+"%\"></div></div></td></tr>";
     });
+
+    // Coming soon beats
+    BEATS.filter(function(b){return b.comingSoon;}).forEach(function(b){
+      h+="<tr style=\"opacity:.35;\"><td><b>— — —</b></td><td style=\"color:var(--low);\">—</td><td style=\"color:var(--low);\">—</td>";
+      h+="<td>—</td><td>—</td><td>—</td>";
+      h+="<td><span style=\"font-family:'DM Mono',monospace;font-size:.5rem;letter-spacing:.12em;color:var(--low);\">COMING SOON</span></td></tr>";
+    });
+
     document.getElementById("beatPerfBody").innerHTML=h;
 
     sbFetch().then(function(rows){
@@ -286,6 +300,14 @@ function renderCatalog(){
   var s=getSales();
   var h='';
   BEATS.forEach(function(b){
+    if(b.comingSoon){
+      h+='<tr style="opacity:.35;"><td><b style="color:var(--low);">— — —</b></td>';
+      h+='<td style="color:var(--low);">—</td><td style="color:var(--low);">—</td><td style="color:var(--low);">—</td>';
+      h+='<td style="color:var(--low);">—</td><td style="color:var(--low);">—</td><td style="color:var(--low);">—</td>';
+      h+='<td><span style="font-family:\'DM Mono\',monospace;font-size:.48rem;letter-spacing:.1em;color:var(--low);">SOON</span></td>';
+      h+='<td style="color:var(--low);">—</td></tr>';
+      return;
+    }
     var sold=s[b.id]||0;
     var tg=b.tag?'<span class="tag '+(b.tag==='HOT'?'tag-hot':'tag-new')+'">'+b.tag+'</span>':'<span style="color:var(--low);">—</span>';
     h+='<tr><td><b>'+b.name+'</b></td><td>'+b.bpm+'</td><td>'+b.key+'</td><td>'+b.genre+'</td>';
@@ -578,15 +600,13 @@ function buildPDF(d){
 }
 
 function addFakeSale(){
+  var realBeats=BEATS.filter(function(b){return !b.comingSoon;});
   var s=getSales();
-  var rid=Math.ceil(Math.random()*10);
-  s[rid]=(s[rid]||0)+1;
+  var b=realBeats[Math.floor(Math.random()*realBeats.length)];
+  s[b.id]=(s[b.id]||0)+1;
   localStorage.setItem('nustar_sales',JSON.stringify(s));
-  var a=getA();
-  a.totalClicks=(a.totalClicks||0)+1;
-  localStorage.setItem('nustar_analytics',JSON.stringify(a));
   renderAnalytics();
-  doToast('Simulated sale for beat #'+rid);
+  doToast('Simulated sale for '+b.name);
 }
 
 function resetAnalytics(){
