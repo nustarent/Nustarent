@@ -1126,6 +1126,7 @@ var BEATS = [
 ];
 
 var LINKS = {1: "https://nustarent.gumroad.com/l/ltjtrh", 2: "https://nustarent.gumroad.com/l/trugoy"};
+var EXCL_LINKS = {1: "https://nustarent.gumroad.com/l/kmanky", 2: "https://nustarent.gumroad.com/l/sjbjy"};
 var liked = JSON.parse(localStorage.getItem('nustar_liked') || '{}');
 function saveLiked() { localStorage.setItem('nustar_liked', JSON.stringify(liked)); }
 var sales = {};
@@ -1186,7 +1187,7 @@ function openExclModal(beat) {
   document.getElementById("modal-email2").textContent = EM;
   document.getElementById("postContract").style.display = "none";
   // Set Gumroad link for this beat
-  var link = LINKS[beat.id] || ("mailto:" + EM + "?subject=Exclusive%20Purchase%20-%20" + beat.name);
+  var link = EXCL_LINKS[beat.id] || ("mailto:" + EM + "?subject=Exclusive%20Purchase%20-%20" + beat.name);
   document.getElementById("gumroadBtn").href = link;
   document.body.style.overflow = "hidden";
 }
