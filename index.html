@@ -1619,7 +1619,8 @@ function _playBuffer(buf, offset) {
   _startTime = ac.currentTime - _pauseOffset;
   _sourceNode.start(0, _pauseOffset);
   _sourceNode.onended = function() {
-    if (!isPlay) return;
+    // Only treat as natural end if we're still playing (not manually stopped)
+    if (!isPlay || _sourceNode !== this) return;
     isPlay = false;
     _pauseOffset = 0;
     audioEl._emit('ended');
@@ -1689,22 +1690,14 @@ function getKey() {
 
 // Decrypt .enc file and return blob URL
 function fetchAndDecrypt(url, cb) {
-  // Check if it's an encrypted file
   var isEnc = url.indexOf('.enc') > -1;
   if (!isEnc) {
-    // Not encrypted — use regular blob fetch
     fetch(url)
-      .then(function(r) { return r.blob(); })
-      .then(function(blob) {
-        if (blobUrl) URL.revokeObjectURL(blobUrl);
-        blobUrl = URL.createObjectURL(blob);
-        cb(blobUrl);
-      })
-      .catch(function() { cb(url); });
+      .then(function(r) { return r.arrayBuffer(); })
+      .then(function(buf) { cb(buf); })
+      .catch(function(err) { console.log('Fetch error:', err); cb(null); });
     return;
   }
-
-  // Encrypted file — fetch, decrypt, stream
   fetch(url)
     .then(function(r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -1722,15 +1715,10 @@ function fetchAndDecrypt(url, cb) {
         );
       });
     })
-    .then(function(decrypted) {
-      var blob = new Blob([decrypted], { type: 'audio/mpeg' });
-      if (blobUrl) URL.revokeObjectURL(blobUrl);
-      blobUrl = URL.createObjectURL(blob);
-      cb(blobUrl);
-    })
+    .then(function(decrypted) { cb(decrypted); })
     .catch(function(err) {
       console.log('Decrypt error:', err);
-      cb(url);
+      cb(null);
     });
 }
 
@@ -1811,23 +1799,19 @@ function playB(id) {
 
   doToast('Loading ' + b.name + '...');
   var playingId = id;
-  fetchBlob(b.audio, function(src) {
+  fetchBlob(b.audio, function(buf) {
     if (curBeat !== playingId) return;
-    // Fetch the blob URL as ArrayBuffer and decode via WebAudio
-    fetch(src)
-      .then(function(r){ return r.arrayBuffer(); })
-      .then(function(buf){ return getAC().decodeAudioData(buf); })
-      .then(function(decoded){
-        if (curBeat !== playingId) return;
-        isPlay = true;
-        _playBuffer(decoded, 0);
-        updIcon(); render();
-      })
-      .catch(function(err){
-        console.log('WebAudio decode error:', err);
-        doToast('Audio error — try again');
-        isPlay = false; updIcon();
-      });
+    getAC().decodeAudioData(buf.slice(0), function(decoded) {
+      if (curBeat !== playingId) return;
+      _pauseOffset = 0;
+      isPlay = true;
+      _playBuffer(decoded, 0);
+      updIcon(); render();
+    }, function(err) {
+      console.log('Decode error:', err);
+      doToast('Audio error — try again');
+      isPlay = false; updIcon();
+    });
   });
 }
 
@@ -1891,7 +1875,8 @@ function doSeek(e) {
 // Seek functions for buttons and keyboard
 function seekBack10() {
   if (!_audioBuf) return;
-  var newPos = Math.max(0, (_pauseOffset || 0) - 10);
+  var current = isPlay ? (_ac.currentTime - _startTime) : audioEl.currentTime;
+  var newPos = Math.max(0, current - 10);
   _pauseOffset = newPos;
   if (isPlay) _playBuffer(_audioBuf, newPos);
   else { audioEl.currentTime = newPos; audioEl._emit('timeupdate'); }
@@ -1899,7 +1884,8 @@ function seekBack10() {
 
 function seekFwd10() {
   if (!_audioBuf) return;
-  var newPos = Math.min(_audioBuf.duration, (_pauseOffset || 0) + 10);
+  var current = isPlay ? (_ac.currentTime - _startTime) : audioEl.currentTime;
+  var newPos = Math.min(_audioBuf.duration, current + 10);
   _pauseOffset = newPos;
   if (isPlay) _playBuffer(_audioBuf, newPos);
   else { audioEl.currentTime = newPos; audioEl._emit('timeupdate'); }
@@ -2190,9 +2176,10 @@ function fetchBlob(url, cb) {
   if (beat && preloadedBlobs[beat.id]) {
     cb(preloadedBlobs[beat.id]);
   } else {
-    fetchAndDecrypt(url, function(src) {
-      if (beat) preloadedBlobs[beat.id] = src;
-      cb(src);
+    fetchAndDecrypt(url, function(buf) {
+      if (!buf) { doToast('Audio error — try again'); isPlay = false; updIcon(); return; }
+      if (beat) preloadedBlobs[beat.id] = buf;
+      cb(buf);
     });
   }
 }
