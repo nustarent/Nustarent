@@ -330,8 +330,10 @@ function renderLog(){
       empty.style.display='block';table.style.display='none';return;
     }
     var h='';
-    rows.forEach(function(c){
+    rows.forEach(function(c, idx){
       var sc=c.status==='Signed'?'sb-signed':'sb-sent';
+      // Store contract data safely
+      window['_contract_'+idx] = c;
       h+='<tr>';
       h+='<td><b>'+(c.beat||'—')+'</b></td>';
       h+='<td>'+(c.artist||'—')+(c.stage?'<br><span style="font-size:.52rem;color:var(--low);">'+c.stage+'</span>':'')+'</td>';
@@ -341,7 +343,7 @@ function renderLog(){
       h+='<td><span class="status-badge '+sc+'">'+(c.status||'Sent')+'</span></td>';
       h+='<td style="display:flex;gap:5px;">';
       if(c.status!=='Signed')h+='<button class="ab sign" onclick="markSigned(\''+c.id+'\')">Mark Signed</button>';
-      h+='<button class="ab" onclick="regenPDF('+JSON.stringify(c).replace(/"/g,"&quot;")+')" >PDF</button>';
+      h+='<button class="ab" onclick="regenPDF(window[\'_contract_'+idx+'\'])">PDF</button>';
       h+='<button class="ab del" onclick="delLog(\''+c.id+'\')">Delete</button>';
       h+='</td></tr>';
     });
@@ -381,20 +383,41 @@ function saveLog(){
     email:d.email,stage:d.stage,price:d.price,
     date:d.date,status:'Sent'
   }).then(function(res){
-    if(res.ok){doToast('Saved to Supabase log');}
-    else{doToast('Error saving — check connection');}
+    if(res.ok){
+      doToast('Saved to log ✓');
+      setTimeout(function(){ showPanel('log', document.querySelector('.tn:last-child')); }, 800);
+    } else {
+      doToast('Error saving — check connection');
+    }
   });
 }
 
 function markSigned(id){
-  sbUpdate(id,{status:'Signed'}).then(function(){
-    renderLog();doToast('Marked as signed');
+  sbUpdate(id,{status:'Signed'}).then(function(res){
+    if(res.ok){
+      renderLog();doToast('Marked as signed ✓');
+    } else {
+      doToast('Update failed — check connection');
+    }
+  }).catch(function(err){
+    console.log('Update error:', err);
+    doToast('Update failed');
   });
 }
 
 function delLog(id){
-  sbDelete(id).then(function(){
-    renderLog();doToast('Deleted');
+  if(!confirm('Delete this contract? This cannot be undone.')) return;
+  sbDelete(id).then(function(res){
+    if(res.ok){
+      doToast('Deleted ✓');
+      renderLog();
+    } else {
+      res.text().then(function(t){ console.log('Delete error:', t); });
+      doToast('Delete failed — check console');
+    }
+  }).catch(function(err){
+    console.log('Delete error:', err);
+    doToast('Delete failed — check connection');
   });
 }
 
