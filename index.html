@@ -1011,9 +1011,9 @@ footer{border-top:1px solid var(--bd);padding:28px 36px;display:flex;align-items
     </div>
     <div class="sp-controls">
       <button class="sp-btn" onclick="likeCurrentBeat()" id="spHeart" title="Like">&#9825;</button>
-      <button class="sp-btn" onclick="prevBeat()" title="Previous">&#9664;&#9664;</button>
+      <button class="sp-btn" onclick="seekBack10()" title="-10s" style="font-size:.7rem;">&#8630; 10</button>
       <button class="sp-btn sp-play" onclick="togglePlay()" id="spPlayBtn"><span class="ptri">&#9654;</span></button>
-      <button class="sp-btn" onclick="nextBeat()" title="Next">&#9654;&#9654;</button>
+      <button class="sp-btn" onclick="seekFwd10()" title="+10s" style="font-size:.7rem;">10 &#8631;</button>
       <button class="sp-btn" onclick="closePlayer()" title="Close" style="font-size:.75rem;">&#10005;</button>
     </div>
   </div>
@@ -1114,18 +1114,18 @@ if (contactForm) {
 
 var BEATS = [
   {id:1, name:"CASINO", bpm:120, key:"TBD", genre:"trap", price:29, tag:"NEW", c1:"#0d1520", c2:"#150a08", audio:"https://res.cloudinary.com/dsnfvixyf/raw/upload/v1776823501/casino_with_tags.mp3_arnfm1.enc"},
-  {id:2, name:"DARK MATTER", bpm:140, key:"F# MIN", genre:"trap", price:99, tag:"HOT", c1:"#1a1410", c2:"#2a1e0a"},
-  {id:3, name:"COLD NIGHTS", bpm:72, key:"C MIN", genre:"rnb", price:79, tag:"", c1:"#0f1420", c2:"#0a1228"},
-  {id:4, name:"CAT MODE", bpm:130, key:"C MAJ", genre:"meme", price:29, tag:"NEW", c1:"#1a1520", c2:"#0f1020"},
-  {id:5, name:"GHOST WALK", bpm:138, key:"D MIN", genre:"trap", price:79, tag:"", c1:"#121212", c2:"#1a1a1a"},
-  {id:6, name:"TENDER", bpm:68, key:"Ab MAJ", genre:"rnb", price:99, tag:"EXCLUSIVE", c1:"#0f1810", c2:"#0a2014"},
-  {id:7, name:"REEL READY", bpm:128, key:"G MAJ", genre:"meme", price:29, tag:"HOT", c1:"#1a1510", c2:"#201a08"},
-  {id:8, name:"MIDNIGHT RUN", bpm:135, key:"E MIN", genre:"trap", price:79, tag:"NEW", c1:"#0a1018", c2:"#081424"},
-  {id:9, name:"LAVISH", bpm:75, key:"F MAJ", genre:"rnb", price:79, tag:"", c1:"#181010", c2:"#241818"},
-  {id:10, name:"VIRAL SZN", bpm:132, key:"A MAJ", genre:"meme", price:29, tag:"", c1:"#101818", c2:"#081820"}
+  {id:2, name:"TRUGOY", bpm:142, key:"TBD", genre:"trap", price:29, tag:"NEW", c1:"#1a1410", c2:"#2a1e0a", audio:"https://res.cloudinary.com/dsnfvixyf/raw/upload/v1777686010/Trugoy.m4a_tvpwcl.enc"},
+  {id:3, comingSoon:true, c1:"#0f1420", c2:"#0a1228"},
+  {id:4, comingSoon:true, c1:"#1a1520", c2:"#0f1020"},
+  {id:5, comingSoon:true, c1:"#121212", c2:"#1a1a1a"},
+  {id:6, comingSoon:true, c1:"#0f1810", c2:"#0a2014"},
+  {id:7, comingSoon:true, c1:"#1a1510", c2:"#201a08"},
+  {id:8, comingSoon:true, c1:"#0a1018", c2:"#081424"},
+  {id:9, comingSoon:true, c1:"#181010", c2:"#241818"},
+  {id:10, comingSoon:true, c1:"#101818", c2:"#081820"}
 ];
 
-var LINKS = {1: "https://nustarent.gumroad.com/l/ltjtrh"};
+var LINKS = {1: "https://nustarent.gumroad.com/l/ltjtrh", 2: "https://nustarent.gumroad.com/l/trugoy"};
 var liked = JSON.parse(localStorage.getItem('nustar_liked') || '{}');
 function saveLiked() { localStorage.setItem('nustar_liked', JSON.stringify(liked)); }
 var sales = {};
@@ -1467,7 +1467,7 @@ function doFilter(g, btn) {
 }
 
 function render() {
-  var list = cf === "all" ? BEATS : BEATS.filter(function(b) { return b.genre === cf; });
+  var list = cf === "all" ? BEATS : BEATS.filter(function(b) { return !b.comingSoon && b.genre === cf; });
   var h = "";
   for (var i = 0; i < list.length; i++) {
     var b = list[i];
@@ -1477,23 +1477,35 @@ function render() {
       var dur = (0.3 + (j % 6) * 0.06).toFixed(2);
       bars += '<div class="wb" style="height:' + ht + 'px;--d:' + dur + 's;"></div>';
     }
-    var pc = (curBeat === b.id) ? " act" : (!b.audio ? " soon" : "");
+
+    if (b.comingSoon) {
+      h += '<div class="bcard soon" style="cursor:default;">';
+      h += '<div class="bcov"><div class="bcov-art">';
+      h += '<div class="bcov-bg" style="background:linear-gradient(150deg,' + b.c1 + ',' + b.c2 + ');"></div>';
+      h += '<div class="bcov-grid"></div>';
+      h += '<div style="position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:linear-gradient(to bottom,rgba(8,8,8,.3) 0%,rgba(8,8,8,.7) 100%);backdrop-filter:blur(3px);">';
+      h += '<div style="width:28px;height:1px;background:#444;"></div>';
+      h += '<span style="font-family:DM Mono,monospace;font-size:.5rem;letter-spacing:.28em;color:#666;text-transform:uppercase;">Coming Soon</span>';
+      h += '<div style="width:28px;height:1px;background:#444;"></div>';
+      h += '</div></div>';
+      h += '<div class="wv">' + bars + '</div></div>';
+      h += '<div class="binfo"><div class="bname" style="color:#444;">— — —</div>';
+      h += '<div class="bmeta"><div class="bm" style="color:#333;">BPM <b>—</b></div><div class="bm" style="color:#333;">KEY <b>—</b></div><div class="bm" style="color:#333;">TYPE <b>—</b></div></div>';
+      h += '<div class="bfoot" style="padding:10px 15px 14px;display:flex;align-items:center;justify-content:space-between;">';
+      h += '<div><div class="bprice" style="color:#444;">—</div><div class="bprice-sub" style="color:#333;">dropping soon</div></div>';
+      h += '</div></div></div>';
+      continue;
+    }
+
+    var pc = (curBeat === b.id) ? " act" : "";
     var th = b.tag ? ('<div class="btag' + (b.tag === "EXCLUSIVE" ? " excl" : "") + '">' + b.tag + "</div>") : "";
-    var soonBlock = !b.audio ? [
-      '<div style="position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;',
-      'background:linear-gradient(to bottom,rgba(8,8,8,.3) 0%,rgba(8,8,8,.7) 100%);backdrop-filter:blur(3px);">',
-      '<div style="width:28px;height:1px;background:#444;"></div>',
-      '<span style="font-family:DM Mono,monospace;font-size:.5rem;letter-spacing:.28em;color:#666;text-transform:uppercase;">Coming Soon</span>',
-      '<div style="width:28px;height:1px;background:#444;"></div>',
-      '</div>'
-    ].join('') : '';
-        var fc = liked[b.id] ? " on" : "";
+    var fc = liked[b.id] ? " on" : "";
     h += '<div class="bcard' + pc + '" onclick="playB(' + b.id + ')" style="cursor:pointer;">';
     h += '<div class="bcov"><div class="bcov-art">';
     h += '<div class="bcov-bg" style="background:linear-gradient(150deg,' + b.c1 + ',' + b.c2 + ');"></div>';
     h += '<div class="bcov-grid"></div>';
     h += '<div class="bcov-info"><div class="bcov-bpm">' + b.bpm + '</div><div class="bcov-key">' + b.key + '</div></div>';
-    h += soonBlock + '</div>' + th;
+    h += th + '</div>';
     h += '<div class="wv" onclick="playB(' + b.id + ');event.stopPropagation();">' + bars + '</div></div>';
     h += '<div class="binfo"><div class="bname">' + b.name + '</div>';
     h += '<div class="bmeta"><div class="bm">BPM <b>' + b.bpm + '</b></div><div class="bm">KEY <b>' + b.key + '</b></div><div class="bm">TYPE <b>' + b.genre.toUpperCase() + '</b></div></div>';
@@ -1506,6 +1518,35 @@ function render() {
     if (b.audio) h += '<button class="bbuy" onclick="event.stopPropagation();openLicenseModal(' + b.id + ')">License It</button>';
     h += '</div></div></div></div>';
   }
+
+  // Always show coming soon cards at the end when filtering all
+  if (cf === "all") {
+    for (var k = 0; k < BEATS.length; k++) {
+      if (!BEATS[k].comingSoon) continue;
+      var cs = BEATS[k];
+      var cbars = "";
+      for (var j2 = 0; j2 < 24; j2++) {
+        var cht = 12 + Math.round(Math.abs(Math.sin(j2 * 0.9 + cs.id * 1.3)) * 12);
+        var cdur = (0.3 + (j2 % 6) * 0.06).toFixed(2);
+        cbars += '<div class="wb" style="height:' + cht + 'px;--d:' + cdur + 's;"></div>';
+      }
+      h += '<div class="bcard soon" style="cursor:default;">';
+      h += '<div class="bcov"><div class="bcov-art">';
+      h += '<div class="bcov-bg" style="background:linear-gradient(150deg,' + cs.c1 + ',' + cs.c2 + ');"></div>';
+      h += '<div class="bcov-grid"></div>';
+      h += '<div style="position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:linear-gradient(to bottom,rgba(8,8,8,.3) 0%,rgba(8,8,8,.7) 100%);backdrop-filter:blur(3px);">';
+      h += '<div style="width:28px;height:1px;background:#444;"></div>';
+      h += '<span style="font-family:DM Mono,monospace;font-size:.5rem;letter-spacing:.28em;color:#666;text-transform:uppercase;">Coming Soon</span>';
+      h += '<div style="width:28px;height:1px;background:#444;"></div>';
+      h += '</div></div>';
+      h += '<div class="wv">' + cbars + '</div></div>';
+      h += '<div class="binfo"><div class="bname" style="color:#444;">— — —</div>';
+      h += '<div class="bmeta"><div class="bm" style="color:#333;">BPM <b>—</b></div><div class="bm" style="color:#333;">KEY <b>—</b></div><div class="bm" style="color:#333;">TYPE <b>—</b></div></div>';
+      h += '<div class="bfoot" style="padding:10px 15px 14px;"><div class="bprice-sub" style="color:#333;">dropping soon</div></div>';
+      h += '</div></div>';
+    }
+  }
+
   document.getElementById("grid").innerHTML = h;
 }
 
@@ -1847,23 +1888,31 @@ function doSeek(e) {
   }
 }
 
-// Keyboard controls: Space = play/pause, Left = rewind 10s, Right = skip 10s
+// Seek functions for buttons and keyboard
+function seekBack10() {
+  if (!_audioBuf) return;
+  var newPos = Math.max(0, (_pauseOffset || 0) - 10);
+  _pauseOffset = newPos;
+  if (isPlay) _playBuffer(_audioBuf, newPos);
+  else { audioEl.currentTime = newPos; audioEl._emit('timeupdate'); }
+}
+
+function seekFwd10() {
+  if (!_audioBuf) return;
+  var newPos = Math.min(_audioBuf.duration, (_pauseOffset || 0) + 10);
+  _pauseOffset = newPos;
+  if (isPlay) _playBuffer(_audioBuf, newPos);
+  else { audioEl.currentTime = newPos; audioEl._emit('timeupdate'); }
+}
+
+// Keyboard controls: Space = play/pause, Left = -10s, Right = +10s
 document.addEventListener('keydown', function(e) {
   var tag = document.activeElement.tagName;
   if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-  if (e.code === 'Space') { e.preventDefault(); if (curBeat) togglePlay(); }
-  if (e.code === 'ArrowLeft') {
-    e.preventDefault();
-    if (audioEl.duration) {
-      audioEl.currentTime = Math.max(0, audioEl.currentTime - 10);
-    }
-  }
-  if (e.code === 'ArrowRight') {
-    e.preventDefault();
-    if (audioEl.duration) {
-      audioEl.currentTime = Math.min(audioEl.duration, audioEl.currentTime + 10);
-    }
-  }
+  if (!curBeat) return;
+  if (e.code === 'Space') { e.preventDefault(); togglePlay(); }
+  if (e.code === 'ArrowLeft') { e.preventDefault(); seekBack10(); }
+  if (e.code === 'ArrowRight') { e.preventDefault(); seekFwd10(); }
 });
 
 // Disable right click on player
